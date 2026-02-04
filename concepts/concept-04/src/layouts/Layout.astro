@@ -1,0 +1,173 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-bg: #FFFFFF;
+    --color-text: #0A0A0A;
+    --color-gray: #94A3B8;
+    --color-light: #F1F5F9;
+    --font: 'DM Sans', -apple-system, sans-serif;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--color-bg);
+    color: var(--color-text);
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+  }
+
+  header {
+    margin-bottom: 4rem;
+  }
+
+  .name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  nav {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  nav a {
+    color: var(--color-gray);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+
+  nav a:hover {
+    color: var(--color-text);
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    color: var(--color-gray);
+    margin-bottom: 2rem;
+  }
+
+  section {
+    margin-top: 3rem;
+  }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-gray);
+    margin-bottom: 1.25rem;
+  }
+
+  .role {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-light);
+  }
+
+  .role:last-child {
+    border-bottom: none;
+  }
+
+  .role-title {
+    font-weight: 500;
+  }
+
+  .role-org {
+    color: var(--color-gray);
+    font-size: 0.9rem;
+  }
+
+  .project {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--color-light);
+  }
+
+  .project:last-child {
+    border-bottom: none;
+  }
+
+  .project-name {
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .project-desc {
+    color: var(--color-gray);
+    font-size: 0.95rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-light);
+  }
+
+  footer a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 600px) {
+    body {
+      padding: 2rem 1.25rem;
+    }
+    
+    h1 {
+      font-size: 1.6rem;
+    }
+  }
+</style>

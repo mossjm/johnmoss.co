@@ -1,0 +1,176 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-bg: #FAFAFA;
+    --color-bg-alt: #FFFFFF;
+    --color-text: #1A1A1A;
+    --color-muted: #6B7280;
+    --color-accent: #374151;
+    --font: 'IBM Plex Sans', -apple-system, sans-serif;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    line-height: 1.7;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  section {
+    padding: 5rem 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  section.hero {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 3rem;
+  }
+
+  section.alt {
+    background: var(--color-bg-alt);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .lead {
+    font-size: 1.25rem;
+    color: var(--color-muted);
+    max-width: 500px;
+  }
+
+  p {
+    margin-bottom: 1.25rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .card {
+    padding: 1.5rem;
+    background: var(--color-bg);
+    border-radius: 8px;
+  }
+
+  section.alt .card {
+    background: var(--color-bg-alt);
+    border: 1px solid #E5E7EB;
+  }
+
+  .card-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+
+  .role-list {
+    list-style: none;
+  }
+
+  .role-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid #E5E7EB;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .role-list li:last-child {
+    border-bottom: none;
+  }
+
+  .role-title {
+    font-weight: 500;
+  }
+
+  .role-org {
+    color: var(--color-muted);
+    font-size: 0.9rem;
+  }
+
+  footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--color-muted);
+  }
+
+  footer a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @media (max-width: 600px) {
+    section {
+      padding: 3rem 1.25rem;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .role-list li {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+  }
+</style>

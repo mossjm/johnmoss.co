@@ -1,0 +1,167 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-bg: #FFFEF9;
+    --color-text: #1A1A1A;
+    --color-crimson: #8B2332;
+    --color-muted: #555555;
+    --font: 'Libre Baskerville', Georgia, serif;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--color-bg);
+    color: var(--color-text);
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--color-crimson);
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+
+  .affiliation {
+    font-style: italic;
+    color: var(--color-muted);
+    font-size: 0.95rem;
+  }
+
+  nav {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  nav a {
+    color: var(--color-crimson);
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  .section-num {
+    font-weight: 700;
+    color: var(--color-crimson);
+    margin-right: 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    text-align: justify;
+    hyphens: auto;
+  }
+
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .bio-section h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bio-section ul {
+    list-style: none;
+    font-size: 0.95rem;
+  }
+
+  .bio-section li {
+    margin-bottom: 0.5rem;
+  }
+
+  .project-entry {
+    margin-bottom: 1.5rem;
+  }
+
+  .project-title {
+    font-weight: 700;
+  }
+
+  .project-desc {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    font-style: italic;
+  }
+
+  footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  footer a {
+    color: var(--color-crimson);
+  }
+
+  @media (max-width: 600px) {
+    .bio-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    p {
+      text-align: left;
+    }
+  }
+</style>

@@ -1,0 +1,176 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --color-bg: #FFFFFF;
+    --color-sidebar: #F8F9FA;
+    --color-text: #212529;
+    --color-muted: #6C757D;
+    --color-border: #DEE2E6;
+    --font: 'Work Sans', -apple-system, sans-serif;
+    --sidebar-width: 240px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--color-bg);
+    color: var(--color-text);
+    display: flex;
+    min-height: 100vh;
+  }
+
+  aside {
+    width: var(--sidebar-width);
+    background: var(--color-sidebar);
+    padding: 2rem 1.5rem;
+    position: fixed;
+    height: 100vh;
+    border-right: 1px solid var(--color-border);
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .logo-sub {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  nav a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--color-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  nav a:hover {
+    color: var(--color-text);
+  }
+
+  nav a.active {
+    color: var(--color-text);
+  }
+
+  .sidebar-footer {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 0.85rem;
+  }
+
+  .sidebar-footer a {
+    color: var(--color-muted);
+    text-decoration: none;
+  }
+
+  main {
+    margin-left: var(--sidebar-width);
+    padding: 3rem;
+    max-width: 700px;
+    flex: 1;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--color-muted);
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+  }
+
+  .list-item {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .list-item:last-child {
+    border-bottom: none;
+  }
+
+  .list-title {
+    font-weight: 500;
+  }
+
+  .list-meta {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+  }
+
+  @media (max-width: 768px) {
+    aside {
+      position: static;
+      width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+    
+    body {
+      flex-direction: column;
+    }
+    
+    main {
+      margin-left: 0;
+      padding: 2rem 1.25rem;
+    }
+    
+    .sidebar-footer {
+      position: static;
+      margin-top: 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="John Moss">
+  <div class="container">
+    <header>
+      <div class="header-card">
+        <h1>John Moss</h1>
+        <p class="tagline">Fourth-generation cranberry farmer & systems builder</p>
+        <nav>
+          <a href="/about">About</a>
+          <a href="/projects">Projects</a>
+          <a href="/contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="section-title">Roles</div>
+      <div class="card-grid">
+        <div class="card role-card">
+          <span class="role-title">General Manager</span>
+          <span class="role-org">Elm Lake Cranberry</span>
+        </div>
+        <div class="card role-card">
+          <span class="role-title">Founder</span>
+          <span class="role-org">Elm Lake Labs</span>
+        </div>
+        <div class="card role-card">
+          <span class="role-title">President</span>
+          <span class="role-org">WI Cranberry Board</span>
+        </div>
+      </div>
+
+      <div class="section-title">Projects</div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-category">Farm Operations</div>
+          <div class="card-title">Elm Lake Cranberry</div>
+          <div class="card-desc">150-acre cranberry operation with automated irrigation and environmental sensors.</div>
+        </div>
+        
+        <div class="card">
+          <div class="card-category">Ag-Tech</div>
+          <div class="card-title">Elm Lake Labs</div>
+          <div class="card-desc">Agricultural technology consulting and FJ Dynamics dealer for precision agriculture.</div>
+        </div>
+        
+        <div class="card">
+          <div class="card-category">Software</div>
+          <div class="card-title">Blossom</div>
+          <div class="card-desc">SaaS platform for farm management, planning, and operations tracking.</div>
+        </div>
+        
+        <div class="card">
+          <div class="card-category">Mobile</div>
+          <div class="card-title">Pinpoint</div>
+          <div class="card-desc">Field scouting application for pest identification and data collection.</div>
+        </div>
+        
+        <div class="card">
+          <div class="card-category">Research</div>
+          <div class="card-title">CranBase</div>
+          <div class="card-desc">AI-powered database for cranberry research and production insights.</div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <a href="mailto:john@elmlake.com">john@elmlake.com</a>
+    </footer>
+  </div>
+</Layout>

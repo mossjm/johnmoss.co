@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Split Screen</title>
+    <meta name="description" content="John Moss — Fourth-generation cranberry farmer, ag-tech founder, industry leader.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font: 'Space Grotesk', -apple-system, sans-serif;
+            --ink: #111;
+            --ink-light: #444;
+            --muted: #888;
+            --bg-light: #f8f7f4;
+            --bg-cream: #f0ede5;
+            --bg-dark: #111;
+            --bg-forest: #1a3a2a;
+            --bg-navy: #0f172a;
+            --bg-warm: #451a03;
+            --accent: #2563eb;
+            --border: rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+        body {
+            font-family: var(--font);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* =========== SPLIT LAYOUT =========== */
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        .split-left {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .split-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 4rem;
+        }
+
+        /* =========== HERO SPLIT =========== */
+        .hero-split .split-left {
+            background: var(--bg-dark);
+        }
+
+        .hero-split .split-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
+            filter: contrast(1.1);
+        }
+
+        .hero-split .split-left::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.4), transparent 60%);
+        }
+
+        .hero-split .split-left .hero-overlay-text {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            z-index: 2;
+            color: white;
+        }
+
+        .hero-overlay-text .location {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.7;
+        }
+
+        .hero-split .split-right {
+            background: var(--bg-light);
+        }
+
+        .hero-eyebrow {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-name {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--ink-light);
+            line-height: 1.7;
+            max-width: 450px;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+        }
+
+        .hero-stat-num {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+        }
+
+        /* =========== ABOUT SPLIT =========== */
+        .about-split .split-left {
+            background: var(--bg-forest);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .about-split .split-left h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-split .split-left p {
+            font-size: 1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+            max-width: 450px;
+        }
+
+        .about-split .split-left p + p { margin-top: 1rem; }
+
+        .about-split .split-right {
+            background: var(--bg-cream);
+        }
+
+        .about-split .split-right img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* =========== ROLES SPLIT =========== */
+        .roles-split .split-left {
+            background: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .roles-split .split-left h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .roles-split .split-left p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .role-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .role-list-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            cursor: default;
+            transition: all 0.3s ease;
+        }
+
+        .role-list-item:first-child { border-top: 1px solid var(--border); }
+
+        .role-list-item:hover {
+            padding-left: 0.5rem;
+        }
+
+        .role-list-item h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+
+        .role-list-item .org {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .role-list-item .desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .roles-split .split-right {
+            background: var(--bg-navy);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .roles-split .split-right .stat-block {
+            text-align: center;
+        }
+
+        .stat-block-number {
+            font-size: clamp(5rem, 10vw, 8rem);
+            font-weight: 700;
+            line-height: 1;
+            opacity: 0.1;
+        }
+
+        .stat-block-label {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: -1rem;
+            opacity: 0.7;
+        }
+
+        .stat-block + .stat-block { margin-top: 3rem; }
+
+        /* =========== VENTURES SPLIT =========== */
+        .ventures-split .split-left {
+            background: var(--bg-warm);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .ventures-split .split-left h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .ventures-split .split-left p {
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .venture-compact {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .venture-compact:first-child { border-top: 1px solid rgba(255,255,255,0.15); }
+
+        .venture-compact:hover { padding-left: 0.5rem; }
+
+        .venture-compact-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.7;
+        }
+
+        .venture-compact-name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .venture-compact-tag {
+            margin-left: auto;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
+        }
+
+        .ventures-split .split-right {
+            background: var(--bg-light);
+            padding: 4rem;
+        }
+
+        .venture-detail {
+            margin-bottom: 2.5rem;
+        }
+
+        .venture-detail h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .venture-detail p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .venture-detail-tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(37,99,235,0.1);
+            color: var(--accent);
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        /* =========== PHILOSOPHY SPLIT =========== */
+        .philosophy-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 60vh;
+        }
+
+        .philosophy-split .split-left {
+            background: var(--bg-dark);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .philosophy-split blockquote {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 450px;
+            font-style: italic;
+        }
+
+        .philosophy-split cite {
+            display: block;
+            font-style: normal;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.5;
+        }
+
+        .philosophy-split .split-right {
+            background: var(--bg-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .philosophy-values {
+            list-style: none;
+        }
+
+        .philosophy-values li {
+            font-size: 1.5rem;
+            font-weight: 600;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--ink-light);
+        }
+
+        .philosophy-values li span {
+            color: var(--ink);
+        }
+
+        /* =========== CONTACT SPLIT =========== */
+        .contact-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .contact-split .split-left {
+            background: var(--bg-light);
+            padding: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-split .split-left h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-split .split-left p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .contact-split .split-right {
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .contact-link-block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 4rem;
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link-block:hover {
+            background: rgba(255,255,255,0.05);
+            padding-left: 4.5rem;
+        }
+
+        .contact-link-block::after {
+            content: '→';
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link-block:hover::after { transform: translateX(6px); }
+
+        /* =========== FOOTER =========== */
+        footer {
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+        }
+
+        /* =========== ANIMATIONS =========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal-left.visible { opacity: 1; transform: translateX(0); }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+        /* =========== RESPONSIVE =========== */
+        @media (max-width: 768px) {
+            .split, .philosophy-split, .contact-split {
+                grid-template-columns: 1fr;
+            }
+            .split-left, .split-right { padding: 3rem 2rem !important; }
+            .hero-split .split-left { min-height: 50vh; }
+            .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+            .stat-block-number { font-size: 4rem; }
+            .contact-link-block { padding: 1.5rem 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO -->
+    <section class="split hero-split">
+        <div class="split-left">
+            <img src="../assets/profile.jpg" alt="John Moss">
+            <div class="hero-overlay-text">
+                <div class="location">Wisconsin Rapids, WI</div>
+            </div>
+        </div>
+        <div class="split-right">
+            <div class="hero-eyebrow reveal">Fourth Generation</div>
+            <h1 class="hero-name reveal">John<br>Moss</h1>
+            <p class="hero-desc reveal">Agricultural leader, technology founder, and fourth-generation cranberry steward building the future of precision farming.</p>
+            <div class="hero-stats reveal">
+                <div>
+                    <div class="hero-stat-num">150</div>
+                    <div class="hero-stat-label">Acres</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">100+</div>
+                    <div class="hero-stat-label">Years</div>
+                </div>
+                <div>
+                    <div class="hero-stat-num">4th</div>
+                    <div class="hero-stat-label">Generation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="split about-split">
+        <div class="split-left reveal-left">
+            <h2>Heritage Meets Innovation</h2>
+            <p>John Moss has transformed Elm Lake Cranberry — a century-old family operation — into one of the most technologically advanced cranberry farms in the industry.</p>
+            <p>Precision irrigation, environmental sensing, drone mapping, and autonomous equipment now work alongside the timeless principles of stewardship passed down through four generations.</p>
+            <p>Through Elm Lake Labs, he's building the infrastructure for an entire industry's technological transformation.</p>
+        </div>
+        <div class="split-right reveal-right" style="padding: 3rem;">
+            <img src="../assets/field.png" alt="Cranberry marsh">
+        </div>
+    </section>
+
+    <!-- ROLES -->
+    <section class="split roles-split">
+        <div class="split-left reveal-left">
+            <h2>Leadership</h2>
+            <p>From the field to the boardroom.</p>
+            <div class="role-list">
+                <div class="role-list-item">
+                    <h3>Owner & General Manager</h3>
+                    <div class="org">Elm Lake Cranberry</div>
+                    <div class="desc">150-acre, century-old family operation. Precision agriculture, automation.</div>
+                </div>
+                <div class="role-list-item">
+                    <h3>Founder</h3>
+                    <div class="org">Elm Lake Labs</div>
+                    <div class="desc">Ag-tech: Blossom SaaS, FJ Dynamics, GIS/drone services, GPS/GNSS.</div>
+                </div>
+                <div class="role-list-item">
+                    <h3>President</h3>
+                    <div class="org">Wisconsin Cranberry Board</div>
+                    <div class="desc">Industry policy, research, and technology adoption statewide.</div>
+                </div>
+                <div class="role-list-item">
+                    <h3>Board of Directors</h3>
+                    <div class="org">Ocean Spray · 2026</div>
+                    <div class="desc">Strategic direction at America's premier cranberry cooperative.</div>
+                </div>
+            </div>
+        </div>
+        <div class="split-right reveal-right">
+            <div class="stat-block">
+                <div class="stat-block-number">4th</div>
+                <div class="stat-block-label">Generation Steward</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-block-number">150</div>
+                <div class="stat-block-label">Acres Under Management</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-block-number">100+</div>
+                <div class="stat-block-label">Years of Family Legacy</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VENTURES -->
+    <section class="split ventures-split">
+        <div class="split-left reveal-left">
+            <h2>Ventures</h2>
+            <p>Building the future of cranberry agriculture.</p>
+            <div class="venture-compact">
+                <img src="../assets/logos/elc.png" alt="" class="venture-compact-logo">
+                <span class="venture-compact-name">Elm Lake Cranberry</span>
+                <span class="venture-compact-tag">Farm</span>
+            </div>
+            <div class="venture-compact">
+                <img src="../assets/logos/ell.png" alt="" class="venture-compact-logo">
+                <span class="venture-compact-name">Elm Lake Labs</span>
+                <span class="venture-compact-tag">Ag-Tech</span>
+            </div>
+            <div class="venture-compact">
+                <img src="../assets/logos/blossom.svg" alt="" class="venture-compact-logo">
+                <span class="venture-compact-name">Blossom</span>
+                <span class="venture-compact-tag">SaaS</span>
+            </div>
+            <div class="venture-compact">
+                <div class="venture-compact-logo" style="display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1rem;opacity:0.7;filter:none;color:white;">P</div>
+                <span class="venture-compact-name">Pinpoint</span>
+                <span class="venture-compact-tag">Mobile</span>
+            </div>
+        </div>
+        <div class="split-right reveal-right">
+            <div class="venture-detail">
+                <h3>Elm Lake Cranberry</h3>
+                <p>Century-old family cranberry operation. Precision irrigation, environmental sensing, and automation on 150 acres of Wisconsin marshland.</p>
+                <span class="venture-detail-tag">Agriculture</span>
+            </div>
+            <div class="venture-detail">
+                <h3>Elm Lake Labs</h3>
+                <p>Precision agriculture for cranberry. Blossom SaaS, FJ Dynamics, GIS/drone services, GPS/GNSS solutions.</p>
+                <span class="venture-detail-tag">Ag-Tech</span>
+            </div>
+            <div class="venture-detail">
+                <h3>Blossom</h3>
+                <p>SaaS farm management platform for cranberry growers. Field tracking, crew management, operational intelligence.</p>
+                <span class="venture-detail-tag">SaaS Platform</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="philosophy-split">
+        <div class="split-left reveal-left">
+            <div>
+                <blockquote>"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</blockquote>
+                <cite>— John Moss</cite>
+            </div>
+        </div>
+        <div class="split-right reveal-right">
+            <ul class="philosophy-values">
+                <li><span>Heritage</span> — Roots run deep</li>
+                <li><span>Innovation</span> — Tools evolve</li>
+                <li><span>Leverage</span> — Systems compound</li>
+                <li><span>Stewardship</span> — Build to last</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-split">
+        <div class="split-left reveal-left">
+            <h2>Let's<br>Connect</h2>
+            <p>Based in Wisconsin Rapids, Wisconsin. Agriculture, technology, and building things that last.</p>
+        </div>
+        <div class="split-right">
+            <a href="mailto:john@elmlake.com" class="contact-link-block">Email</a>
+            <a href="https://www.linkedin.com/in/mossjohn" target="_blank" rel="noopener" class="contact-link-block">LinkedIn</a>
+            <a href="https://elmlakecranberry.com" target="_blank" rel="noopener" class="contact-link-block">Elm Lake Cranberry</a>
+            <a href="https://elmlakelabs.com" target="_blank" rel="noopener" class="contact-link-block">Elm Lake Labs</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 John Moss · Wisconsin Rapids, Wisconsin</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

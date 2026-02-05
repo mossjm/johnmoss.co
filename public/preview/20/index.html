@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Kinetic Typography</title>
+    <meta name="description" content="John Moss — Fourth-generation cranberry farmer, ag-tech founder, industry leader.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.5);
+            --text-dim: rgba(255,255,255,0.2);
+            --accent: #ff3d00;
+            --accent-soft: rgba(255,61,0,0.15);
+            --font: 'Sora', -apple-system, sans-serif;
+            --mono: 'Space Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* =========== HERO =========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-line {
+            overflow: hidden;
+        }
+
+        .hero-line-inner {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-line:nth-child(2) .hero-line-inner { animation-delay: 0.15s; }
+        .hero-line:nth-child(3) .hero-line-inner { animation-delay: 0.3s; }
+        .hero-line:nth-child(4) .hero-line-inner { animation-delay: 0.45s; }
+
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+
+        .hero-mega {
+            font-size: clamp(5rem, 15vw, 14rem);
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-mega .stroke {
+            -webkit-text-stroke: 2px var(--text);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-mega .accent {
+            color: var(--accent);
+        }
+
+        .hero-small {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 300;
+            color: var(--text-muted);
+            margin-top: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            right: 3rem;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            writing-mode: vertical-lr;
+            letter-spacing: 0.15em;
+            animation: fadeIn 1s 1s ease forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* =========== TEXT MARQUEE =========== */
+        .marquee {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-inner {
+            display: flex;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-text {
+            font-size: clamp(2rem, 4vw, 4rem);
+            font-weight: 200;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 0 2rem;
+            flex-shrink: 0;
+        }
+
+        .marquee-text .dot {
+            color: var(--accent);
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* =========== ABOUT SECTION =========== */
+        .about-kinetic {
+            padding: 8rem 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .about-header {
+            margin-bottom: 4rem;
+        }
+
+        .about-header-label {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .about-header h2 {
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .about-header h2 span {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .about-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .about-col {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .about-col p { margin-bottom: 1.25rem; }
+
+        .about-col strong {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .about-portrait {
+            width: 100%;
+            aspect-ratio: 1;
+            max-width: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            border: 2px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
+        }
+
+        /* =========== ROLES — KINETIC REVEAL =========== */
+        .roles-kinetic {
+            padding: 6rem 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .roles-kinetic-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .roles-kinetic-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3rem;
+        }
+
+        .roles-kinetic-header h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .roles-kinetic-header span {
+            font-family: var(--mono);
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .role-kinetic {
+            display: grid;
+            grid-template-columns: 60px 1fr 1fr;
+            gap: 2rem;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            align-items: start;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .role-kinetic.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .role-kinetic-num {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            padding-top: 0.3rem;
+        }
+
+        .role-kinetic-title h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+
+        .role-kinetic-title .org {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .role-kinetic-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            padding-top: 0.3rem;
+        }
+
+        /* =========== VENTURES =========== */
+        .ventures-kinetic {
+            padding: 6rem 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .ventures-kinetic h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+        }
+
+        .venture-kinetic-item {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .venture-kinetic-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .venture-kinetic-item:hover {
+            padding-left: 0.5rem;
+        }
+
+        .venture-kinetic-logo {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.6;
+        }
+
+        .venture-kinetic-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: -0.01em;
+        }
+
+        .venture-kinetic-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        .venture-kinetic-tag {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            border: 1px solid var(--accent-soft);
+            padding: 0.3rem 0.75rem;
+        }
+
+        /* =========== COUNTERS =========== */
+        .counters {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .counter {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-right: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .counter:last-child { border-right: none; }
+
+        .counter-num {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .counter-num .accent { color: var(--accent); }
+
+        .counter-label {
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-dim);
+            margin-top: 0.75rem;
+        }
+
+        /* =========== PHILOSOPHY =========== */
+        .philosophy-kinetic {
+            padding: 10rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-bg-word {
+            position: absolute;
+            font-size: clamp(8rem, 20vw, 20rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.02);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+        }
+
+        .philosophy-kinetic blockquote {
+            font-size: clamp(1.3rem, 3vw, 2.2rem);
+            font-weight: 300;
+            line-height: 1.6;
+            max-width: 750px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .philosophy-kinetic blockquote em {
+            font-style: normal;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .philosophy-kinetic cite {
+            display: block;
+            font-style: normal;
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-dim);
+            margin-top: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =========== CONTACT =========== */
+        .contact-kinetic {
+            padding: 6rem 3rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .contact-kinetic h2 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.04em;
+            margin-bottom: 3rem;
+            line-height: 0.95;
+        }
+
+        .contact-kinetic h2 .stroke {
+            -webkit-text-stroke: 1.5px var(--text);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .contact-links-kinetic {
+            display: flex;
+            gap: 0;
+            flex-direction: column;
+        }
+
+        .contact-link-k {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            text-decoration: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link-k:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+
+        .contact-link-k:hover {
+            color: var(--accent);
+            padding-left: 1rem;
+        }
+
+        .contact-link-k::after {
+            content: '→';
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-link-k:hover::after { transform: translateX(8px); }
+
+        /* =========== FOOTER =========== */
+        footer {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--mono);
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-dim);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        /* =========== RESPONSIVE =========== */
+        @media (max-width: 768px) {
+            .hero { padding: 3rem 1.5rem; }
+            .about-columns { grid-template-columns: 1fr; gap: 2rem; }
+            .role-kinetic { grid-template-columns: 1fr; gap: 0.5rem; }
+            .role-kinetic-num { display: none; }
+            .venture-kinetic-item { grid-template-columns: 40px 1fr; }
+            .venture-kinetic-tag { display: none; }
+            .counters { grid-template-columns: repeat(2, 1fr); }
+            .about-kinetic, .roles-kinetic, .ventures-kinetic, .contact-kinetic { padding: 4rem 1.5rem; }
+            footer { flex-direction: column; gap: 0.5rem; padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-line">
+            <div class="hero-line-inner">
+                <div class="hero-mega">John</div>
+            </div>
+        </div>
+        <div class="hero-line">
+            <div class="hero-line-inner">
+                <div class="hero-mega"><span class="stroke">M</span><span class="accent">o</span>ss</div>
+            </div>
+        </div>
+        <div class="hero-line">
+            <div class="hero-line-inner">
+                <p class="hero-small">Fourth-generation cranberry steward. Agricultural technologist. Building systems that create leverage and leave people more capable.</p>
+            </div>
+        </div>
+        <div class="hero-scroll">Scroll to explore ↓</div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+        <div class="marquee-inner">
+            <span class="marquee-text">Farmer <span class="dot">·</span> Founder <span class="dot">·</span> Leader <span class="dot">·</span> Builder <span class="dot">·</span> Innovator <span class="dot">·</span></span>
+            <span class="marquee-text">Farmer <span class="dot">·</span> Founder <span class="dot">·</span> Leader <span class="dot">·</span> Builder <span class="dot">·</span> Innovator <span class="dot">·</span></span>
+            <span class="marquee-text">Farmer <span class="dot">·</span> Founder <span class="dot">·</span> Leader <span class="dot">·</span> Builder <span class="dot">·</span> Innovator <span class="dot">·</span></span>
+        </div>
+    </div>
+
+    <!-- COUNTERS -->
+    <div class="counters">
+        <div class="counter">
+            <div class="counter-num">150<span class="accent">ac</span></div>
+            <div class="counter-label">Marshland</div>
+        </div>
+        <div class="counter">
+            <div class="counter-num">100<span class="accent">+</span></div>
+            <div class="counter-label">Years of Heritage</div>
+        </div>
+        <div class="counter">
+            <div class="counter-num">4<span class="accent">th</span></div>
+            <div class="counter-label">Generation</div>
+        </div>
+        <div class="counter">
+            <div class="counter-num">20<span class="accent">26</span></div>
+            <div class="counter-label">Ocean Spray Board</div>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about-kinetic">
+        <div class="about-header">
+            <div class="about-header-label">About</div>
+            <h2>The <span>tech-forward</span><br>cranberry grower</h2>
+        </div>
+        <div class="about-columns">
+            <div class="about-col">
+                <img src="../assets/profile.jpg" alt="John Moss" class="about-portrait">
+                <p><strong>John Moss, 40, is the fourth-generation steward</strong> of Elm Lake Cranberry — a 150-acre, century-old family cranberry operation in Wisconsin Rapids, Wisconsin.</p>
+                <p>Under his leadership, the farm has become one of the most <strong>technologically advanced</strong> in the cranberry industry, integrating precision irrigation, environmental sensing, drone mapping, and autonomous equipment.</p>
+            </div>
+            <div class="about-col">
+                <p>Through <strong>Elm Lake Labs</strong>, his agricultural technology venture, John is extending those same tools beyond his own operation — building the infrastructure for an entire industry's technological transformation.</p>
+                <p>As <strong>President of the Wisconsin Cranberry Board</strong> and incoming <strong>Ocean Spray Board</strong> member, he works at the intersection of technology adoption and industry governance, building systems that compound.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROLES -->
+    <section class="roles-kinetic">
+        <div class="roles-kinetic-inner">
+            <div class="roles-kinetic-header">
+                <h2>Leadership</h2>
+                <span>04 Active Roles</span>
+            </div>
+            <div class="role-kinetic">
+                <div class="role-kinetic-num">01/</div>
+                <div class="role-kinetic-title">
+                    <h3>Owner & General Manager</h3>
+                    <div class="org">Elm Lake Cranberry</div>
+                </div>
+                <div class="role-kinetic-desc">Fourth-generation steward. 150-acre precision agriculture operation. Environmental sensing, automated irrigation, drone mapping.</div>
+            </div>
+            <div class="role-kinetic">
+                <div class="role-kinetic-num">02/</div>
+                <div class="role-kinetic-title">
+                    <h3>Founder</h3>
+                    <div class="org">Elm Lake Labs</div>
+                </div>
+                <div class="role-kinetic-desc">Ag-tech company. Blossom SaaS platform, FJ Dynamics dealer, GIS/drone services, GPS/GNSS solutions for modern growers.</div>
+            </div>
+            <div class="role-kinetic">
+                <div class="role-kinetic-num">03/</div>
+                <div class="role-kinetic-title">
+                    <h3>President</h3>
+                    <div class="org">Wisconsin Cranberry Board</div>
+                </div>
+                <div class="role-kinetic-desc">Leading industry policy, research priorities, and technology adoption across Wisconsin's cranberry sector.</div>
+            </div>
+            <div class="role-kinetic">
+                <div class="role-kinetic-num">04/</div>
+                <div class="role-kinetic-title">
+                    <h3>Board of Directors</h3>
+                    <div class="org">Ocean Spray · 2026</div>
+                </div>
+                <div class="role-kinetic-desc">Representing grower interests and shaping strategic direction at America's premier cranberry cooperative.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VENTURES -->
+    <section class="ventures-kinetic">
+        <h2>Ventures</h2>
+        <div class="venture-kinetic-item">
+            <img src="../assets/logos/elc.png" alt="" class="venture-kinetic-logo">
+            <div>
+                <div class="venture-kinetic-name">Elm Lake Cranberry</div>
+                <div class="venture-kinetic-sub">Century-old family farm. Precision agriculture on 150 acres.</div>
+            </div>
+            <span class="venture-kinetic-tag">Farm</span>
+        </div>
+        <div class="venture-kinetic-item">
+            <img src="../assets/logos/ell.png" alt="" class="venture-kinetic-logo">
+            <div>
+                <div class="venture-kinetic-name">Elm Lake Labs</div>
+                <div class="venture-kinetic-sub">Precision ag: GIS, drones, GPS/GNSS, SaaS, autonomy.</div>
+            </div>
+            <span class="venture-kinetic-tag">Ag-Tech</span>
+        </div>
+        <div class="venture-kinetic-item">
+            <img src="../assets/logos/blossom.svg" alt="" class="venture-kinetic-logo">
+            <div>
+                <div class="venture-kinetic-name">Blossom</div>
+                <div class="venture-kinetic-sub">SaaS farm management for cranberry growers.</div>
+            </div>
+            <span class="venture-kinetic-tag">SaaS</span>
+        </div>
+        <div class="venture-kinetic-item">
+            <div class="venture-kinetic-logo" style="display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;color:white;filter:none;opacity:0.6;">P</div>
+            <div>
+                <div class="venture-kinetic-name">Pinpoint</div>
+                <div class="venture-kinetic-sub">Mobile scouting app for field data collection.</div>
+            </div>
+            <span class="venture-kinetic-tag">Mobile</span>
+        </div>
+        <div class="venture-kinetic-item">
+            <div class="venture-kinetic-logo" style="display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;color:white;filter:none;opacity:0.6;">C</div>
+            <div>
+                <div class="venture-kinetic-name">CranBase</div>
+                <div class="venture-kinetic-sub">AI-powered cranberry research database.</div>
+            </div>
+            <span class="venture-kinetic-tag">AI</span>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="philosophy-kinetic">
+        <div class="philosophy-bg-word">BUILD</div>
+        <blockquote>"To build things that <em>last</em> — foundations that turn chaos into <em>clarity</em> through systems that reduce friction, create <em>leverage</em>, and leave people more <em>capable</em> than when I found them."</blockquote>
+        <cite>— John Moss</cite>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-kinetic">
+        <h2>Let's<br><span class="stroke">Talk</span></h2>
+        <div class="contact-links-kinetic">
+            <a href="mailto:john@elmlake.com" class="contact-link-k">Email</a>
+            <a href="https://www.linkedin.com/in/mossjohn" target="_blank" rel="noopener" class="contact-link-k">LinkedIn</a>
+            <a href="https://elmlakecranberry.com" target="_blank" rel="noopener" class="contact-link-k">Elm Lake Cranberry</a>
+            <a href="https://elmlakelabs.com" target="_blank" rel="noopener" class="contact-link-k">Elm Lake Labs</a>
+        </div>
+    </section>
+
+    <footer>
+        <span>&copy; 2025 John Moss</span>
+        <span>Wisconsin Rapids, WI</span>
+    </footer>
+
+    <script>
+        // Scroll-reveal for elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.role-kinetic, .venture-kinetic-item').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 0.08}s`;
+            observer.observe(el);
+        });
+
+        // Parallax on philosophy background text
+        window.addEventListener('scroll', () => {
+            const bgWord = document.querySelector('.philosophy-bg-word');
+            if (bgWord) {
+                const rect = bgWord.parentElement.getBoundingClientRect();
+                const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+                bgWord.style.transform = `translate(-50%, -50%) translateX(${(progress - 0.5) * 100}px)`;
+            }
+        });
+
+        // Counter animation
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter-num');
+                    counters.forEach(counter => {
+                        counter.style.transition = 'opacity 0.5s ease';
+                        counter.style.opacity = '1';
+                    });
+                    counterObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const countersEl = document.querySelector('.counters');
+        if (countersEl) counterObserver.observe(countersEl);
+    </script>
+</body>
+</html>

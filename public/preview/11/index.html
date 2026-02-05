@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Noir Executive</title>
+    <meta name="description" content="John Moss — Fourth-generation cranberry farmer, ag-tech founder, industry leader.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-elevated: #111111;
+            --gold: #c9a84c;
+            --gold-light: #e4cc7a;
+            --gold-dark: #8a6f2f;
+            --text: #e8e8e8;
+            --text-muted: #888888;
+            --text-dim: #555555;
+            --serif: 'Cormorant Garamond', Georgia, serif;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* =========== NAV =========== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.05em;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+
+        /* =========== HERO =========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 45%, rgba(201,168,76,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 80% 60% at 30% 50%, rgba(201,168,76,0.04) 0%, transparent 60%),
+                radial-gradient(circle at 70% 30%, rgba(201,168,76,0.03) 0%, transparent 50%);
+        }
+
+        /* Animated light beam */
+        .hero-beam {
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 200%;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(201,168,76,0.02) 30%,
+                rgba(201,168,76,0.06) 50%,
+                rgba(201,168,76,0.02) 70%,
+                transparent 100%
+            );
+            animation: beamPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes beamPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-portrait {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 2.5rem;
+            display: block;
+            border: 2px solid var(--gold-dark);
+            box-shadow:
+                0 0 60px rgba(201,168,76,0.15),
+                0 0 120px rgba(201,168,76,0.08),
+                inset 0 0 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .portrait-glow {
+            position: relative;
+            display: inline-block;
+        }
+
+        .portrait-glow::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--gold), transparent 60%, var(--gold-dark) 80%, transparent 100%);
+            z-index: -1;
+            animation: rotateGlow 10s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: var(--serif);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--gold-light) 50%, var(--text) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 200% center; }
+        }
+
+        .hero-subtitle {
+            font-family: var(--serif);
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--text-muted);
+            font-weight: 400;
+            font-style: italic;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            line-height: 1.5;
+        }
+
+        .hero-line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 0 auto 2rem;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        .hero-scroll span {
+            display: block;
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(8px); }
+        }
+
+        /* =========== SECTIONS =========== */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-eyebrow {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        .section-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--gold-dark);
+            margin: 1.5rem auto 0;
+        }
+
+        /* =========== ABOUT =========== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image-wrapper {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 4px;
+            filter: grayscale(30%) contrast(1.1);
+        }
+
+        .about-image-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(201,168,76,0.1), transparent 60%);
+            border-radius: 4px;
+        }
+
+        .about-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 100px;
+            height: 100px;
+            border-top: 1px solid var(--gold-dark);
+            border-right: 1px solid var(--gold-dark);
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p:first-child::first-letter {
+            font-family: var(--serif);
+            font-size: 3.5rem;
+            float: left;
+            line-height: 0.8;
+            margin-right: 0.5rem;
+            margin-top: 0.15rem;
+            color: var(--gold);
+        }
+
+        .about-quote {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--gold-light);
+            border-left: 2px solid var(--gold-dark);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+
+        /* =========== LEADERSHIP =========== */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .role-card {
+            background: var(--bg-elevated);
+            border: 1px solid rgba(201,168,76,0.1);
+            border-radius: 8px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .role-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .role-card:hover {
+            border-color: rgba(201,168,76,0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+
+        .role-card:hover::before { opacity: 1; }
+
+        .role-number {
+            font-family: var(--serif);
+            font-size: 3rem;
+            color: rgba(201,168,76,0.15);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .role-title {
+            font-family: var(--serif);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .role-org {
+            color: var(--gold);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+
+        .role-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* =========== VENTURES =========== */
+        .ventures-list {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .venture-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 2rem;
+            align-items: start;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--bg-elevated), transparent);
+            border-left: 2px solid var(--gold-dark);
+            border-radius: 0 8px 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .venture-item:hover {
+            border-left-color: var(--gold);
+            background: linear-gradient(135deg, rgba(201,168,76,0.05), transparent);
+        }
+
+        .venture-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        .venture-name {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .venture-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .venture-tag {
+            display: inline-block;
+            margin-top: 0.75rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid var(--gold-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+        }
+
+        /* =========== PHILOSOPHY =========== */
+        .philosophy {
+            text-align: center;
+            position: relative;
+            padding: 10rem 2rem;
+        }
+
+        .philosophy-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 50% 50% at center, rgba(201,168,76,0.06), transparent);
+        }
+
+        .philosophy blockquote {
+            font-family: var(--serif);
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            font-style: italic;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            color: var(--text);
+        }
+
+        .philosophy blockquote::before {
+            content: '\201C';
+            font-size: 8rem;
+            position: absolute;
+            top: -3rem;
+            left: -1rem;
+            color: var(--gold-dark);
+            font-family: var(--serif);
+            line-height: 1;
+            opacity: 0.5;
+        }
+
+        .philosophy cite {
+            display: block;
+            margin-top: 2rem;
+            font-style: normal;
+            font-family: var(--sans);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        /* =========== CONTACT =========== */
+        .contact {
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid rgba(201,168,76,0.2);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(201,168,76,0.1);
+        }
+
+        /* =========== FOOTER =========== */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(201,168,76,0.1);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* =========== SCROLL ANIMATIONS =========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* =========== RESPONSIVE =========== */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .roles-grid { grid-template-columns: 1fr; }
+            .venture-item { grid-template-columns: 1fr; }
+            .venture-logo { width: 40px; height: 40px; }
+            section { padding: 5rem 1.5rem; }
+            .contact-links { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="nav-logo">JM</a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#ventures">Ventures</a></li>
+            <li><a href="#philosophy">Philosophy</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-beam"></div>
+        <div class="hero-content">
+            <div class="portrait-glow">
+                <img src="../assets/profile.jpg" alt="John Moss" class="hero-portrait">
+            </div>
+            <div class="hero-eyebrow reveal">Wisconsin Rapids, Wisconsin</div>
+            <h1 class="hero-title reveal reveal-delay-1">John Moss</h1>
+            <div class="hero-line reveal reveal-delay-2"></div>
+            <p class="hero-subtitle reveal reveal-delay-3">Fourth-generation cranberry steward.<br>Agricultural technologist. Industry leader.</p>
+        </div>
+        <div class="hero-scroll">
+            scroll
+            <span></span>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">The Story</div>
+            <h2 class="section-title">Heritage Meets Innovation</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="about-grid">
+            <div class="about-image-wrapper reveal">
+                <img src="../assets/field.png" alt="Cranberry marsh" class="about-image">
+            </div>
+            <div class="about-text reveal reveal-delay-1">
+                <p>Fourth-generation steward of Elm Lake Cranberry, John Moss has transformed a century-old family operation spanning 150 acres into one of the most technologically advanced cranberry farms in the industry.</p>
+                <p>Where others see tradition and technology as opposing forces, John sees a continuum — each generation building on the last, adding new tools without abandoning timeless principles.</p>
+                <div class="about-quote">
+                    "To build things that last — foundations that turn chaos into clarity."
+                </div>
+                <p>Through Elm Lake Labs, he's extending that vision beyond his own operation, bringing precision agriculture tools to growers across the industry.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="leadership">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">Leadership</div>
+            <h2 class="section-title">Roles & Responsibilities</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="roles-grid">
+            <div class="role-card reveal">
+                <div class="role-number">01</div>
+                <div class="role-title">Owner & General Manager</div>
+                <div class="role-org">Elm Lake Cranberry</div>
+                <div class="role-desc">Fourth-generation steward of a 150-acre, century-old cranberry operation. Pioneering precision agriculture, environmental sensing, and automated irrigation.</div>
+            </div>
+            <div class="role-card reveal reveal-delay-1">
+                <div class="role-number">02</div>
+                <div class="role-title">Founder</div>
+                <div class="role-org">Elm Lake Labs</div>
+                <div class="role-desc">Building the agricultural technology company bringing modern precision tools — GIS, drone mapping, GPS/GNSS, and autonomy — to the cranberry industry.</div>
+            </div>
+            <div class="role-card reveal reveal-delay-2">
+                <div class="role-number">03</div>
+                <div class="role-title">President</div>
+                <div class="role-org">Wisconsin Cranberry Board</div>
+                <div class="role-desc">Leading industry policy, research priorities, and technology adoption across Wisconsin's cranberry sector.</div>
+            </div>
+            <div class="role-card reveal reveal-delay-3">
+                <div class="role-number">04</div>
+                <div class="role-title">Board of Directors</div>
+                <div class="role-org">Ocean Spray · 2026</div>
+                <div class="role-desc">Representing grower interests at the cooperative level, shaping the future of the nation's premier cranberry brand.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ventures">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">Ventures</div>
+            <h2 class="section-title">Building the Future</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="ventures-list">
+            <div class="venture-item reveal">
+                <img src="../assets/logos/elc.png" alt="Elm Lake Cranberry" class="venture-logo">
+                <div>
+                    <div class="venture-name">Elm Lake Cranberry</div>
+                    <div class="venture-desc">A century-old family cranberry operation transformed through precision agriculture. Environmental sensing, precision irrigation, and automation on 150 acres of Wisconsin marshland.</div>
+                    <span class="venture-tag">Agriculture</span>
+                </div>
+            </div>
+            <div class="venture-item reveal reveal-delay-1">
+                <img src="../assets/logos/ell.png" alt="Elm Lake Labs" class="venture-logo">
+                <div>
+                    <div class="venture-name">Elm Lake Labs</div>
+                    <div class="venture-desc">Bringing precision agriculture to the cranberry industry. Blossom SaaS platform, FJ Dynamics dealer, GIS/drone services, and GPS/GNSS solutions for modern growers.</div>
+                    <span class="venture-tag">Ag-Tech</span>
+                </div>
+            </div>
+            <div class="venture-item reveal reveal-delay-2">
+                <img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-logo">
+                <div>
+                    <div class="venture-name">Blossom</div>
+                    <div class="venture-desc">SaaS farm management platform purpose-built for cranberry operations. Field tracking, crew management, and operational intelligence in one unified system.</div>
+                    <span class="venture-tag">SaaS</span>
+                </div>
+            </div>
+            <div class="venture-item reveal reveal-delay-3">
+                <div style="width:60px; height:60px; display:flex; align-items:center; justify-content:center; border: 1px solid var(--gold-dark); border-radius:4px; font-family: var(--serif); font-size:1.5rem; color: var(--gold-dark);">P</div>
+                <div>
+                    <div class="venture-name">Pinpoint</div>
+                    <div class="venture-desc">Mobile scouting application for real-time field data collection. GPS-tagged observations, pest tracking, and crop health monitoring from any device.</div>
+                    <span class="venture-tag">Mobile App</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="philosophy" class="philosophy">
+        <div class="philosophy-bg"></div>
+        <div class="section-header reveal">
+            <div class="section-eyebrow">Philosophy</div>
+        </div>
+        <blockquote class="reveal reveal-delay-1">
+            To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them.
+        </blockquote>
+        <cite class="reveal reveal-delay-2">— John Moss</cite>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="section-header reveal">
+            <div class="section-eyebrow">Connect</div>
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="contact-links reveal reveal-delay-1">
+            <a href="mailto:john@elmlake.com" class="contact-link">Email</a>
+            <a href="https://www.linkedin.com/in/mossjohn" target="_blank" rel="noopener" class="contact-link">LinkedIn</a>
+            <a href="https://elmlakecranberry.com" target="_blank" rel="noopener" class="contact-link">Elm Lake Cranberry</a>
+            <a href="https://elmlakelabs.com" target="_blank" rel="noopener" class="contact-link">Elm Lake Labs</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 John Moss. Wisconsin Rapids, Wisconsin.</p>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll reveals
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Parallax effect on hero
+        window.addEventListener('scroll', () => {
+            const scroll = window.scrollY;
+            const beam = document.querySelector('.hero-beam');
+            const heroContent = document.querySelector('.hero-content');
+            if (beam) beam.style.transform = `translateX(-50%) translateY(${scroll * 0.1}px)`;
+            if (heroContent) heroContent.style.transform = `translateY(${scroll * 0.15}px)`;
+        });
+
+        // Smooth nav background
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(10,10,10,0.95)';
+            } else {
+                nav.style.background = 'linear-gradient(to bottom, rgba(10,10,10,0.95), transparent)';
+            }
+        });
+    </script>
+</body>
+</html>

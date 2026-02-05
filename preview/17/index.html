@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Glass & Light</title>
+    <meta name="description" content="John Moss — Fourth-generation cranberry farmer, ag-tech founder, industry leader.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font: 'DM Sans', -apple-system, sans-serif;
+            --bg-start: #e8eaf6;
+            --bg-end: #fce4ec;
+            --glass: rgba(255,255,255,0.25);
+            --glass-border: rgba(255,255,255,0.4);
+            --glass-shadow: rgba(0,0,0,0.05);
+            --ink: #1a1a2e;
+            --ink-light: #33334d;
+            --text-muted: rgba(26,26,46,0.6);
+            --purple: #7c3aed;
+            --blue: #3b82f6;
+            --pink: #ec4899;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+        body {
+            font-family: var(--font);
+            color: var(--ink);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-start) 0%, #f3e5f5 30%, var(--bg-end) 60%, #e3f2fd 100%);
+            background-attachment: fixed;
+        }
+
+        /* =========== AURORA BG =========== */
+        .aurora {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            animation: auroraFloat 25s ease-in-out infinite;
+        }
+
+        .aurora-blob:nth-child(1) {
+            width: 500px; height: 500px;
+            background: #c084fc;
+            top: 10%; left: 10%;
+        }
+
+        .aurora-blob:nth-child(2) {
+            width: 600px; height: 600px;
+            background: #60a5fa;
+            top: 40%; right: -10%;
+            animation-delay: -8s;
+            animation-duration: 30s;
+        }
+
+        .aurora-blob:nth-child(3) {
+            width: 450px; height: 450px;
+            background: #f472b6;
+            bottom: 10%; left: 30%;
+            animation-delay: -15s;
+            animation-duration: 28s;
+        }
+
+        @keyframes auroraFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.1); }
+            66% { transform: translate(-30px, 40px) scale(0.95); }
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* =========== GLASS CARD =========== */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--glass-shadow);
+        }
+
+        /* =========== NAV =========== */
+        nav {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: 0.75rem 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.5);
+            border-radius: 100px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-logo {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--ink); }
+
+        /* =========== HERO =========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem;
+        }
+
+        .hero-glass {
+            text-align: center;
+            padding: 4rem;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .hero-portrait-ring {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--purple), var(--pink), var(--blue));
+            box-shadow: 0 8px 40px rgba(124,58,237,0.2);
+        }
+
+        .hero-portrait {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--purple);
+            background: rgba(124,58,237,0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-name {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--ink);
+        }
+
+        .hero-tagline {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-glass {
+            padding: 0.75rem 1.75rem;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-family: var(--font);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-glass-primary {
+            background: var(--ink);
+            color: white;
+        }
+
+        .btn-glass-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,26,46,0.25);
+        }
+
+        .btn-glass-secondary {
+            background: rgba(255,255,255,0.4);
+            color: var(--ink);
+            border: 1px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-glass-secondary:hover {
+            background: rgba(255,255,255,0.6);
+        }
+
+        /* =========== SECTIONS =========== */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--purple);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            max-width: 500px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        /* =========== ABOUT =========== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .about-image-glass {
+            border-radius: 20px;
+            overflow: hidden;
+            background: rgba(255,255,255,0.3);
+            padding: 8px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .about-image-glass img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 14px;
+            display: block;
+        }
+
+        .about-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--ink-light);
+        }
+
+        .about-text p { margin-bottom: 1.25rem; }
+
+        .about-highlight {
+            color: var(--purple);
+            font-weight: 600;
+        }
+
+        /* =========== ROLES =========== */
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .role-glass {
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .role-glass:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.35);
+        }
+
+        .role-icon-glass {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(59,130,246,0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .role-glass h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .role-glass .org {
+            font-size: 0.8rem;
+            color: var(--purple);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .role-glass p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* =========== VENTURES =========== */
+        .ventures-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .venture-glass {
+            display: grid;
+            grid-template-columns: 60px 1fr auto;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .venture-glass:hover {
+            transform: translateX(4px);
+            background: rgba(255,255,255,0.35);
+        }
+
+        .venture-glass-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.5);
+            border-radius: 12px;
+            padding: 8px;
+        }
+
+        .venture-glass h3 {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .venture-glass p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .venture-glass-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+            background: rgba(124,58,237,0.1);
+            color: var(--purple);
+        }
+
+        /* =========== PHILOSOPHY =========== */
+        .philosophy {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .philosophy-glass {
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 4rem;
+        }
+
+        .philosophy-glass blockquote {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            font-weight: 300;
+            line-height: 1.6;
+            color: var(--ink);
+            font-style: italic;
+        }
+
+        .philosophy-glass cite {
+            display: block;
+            font-style: normal;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--purple);
+            font-weight: 500;
+        }
+
+        /* =========== CONTACT =========== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .contact-glass-card {
+            padding: 2rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.3s ease;
+        }
+
+        .contact-glass-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255,255,255,0.4);
+        }
+
+        .contact-glass-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-glass-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-glass-value {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* =========== FOOTER =========== */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* =========== ANIMATIONS =========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        @media (max-width: 768px) {
+            nav { padding: 0.5rem 1.25rem; gap: 1rem; }
+            .nav-links { display: none; }
+            .about-grid { grid-template-columns: 1fr; }
+            .roles-grid { grid-template-columns: 1fr; }
+            .venture-glass { grid-template-columns: 48px 1fr; }
+            .venture-glass-tag { display: none; }
+            .contact-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero-glass { padding: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora">
+        <div class="aurora-blob"></div>
+        <div class="aurora-blob"></div>
+        <div class="aurora-blob"></div>
+    </div>
+
+    <div class="content">
+        <nav>
+            <a href="#" class="nav-logo">JM</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#roles">Leadership</a></li>
+                <li><a href="#ventures">Ventures</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-glass glass">
+                <div class="hero-portrait-ring">
+                    <img src="../assets/profile.jpg" alt="John Moss" class="hero-portrait">
+                </div>
+                <div class="hero-badge reveal">Wisconsin Rapids, WI</div>
+                <h1 class="hero-name reveal reveal-delay-1">John Moss</h1>
+                <p class="hero-tagline reveal reveal-delay-2">Fourth-generation cranberry steward, agricultural technologist, and industry leader building the future of precision farming.</p>
+                <div class="hero-actions reveal reveal-delay-3">
+                    <a href="#contact" class="btn-glass btn-glass-primary">Get in Touch</a>
+                    <a href="#about" class="btn-glass btn-glass-secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="about-grid">
+                <div class="about-image-glass reveal">
+                    <img src="../assets/field.png" alt="Cranberry marsh">
+                </div>
+                <div class="about-text reveal reveal-delay-1">
+                    <div class="section-label">About</div>
+                    <h2 class="section-title">Heritage Meets Innovation</h2>
+                    <p>John Moss is the fourth-generation steward of <span class="about-highlight">Elm Lake Cranberry</span>, a 150-acre, century-old family cranberry operation in central Wisconsin.</p>
+                    <p>He's transformed a traditional operation into the industry's most technologically advanced, integrating precision irrigation, environmental sensing, drone mapping, and autonomous equipment.</p>
+                    <p>Through <span class="about-highlight">Elm Lake Labs</span>, he's building the tools for an entire industry's technological transformation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="roles">
+            <div class="section-label reveal">Leadership</div>
+            <h2 class="section-title reveal">Roles & Impact</h2>
+            <p class="section-desc reveal">Leading from the field to the boardroom.</p>
+            <div class="roles-grid">
+                <div class="role-glass glass reveal">
+                    <div class="role-icon-glass">🌿</div>
+                    <h3>Owner & General Manager</h3>
+                    <div class="org">Elm Lake Cranberry</div>
+                    <p>Fourth-generation steward of a 150-acre cranberry operation. Precision agriculture, environmental sensing, automated irrigation.</p>
+                </div>
+                <div class="role-glass glass reveal reveal-delay-1">
+                    <div class="role-icon-glass">🔬</div>
+                    <h3>Founder</h3>
+                    <div class="org">Elm Lake Labs</div>
+                    <p>Ag-tech company. GIS, drone mapping, GPS/GNSS, autonomy, and the Blossom SaaS platform.</p>
+                </div>
+                <div class="role-glass glass reveal reveal-delay-2">
+                    <div class="role-icon-glass">🏛</div>
+                    <h3>President</h3>
+                    <div class="org">Wisconsin Cranberry Board</div>
+                    <p>Leading industry policy, research priorities, and technology adoption statewide.</p>
+                </div>
+                <div class="role-glass glass reveal reveal-delay-3">
+                    <div class="role-icon-glass">🌊</div>
+                    <h3>Board of Directors</h3>
+                    <div class="org">Ocean Spray · 2026</div>
+                    <p>Shaping the strategic direction of America's premier cranberry cooperative.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="ventures">
+            <div class="section-label reveal">Ventures</div>
+            <h2 class="section-title reveal">Building the Future</h2>
+            <p class="section-desc reveal">From century-old marshland to cutting-edge SaaS.</p>
+            <div class="ventures-list">
+                <div class="venture-glass glass reveal">
+                    <img src="../assets/logos/elc.png" alt="" class="venture-glass-logo">
+                    <div>
+                        <h3>Elm Lake Cranberry</h3>
+                        <p>Century-old family operation. Precision irrigation, sensing, and automation.</p>
+                    </div>
+                    <span class="venture-glass-tag">Agriculture</span>
+                </div>
+                <div class="venture-glass glass reveal reveal-delay-1">
+                    <img src="../assets/logos/ell.png" alt="" class="venture-glass-logo">
+                    <div>
+                        <h3>Elm Lake Labs</h3>
+                        <p>Precision ag tools: Blossom SaaS, FJ Dynamics, GIS/drone services.</p>
+                    </div>
+                    <span class="venture-glass-tag">Ag-Tech</span>
+                </div>
+                <div class="venture-glass glass reveal reveal-delay-2">
+                    <img src="../assets/logos/blossom.svg" alt="" class="venture-glass-logo">
+                    <div>
+                        <h3>Blossom</h3>
+                        <p>SaaS farm management platform for cranberry growers.</p>
+                    </div>
+                    <span class="venture-glass-tag">SaaS</span>
+                </div>
+                <div class="venture-glass glass reveal reveal-delay-3">
+                    <div class="venture-glass-logo" style="display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;background:rgba(255,255,255,0.5);border-radius:12px;">P</div>
+                    <div>
+                        <h3>Pinpoint</h3>
+                        <p>Mobile scouting app for field data collection and crop health.</p>
+                    </div>
+                    <span class="venture-glass-tag">Mobile</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="philosophy">
+            <div class="philosophy-glass glass reveal">
+                <div class="section-label">Philosophy</div>
+                <blockquote>"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</blockquote>
+                <cite>— John Moss</cite>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-label reveal">Connect</div>
+            <h2 class="section-title reveal">Get in Touch</h2>
+            <p class="section-desc reveal">Wisconsin Rapids, WI. Always open to conversations about agriculture, technology, and building what lasts.</p>
+            <div class="contact-grid">
+                <a href="mailto:john@elmlake.com" class="contact-glass-card glass reveal">
+                    <div class="contact-glass-icon">✉️</div>
+                    <div class="contact-glass-label">Email</div>
+                    <div class="contact-glass-value">john@elmlake.com</div>
+                </a>
+                <a href="https://www.linkedin.com/in/mossjohn" target="_blank" rel="noopener" class="contact-glass-card glass reveal reveal-delay-1">
+                    <div class="contact-glass-icon">💼</div>
+                    <div class="contact-glass-label">LinkedIn</div>
+                    <div class="contact-glass-value">in/mossjohn</div>
+                </a>
+                <a href="https://elmlakecranberry.com" target="_blank" rel="noopener" class="contact-glass-card glass reveal reveal-delay-2">
+                    <div class="contact-glass-icon">🌿</div>
+                    <div class="contact-glass-label">ELC</div>
+                    <div class="contact-glass-value">elmlakecranberry.com</div>
+                </a>
+                <a href="https://elmlakelabs.com" target="_blank" rel="noopener" class="contact-glass-card glass reveal reveal-delay-3">
+                    <div class="contact-glass-icon">🔬</div>
+                    <div class="contact-glass-label">ELL</div>
+                    <div class="contact-glass-value">elmlakelabs.com</div>
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 John Moss · Wisconsin Rapids, Wisconsin</p>
+        </footer>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Subtle mouse parallax on aurora blobs
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 2;
+            const y = (e.clientY / window.innerHeight - 0.5) * 2;
+            document.querySelectorAll('.aurora-blob').forEach((blob, i) => {
+                const speed = (i + 1) * 8;
+                blob.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

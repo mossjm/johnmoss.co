@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 58: Floating Islands ===== */
+        /* Elements float independently on the page. Organic, dreamlike, unique spatial layout */
+
+        :root {
+            --bg: #F0F4F8;
+            --text: #1A2030;
+            --text-secondary: #5A6478;
+            --text-muted: #9AA0B0;
+            --accent: #4A6FA5;
+            --accent-light: rgba(74,111,165,0.06);
+            --warm: #D4A574;
+            --green: #4A8B6A;
+            --card: #FFFFFF;
+            --shadow: 0 8px 30px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.08);
+            --font: 'Outfit', -apple-system, sans-serif;
+            --radius: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        ::selection { background: var(--accent-light); }
+
+        /* ===== FLOATING LAYOUT ===== */
+        .float-canvas {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .island {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .island:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* ===== HERO ISLAND ===== */
+        .hero-island {
+            display: flex; align-items: center; gap: 2.5rem;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            opacity: 0; animation: floatIn 0.8s 0.2s forwards;
+        }
+        .hero-photo {
+            width: 140px; height: 140px;
+            border-radius: 50%; object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid var(--accent);
+        }
+        .hero-name {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
+            margin-bottom: 0.75rem;
+        }
+        .hero-tagline {
+            font-size: 1rem; font-weight: 300;
+            color: var(--text-secondary); line-height: 1.7;
+            max-width: 420px;
+        }
+
+        @keyframes floatIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== MASONRY-LIKE GRID ===== */
+        .islands-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        /* Different island sizes */
+        .island-wide { grid-column: span 2; }
+        .island-tall { grid-row: span 2; }
+
+        /* ===== ISLAND TYPES ===== */
+        .island-label {
+            font-size: 0.6rem; font-weight: 600;
+            color: var(--accent); letter-spacing: 0.12em;
+            text-transform: uppercase; margin-bottom: 1rem;
+        }
+        .island-title {
+            font-size: 1.35rem; font-weight: 700;
+            letter-spacing: -0.02em; margin-bottom: 0.75rem;
+        }
+        .island-text {
+            font-size: 0.9rem; color: var(--text-secondary);
+            line-height: 1.7; font-weight: 300;
+        }
+
+        /* Philosophy island */
+        .phil-island {
+            background: var(--accent);
+            color: #FFF;
+        }
+        .phil-island .island-label { color: rgba(255,255,255,0.5); }
+        .phil-text {
+            font-size: 1.1rem; font-weight: 400;
+            line-height: 1.7;
+        }
+        .phil-attr { font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; }
+
+        /* Stat island */
+        .stat-island { text-align: center; }
+        .stat-val { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.04em; color: var(--accent); line-height: 1; }
+        .stat-lbl { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        /* Venture island */
+        .venture-icon { width: 36px; height: 36px; object-fit: contain; opacity: 0.5; margin-bottom: 1rem; }
+        .venture-name { font-weight: 700; font-size: 1rem; margin-bottom: 0.15rem; }
+        .venture-type { font-size: 0.6rem; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .venture-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* Image island */
+        .img-island { padding: 0; overflow: hidden; }
+        .img-island img { width: 100%; height: 250px; object-fit: cover; display: block; }
+
+        /* Role island */
+        .role-list { list-style: none; }
+        .role-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.75rem 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .role-item:last-child { border-bottom: none; }
+        .role-name { font-weight: 600; font-size: 0.85rem; }
+        .role-org { font-size: 0.7rem; color: var(--text-muted); }
+        .role-badge { font-size: 0.55rem; padding: 0.15rem 0.5rem; border-radius: 100px; background: var(--accent-light); color: var(--accent); font-weight: 600; }
+
+        /* Contact island */
+        .contact-island {
+            background: var(--text); color: #FFF; text-align: center;
+        }
+        .contact-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .contact-info { font-size: 0.75rem; opacity: 0.5; }
+        .contact-info a { color: var(--warm); text-decoration: none; }
+
+        .reveal { opacity:0; transform:translateY(15px); transition:all 0.7s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+
+        @media (max-width: 768px) {
+            .islands-grid { grid-template-columns: 1fr; }
+            .island-wide { grid-column: span 1; }
+            .island-tall { grid-row: span 1; }
+            .hero-island { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="float-canvas">
+        <!-- HERO -->
+        <div class="island hero-island">
+            <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+            <div>
+                <h1 class="hero-name">John Moss</h1>
+                <p class="hero-tagline">Entrepreneur, systems thinker, and builder — creating lasting infrastructure at the intersection of heritage and innovation.</p>
+            </div>
+        </div>
+
+        <!-- FLOATING GRID -->
+        <div class="islands-grid">
+            <!-- Philosophy -->
+            <div class="island phil-island island-wide reveal">
+                <div class="island-label">Philosophy</div>
+                <p class="phil-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+                <div class="phil-attr">— John Moss</div>
+            </div>
+
+            <!-- Stat -->
+            <div class="island stat-island reveal">
+                <div class="stat-val">150</div>
+                <div class="stat-lbl">Acres Managed</div>
+            </div>
+
+            <!-- Venture 1 -->
+            <div class="island reveal">
+                <img src="../assets/logos/ell.png" alt="ELL" class="venture-icon">
+                <div class="venture-name">Elm Lake Labs</div>
+                <div class="venture-type">Ag-Tech</div>
+                <p class="venture-desc">GIS, drones, and autonomous equipment for precision agriculture.</p>
+            </div>
+
+            <!-- Image -->
+            <div class="island img-island reveal">
+                <img src="../assets/photos/morning_mist.jpeg" alt="Morning mist" loading="lazy">
+            </div>
+
+            <!-- Stat -->
+            <div class="island stat-island reveal">
+                <div class="stat-val">4th</div>
+                <div class="stat-lbl">Generation</div>
+            </div>
+
+            <!-- Venture 2 -->
+            <div class="island reveal">
+                <img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-icon">
+                <div class="venture-name">Blossom</div>
+                <div class="venture-type">SaaS</div>
+                <p class="venture-desc">Software platform streamlining agricultural operations.</p>
+            </div>
+
+            <!-- Roles -->
+            <div class="island island-wide reveal">
+                <div class="island-label">Leadership</div>
+                <ul class="role-list">
+                    <li class="role-item"><div><div class="role-name">Founder & CEO</div><div class="role-org">Elm Lake Labs</div></div><span class="role-badge">Active</span></li>
+                    <li class="role-item"><div><div class="role-name">Founder</div><div class="role-org">Blossom</div></div><span class="role-badge">Active</span></li>
+                    <li class="role-item"><div><div class="role-name">President</div><div class="role-org">WI Cranberry Board</div></div><span class="role-badge">Current</span></li>
+                    <li class="role-item"><div><div class="role-name">Board of Directors</div><div class="role-org">Ocean Spray</div></div><span class="role-badge">2026</span></li>
+                </ul>
+            </div>
+
+            <!-- Venture 3 -->
+            <div class="island reveal">
+                <img src="../assets/logos/elc.png" alt="ELC" class="venture-icon">
+                <div class="venture-name">Elm Lake Cranberry</div>
+                <div class="venture-type">Agriculture</div>
+                <p class="venture-desc">150-acre 4th-gen family farm, 100+ years.</p>
+            </div>
+
+            <!-- Image -->
+            <div class="island img-island reveal">
+                <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+            </div>
+
+            <!-- Stat -->
+            <div class="island stat-island reveal">
+                <div class="stat-val">100+</div>
+                <div class="stat-lbl">Years Heritage</div>
+            </div>
+
+            <!-- Image -->
+            <div class="island img-island island-wide reveal">
+                <img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy" style="height: 300px;">
+            </div>
+
+            <!-- Contact -->
+            <div class="island contact-island reveal">
+                <div class="contact-name">John Moss</div>
+                <p class="contact-info">Wisconsin Rapids, WI<br><a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p>
+                <p class="contact-info" style="margin-top: 0.5rem;">© 2025</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

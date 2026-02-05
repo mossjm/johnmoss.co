@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 40: Newspaper Front Page ===== */
+        /* Broadsheet layout. Columns, headlines, bylines, dateline. Sophisticated and editorial */
+
+        :root {
+            --bg: #FAF6EF;
+            --bg-paper: #F5F0E7;
+            --text: #1A1A1A;
+            --text-secondary: #4A4A4A;
+            --text-light: #888888;
+            --accent: #8B0000;
+            --rule: #1A1A1A;
+            --rule-light: #D4CCBC;
+            --font-headline: 'Old Standard TT', 'Libre Baskerville', Georgia, serif;
+            --font-body: 'Libre Baskerville', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --max-width: 900px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        ::selection { background: rgba(139, 0, 0, 0.15); }
+
+        /* ===== PAPER CONTAINER ===== */
+        .paper {
+            max-width: var(--max-width);
+            margin: 2rem auto;
+            background: var(--bg-paper);
+            padding: 2.5rem;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+        }
+
+        /* ===== MASTHEAD ===== */
+        .masthead {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 4px double var(--rule);
+            margin-bottom: 0.75rem;
+        }
+        .masthead-date {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        .masthead-title {
+            font-family: var(--font-headline);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .masthead-subtitle {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+        .masthead-rule {
+            width: 100%;
+            height: 1px;
+            background: var(--rule);
+            margin-top: 0.75rem;
+        }
+
+        /* ===== HERO AREA ===== */
+        .hero-section {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--rule-light);
+            margin-bottom: 1.5rem;
+        }
+        .hero-flex {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .hero-photo-wrap {
+            flex-shrink: 0;
+        }
+        .hero-photo {
+            width: 200px;
+            height: 260px;
+            object-fit: cover;
+            filter: grayscale(15%) contrast(1.05);
+        }
+        .photo-caption {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        .hero-text {
+            flex: 1;
+        }
+        .hero-headline {
+            font-family: var(--font-headline);
+            font-size: clamp(1.75rem, 3.5vw, 2.25rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+        .hero-byline {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+        .hero-byline span { color: var(--text); font-weight: 600; }
+        .hero-lede {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* ===== COLUMNS ===== */
+        .columns {
+            column-count: 2;
+            column-gap: 2rem;
+            column-rule: 1px solid var(--rule-light);
+            margin: 1.5rem 0;
+        }
+        .columns p {
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+        .columns p:first-of-type::first-letter {
+            font-family: var(--font-headline);
+            float: left;
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 0.8;
+            padding: 0.1em 0.12em 0 0;
+            color: var(--accent);
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-rule {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 2rem 0 1rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--rule);
+        }
+        .section-rule h2 {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            white-space: nowrap;
+        }
+        .section-rule .rule-line {
+            flex: 1;
+            height: 1px;
+            background: var(--rule);
+        }
+
+        /* ===== PULL QUOTE ===== */
+        .pull-quote {
+            break-inside: avoid;
+            margin: 1.5rem 0;
+            padding: 1.5rem 0;
+            border-top: 2px solid var(--rule);
+            border-bottom: 1px solid var(--rule);
+        }
+        .pull-quote p {
+            font-family: var(--font-headline);
+            font-size: 1.2rem !important;
+            font-style: italic;
+            line-height: 1.5 !important;
+            text-align: center !important;
+            color: var(--text);
+            margin-bottom: 0 !important;
+        }
+        .pull-quote cite {
+            display: block;
+            font-family: var(--font-sans);
+            font-style: normal;
+            font-size: 0.65rem;
+            text-align: center;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-top: 0.75rem;
+        }
+
+        /* ===== VENTURES TABLE ===== */
+        .ventures-section {
+            margin: 2rem 0;
+        }
+        .ventures-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .venture-block {
+            border-top: 2px solid var(--rule);
+            padding-top: 0.75rem;
+        }
+        .venture-block h3 {
+            font-family: var(--font-headline);
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        .venture-block .type {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+        .venture-block p {
+            font-size: 0.8rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        /* ===== LEADERSHIP ===== */
+        .leadership-cols {
+            column-count: 2;
+            column-gap: 2rem;
+            column-rule: 1px solid var(--rule-light);
+        }
+        .role-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--rule-light);
+        }
+        .role-title {
+            font-family: var(--font-headline);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .role-org {
+            font-family: var(--font-sans);
+            font-size: 0.7rem;
+            color: var(--text-light);
+        }
+
+        /* ===== IMAGE ===== */
+        .feature-image {
+            width: 100%;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+        .feature-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            filter: grayscale(20%) contrast(1.05);
+        }
+        .feature-image figcaption {
+            font-family: var(--font-sans);
+            font-size: 0.6rem;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .paper-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 4px double var(--rule);
+            text-align: center;
+        }
+        .paper-footer p {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            color: var(--text-light);
+            letter-spacing: 0.1em;
+        }
+        .paper-footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .paper { margin: 0; padding: 1.5rem; }
+            .columns { column-count: 1; }
+            .hero-flex { flex-direction: column; }
+            .hero-photo { width: 160px; height: 210px; }
+            .ventures-cards { grid-template-columns: 1fr; }
+            .leadership-cols { column-count: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper">
+        <!-- MASTHEAD -->
+        <header class="masthead">
+            <div class="masthead-date">Wisconsin Rapids, Wisconsin · Sunday Edition</div>
+            <h1 class="masthead-title">John Moss</h1>
+            <div class="masthead-subtitle">Entrepreneur · Builder · Systems Thinker · Leader</div>
+            <div class="masthead-rule"></div>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero-section">
+            <div class="hero-flex">
+                <div class="hero-photo-wrap">
+                    <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+                    <div class="photo-caption">John Moss, Wisconsin Rapids</div>
+                </div>
+                <div class="hero-text">
+                    <h2 class="hero-headline">Fourth-Generation Farmer Turned Tech Visionary Builds Empire at the Intersection of Heritage and Innovation</h2>
+                    <div class="hero-byline">By <span>The Editors</span> · Profile</div>
+                    <p class="hero-lede">In the heart of Wisconsin's cranberry country, John Moss is quietly building the future of agriculture — one system at a time, one generation at a time.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN STORY -->
+        <div class="columns">
+            <p>At forty years old, John Moss straddles two worlds with uncommon ease. On any given morning, he might review GIS data from a drone survey of his family's cranberry bogs, then pivot to a product meeting for Blossom, the agricultural SaaS platform he founded. By afternoon, he could be fielding calls about autonomous farming equipment as an FJ Dynamics dealer, or preparing for a Wisconsin Cranberry Board session in his capacity as president.</p>
+
+            <p>This is not the scattered portfolio of a dilettante. Each venture connects to a central thesis that Moss articulates with the precision of someone who has spent years refining it: build things that last.</p>
+
+            <div class="pull-quote">
+                <p>"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+                <cite>— John Moss</cite>
+            </div>
+
+            <p>The Elm Lake Cranberry farm — 150 acres of bogs in Wisconsin Rapids — has been in the Moss family for over a century, spanning four generations. But under John's stewardship, the farm has become something more than a family legacy. It is a living laboratory, a testing ground where tradition meets precision agriculture, where the wisdom of generations informs the application of cutting-edge technology.</p>
+
+            <p>From this foundation grew Elm Lake Labs, an agricultural technology company that delivers GIS services, drone operations, and serves as a dealer for FJ Dynamics autonomous farming equipment. The company represents Moss's conviction that the future of farming lies not in replacing human knowledge but in augmenting it with intelligent systems.</p>
+
+            <p>In 2026, Moss will join the Board of Directors at Ocean Spray, bringing his unique dual perspective as both a grower and a technologist to one of agriculture's most storied cooperatives. It is, perhaps, the most visible validation of an approach that has been quietly building momentum in Wisconsin's agricultural community for years.</p>
+        </div>
+
+        <!-- FEATURE IMAGE -->
+        <figure class="feature-image">
+            <img src="../assets/photos/morning_mist.jpeg" alt="Morning mist over cranberry bogs" loading="lazy">
+            <figcaption>Morning mist rises over the Elm Lake Cranberry bogs, where four generations of the Moss family have cultivated the land.</figcaption>
+        </figure>
+
+        <!-- VENTURES -->
+        <div class="section-rule">
+            <h2>The Ventures</h2>
+            <div class="rule-line"></div>
+        </div>
+        <div class="ventures-section">
+            <div class="ventures-cards">
+                <div class="venture-block">
+                    <h3>Elm Lake Labs</h3>
+                    <div class="type">Agricultural Technology</div>
+                    <p>GIS services, drone operations, FJ Dynamics autonomous equipment dealership, and precision farming solutions for modern agriculture.</p>
+                </div>
+                <div class="venture-block">
+                    <h3>Blossom</h3>
+                    <div class="type">Software · SaaS</div>
+                    <p>A platform streamlining agricultural operations with intuitive software designed for the complexity of modern farm management.</p>
+                </div>
+                <div class="venture-block">
+                    <h3>Elm Lake Cranberry</h3>
+                    <div class="type">Fourth Generation Farm</div>
+                    <p>150 acres of cranberry bogs in Wisconsin Rapids. Over a century of continuous cultivation, now a proving ground for agricultural innovation.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- LEADERSHIP -->
+        <div class="section-rule">
+            <h2>Leadership & Boards</h2>
+            <div class="rule-line"></div>
+        </div>
+        <div class="leadership-cols">
+            <div class="role-item">
+                <div class="role-title">Founder & CEO</div>
+                <div class="role-org">Elm Lake Labs · Active</div>
+            </div>
+            <div class="role-item">
+                <div class="role-title">Founder</div>
+                <div class="role-org">Blossom · Active</div>
+            </div>
+            <div class="role-item">
+                <div class="role-title">Owner & Operator</div>
+                <div class="role-org">Elm Lake Cranberry · 4th Generation</div>
+            </div>
+            <div class="role-item">
+                <div class="role-title">President</div>
+                <div class="role-org">Wisconsin Cranberry Board · Current</div>
+            </div>
+            <div class="role-item">
+                <div class="role-title">Board of Directors</div>
+                <div class="role-org">Ocean Spray · 2026</div>
+            </div>
+            <div class="role-item">
+                <div class="role-title">FJ Dynamics Dealer</div>
+                <div class="role-org">Agricultural Robotics · Active</div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="paper-footer">
+            <p>© 2025 John Moss · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

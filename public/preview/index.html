@@ -16,6 +16,8 @@
             --muted: #71717A;
             --accent: #D97706;
             --premium: #7c3aed;
+            --founder: #10B981;
+            --explorer: #3B82F6;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -67,6 +69,14 @@
             background: rgba(124, 58, 237, 0.15);
             color: var(--premium);
         }
+        h2 .badge-founder {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--founder);
+        }
+        h2 .badge-explorer {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--explorer);
+        }
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -99,17 +109,21 @@
         .card.premium::before {
             background: linear-gradient(90deg, var(--premium), #ec4899);
         }
+        .card.founder::before {
+            background: linear-gradient(90deg, var(--founder), #34d399);
+        }
+        .card.explorer::before {
+            background: linear-gradient(90deg, var(--explorer), #60a5fa);
+        }
         .card:hover {
             border-color: rgba(217, 119, 6, 0.2);
             transform: translateY(-3px);
             box-shadow: 0 12px 40px rgba(0,0,0,0.3);
         }
-        .card.premium:hover {
-            border-color: rgba(124, 58, 237, 0.2);
-        }
-        .card:hover::before {
-            opacity: 1;
-        }
+        .card.premium:hover { border-color: rgba(124, 58, 237, 0.2); }
+        .card.founder:hover { border-color: rgba(16, 185, 129, 0.2); }
+        .card.explorer:hover { border-color: rgba(59, 130, 246, 0.2); }
+        .card:hover::before { opacity: 1; }
         .card-num {
             font-size: 0.7rem;
             color: var(--muted);
@@ -131,7 +145,7 @@
 <body>
     <div class="header">
         <h1>johnmoss.co</h1>
-        <p class="subtitle">30 Design Concepts for John Moss's personal website. Tap any card to preview.</p>
+        <p class="subtitle">60 Design Concepts for John Moss's personal website. Tap any card to preview.</p>
     </div>
 
     <h2>Initial Concepts <span class="badge badge-initial">01–10</span></h2>
@@ -162,18 +176,60 @@
         <a href="./20/" class="card premium"><div class="card-num">20</div><div class="card-name">Kinetic Typography</div><div class="card-desc">Text as art, animated type, dramatic scale, maximum typographic impact</div></a>
     </div>
 
-    <h2>Founder Focus <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #10B981;">21–30</span></h2>
+    <h2>Founder Focus <span class="badge badge-founder">21–30</span></h2>
     <div class="grid">
-        <a href="./21/" class="card" style="--card-accent: #10B981;"><div class="card-num">21</div><div class="card-name">Founder's Canvas</div><div class="card-desc">Stripe-inspired, whitespace-heavy, subtle gradients, perfect typography</div></a>
-        <a href="./22/" class="card" style="--card-accent: #10B981;"><div class="card-num">22</div><div class="card-name">Dark Visionary</div><div class="card-desc">Deep dark with blue/purple undertones, TED-speaker energy, atmospheric</div></a>
-        <a href="./23/" class="card" style="--card-accent: #10B981;"><div class="card-num">23</div><div class="card-name">Monochrome Luxe</div><div class="card-desc">Black & white, red accent, high contrast, photography-forward</div></a>
-        <a href="./24/" class="card" style="--card-accent: #10B981;"><div class="card-num">24</div><div class="card-name">Warm Modernist</div><div class="card-desc">Cream, terracotta, deep brown — Aesop meets founder bio, warm + sophisticated</div></a>
-        <a href="./25/" class="card" style="--card-accent: #10B981;"><div class="card-num">25</div><div class="card-name">Immersive Scroll</div><div class="card-desc">Full-screen sections with snap scrolling, cinematic pacing, progress dots</div></a>
-        <a href="./26/" class="card" style="--card-accent: #10B981;"><div class="card-num">26</div><div class="card-name">Grid Portfolio</div><div class="card-desc">Bento-box dashboard, mixed-size cards, modern structured grid</div></a>
-        <a href="./27/" class="card" style="--card-accent: #10B981;"><div class="card-num">27</div><div class="card-name">Asymmetric Editorial</div><div class="card-desc">Off-grid layout, overlapping elements, editorial meets modern</div></a>
-        <a href="./28/" class="card" style="--card-accent: #10B981;"><div class="card-num">28</div><div class="card-name">Terminal / Hacker</div><div class="card-desc">Polished terminal aesthetic, monospace, command-line inspired</div></a>
-        <a href="./29/" class="card" style="--card-accent: #10B981;"><div class="card-num">29</div><div class="card-name">Parallax Depth</div><div class="card-desc">Multi-layer parallax scrolling, depth, immersive premium feel</div></a>
-        <a href="./30/" class="card" style="--card-accent: #10B981;"><div class="card-num">30</div><div class="card-name">Micro-Animated</div><div class="card-desc">Minimal layout, every element animated — text reveals, count-ups, magnetic hover</div></a>
+        <a href="./21/" class="card founder"><div class="card-num">21</div><div class="card-name">Founder's Canvas</div><div class="card-desc">Stripe-inspired, whitespace-heavy, subtle gradients, perfect typography</div></a>
+        <a href="./22/" class="card founder"><div class="card-num">22</div><div class="card-name">Dark Visionary</div><div class="card-desc">Deep dark with blue/purple undertones, TED-speaker energy, atmospheric</div></a>
+        <a href="./23/" class="card founder"><div class="card-num">23</div><div class="card-name">Monochrome Luxe</div><div class="card-desc">Black & white, red accent, high contrast, photography-forward</div></a>
+        <a href="./24/" class="card founder"><div class="card-num">24</div><div class="card-name">Warm Modernist</div><div class="card-desc">Cream, terracotta, deep brown — Aesop meets founder bio, warm + sophisticated</div></a>
+        <a href="./25/" class="card founder"><div class="card-num">25</div><div class="card-name">Immersive Scroll</div><div class="card-desc">Full-screen sections with snap scrolling, cinematic pacing, progress dots</div></a>
+        <a href="./26/" class="card founder"><div class="card-num">26</div><div class="card-name">Grid Portfolio</div><div class="card-desc">Bento-box dashboard, mixed-size cards, modern structured grid</div></a>
+        <a href="./27/" class="card founder"><div class="card-num">27</div><div class="card-name">Asymmetric Editorial</div><div class="card-desc">Off-grid layout, overlapping elements, editorial meets modern</div></a>
+        <a href="./28/" class="card founder"><div class="card-num">28</div><div class="card-name">Terminal / Hacker</div><div class="card-desc">Polished terminal aesthetic, monospace, command-line inspired</div></a>
+        <a href="./29/" class="card founder"><div class="card-num">29</div><div class="card-name">Parallax Depth</div><div class="card-desc">Multi-layer parallax scrolling, depth, immersive premium feel</div></a>
+        <a href="./30/" class="card founder"><div class="card-num">30</div><div class="card-name">Micro-Animated</div><div class="card-desc">Minimal layout, every element animated — text reveals, count-ups, magnetic hover</div></a>
+    </div>
+
+    <h2>Design Exploration <span class="badge badge-explorer">31–40</span></h2>
+    <div class="grid">
+        <a href="./31/" class="card explorer"><div class="card-num">31</div><div class="card-name">Apple Keynote</div><div class="card-desc">Huge hero text, scroll-triggered reveals, minimal palette, dramatic spacing</div></a>
+        <a href="./32/" class="card explorer"><div class="card-num">32</div><div class="card-name">Notion-Style</div><div class="card-desc">Clean system-font feel, toggle sections, wiki-like but beautiful</div></a>
+        <a href="./33/" class="card explorer"><div class="card-num">33</div><div class="card-name">Vercel/Next.js</div><div class="card-desc">Dark with geometric accents, developer-meets-executive energy</div></a>
+        <a href="./34/" class="card explorer"><div class="card-num">34</div><div class="card-name">Luxury Brand</div><div class="card-desc">Hermès-inspired, cream/gold, serif typography, whisper-quiet luxury</div></a>
+        <a href="./35/" class="card explorer"><div class="card-num">35</div><div class="card-name">National Geographic</div><div class="card-desc">Photo-forward, full-bleed imagery, expedition/explorer feel</div></a>
+        <a href="./36/" class="card explorer"><div class="card-num">36</div><div class="card-name">Architect's Portfolio</div><div class="card-desc">Clean lines, blueprint-like elements, structured grid, precision</div></a>
+        <a href="./37/" class="card explorer"><div class="card-num">37</div><div class="card-name">Japanese Minimalism</div><div class="card-desc">Wabi-sabi, breathing room, asymmetric balance, muted earth tones</div></a>
+        <a href="./38/" class="card explorer"><div class="card-num">38</div><div class="card-name">Conference Speaker</div><div class="card-desc">Keynote speaker landing page, big photo, talk topics energy</div></a>
+        <a href="./39/" class="card explorer"><div class="card-num">39</div><div class="card-name">Investor Deck</div><div class="card-desc">Clean data-driven, metrics prominent, pitch deck as a website</div></a>
+        <a href="./40/" class="card explorer"><div class="card-num">40</div><div class="card-name">Newspaper Front Page</div><div class="card-desc">Broadsheet layout, columns, headlines, bylines, sophisticated editorial</div></a>
+    </div>
+
+    <h2>Design Exploration <span class="badge badge-explorer">41–50</span></h2>
+    <div class="grid">
+        <a href="./41/" class="card explorer"><div class="card-num">41</div><div class="card-name">Museum Exhibition</div><div class="card-desc">Gallery-like presentation, white walls, curator's eye</div></a>
+        <a href="./42/" class="card explorer"><div class="card-num">42</div><div class="card-name">Nordic Clean</div><div class="card-desc">Scandinavian design, muted blues/grays, functional beauty</div></a>
+        <a href="./43/" class="card explorer"><div class="card-num">43</div><div class="card-name">Retro Modern</div><div class="card-desc">Mid-century modern revival, geometric shapes, warm retro palette</div></a>
+        <a href="./44/" class="card explorer"><div class="card-num">44</div><div class="card-name">Layered Depth</div><div class="card-desc">Overlapping panels/cards creating z-depth, elements peek behind each other</div></a>
+        <a href="./45/" class="card explorer"><div class="card-num">45</div><div class="card-name">Spotlight</div><div class="card-desc">Theater-inspired, dark background, spotlight on portrait, dramatic reveal</div></a>
+        <a href="./46/" class="card explorer"><div class="card-num">46</div><div class="card-name">Type Specimen</div><div class="card-desc">Beautiful typography showcase, different fonts for sections, elegant</div></a>
+        <a href="./47/" class="card explorer"><div class="card-num">47</div><div class="card-name">Dashboard Bio</div><div class="card-desc">Personal dashboard/command center, widgets, stats, SaaS UI as bio</div></a>
+        <a href="./48/" class="card explorer"><div class="card-num">48</div><div class="card-name">Earth from Above</div><div class="card-desc">Satellite/aerial aesthetic, maps, coordinates, GIS-inspired</div></a>
+        <a href="./49/" class="card explorer"><div class="card-num">49</div><div class="card-name">Film Credits</div><div class="card-desc">Cinematic, widescreen proportions, film grain, credits-roll sections</div></a>
+        <a href="./50/" class="card explorer"><div class="card-num">50</div><div class="card-name">Gradient Mesh</div><div class="card-desc">Abstract gradient mesh backgrounds, organic flowing color, artistic</div></a>
+    </div>
+
+    <h2>Design Exploration <span class="badge badge-explorer">51–60</span></h2>
+    <div class="grid">
+        <a href="./51/" class="card explorer"><div class="card-num">51</div><div class="card-name">Monogram</div><div class="card-desc">Built around a strong "JM" monogram/logo, brand-identity forward</div></a>
+        <a href="./52/" class="card explorer"><div class="card-num">52</div><div class="card-name">Stacked Cards</div><div class="card-desc">Full-screen cards that stack/overlap as you scroll</div></a>
+        <a href="./53/" class="card explorer"><div class="card-num">53</div><div class="card-name">Sidebar Navigation</div><div class="card-desc">Fixed left sidebar with navigation, content scrolls on right</div></a>
+        <a href="./54/" class="card explorer"><div class="card-num">54</div><div class="card-name">Hero Video Feel</div><div class="card-desc">Simulated video hero with parallax layers and subtle motion</div></a>
+        <a href="./55/" class="card explorer"><div class="card-num">55</div><div class="card-name">Chalk & Whiteboard</div><div class="card-desc">Hand-drawn aesthetic but polished, sketch-like elements, organic</div></a>
+        <a href="./56/" class="card explorer"><div class="card-num">56</div><div class="card-name">Polaroid Gallery</div><div class="card-desc">Photo-heavy with polaroid-style frames, personal, warm, story-driven</div></a>
+        <a href="./57/" class="card explorer"><div class="card-num">57</div><div class="card-name">Blueprint</div><div class="card-desc">Technical drawing aesthetic, grid paper, annotation-style labels</div></a>
+        <a href="./58/" class="card explorer"><div class="card-num">58</div><div class="card-name">Floating Islands</div><div class="card-desc">Elements float independently, organic, dreamlike spatial layout</div></a>
+        <a href="./59/" class="card explorer"><div class="card-num">59</div><div class="card-name">Neon Glow</div><div class="card-desc">Dark with vibrant neon accents, electric, modern, attention-grabbing</div></a>
+        <a href="./60/" class="card explorer"><div class="card-num">60</div><div class="card-name">Classic Elegance</div><div class="card-desc">Timeless design, book cover meets website, would look great in 10 years</div></a>
     </div>
 </body>
 </html>

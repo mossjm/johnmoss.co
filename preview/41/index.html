@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 41: Museum Exhibition ===== */
+        /* Gallery-like presentation. White walls, carefully placed elements, curator's eye */
+
+        :root {
+            --bg: #FFFFFF;
+            --bg-wall: #F8F8F6;
+            --text: #1C1C1C;
+            --text-secondary: #6D6D6D;
+            --text-label: #999999;
+            --accent: #2C2C2C;
+            --red-dot: #C0392B;
+            --border: rgba(0,0,0,0.06);
+            --font-serif: 'EB Garamond', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --max-width: 960px;
+            --gallery-spacing: 8rem;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        ::selection { background: rgba(0,0,0,0.08); }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 52px; display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+        }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; max-width: var(--max-width); padding: 0 2rem;
+        }
+        .nav-brand {
+            font-family: var(--font-serif);
+            font-size: 1rem; font-weight: 500; letter-spacing: 0.02em;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            text-decoration: none; color: var(--text-label);
+            font-size: 0.7rem; font-weight: 400; letter-spacing: 0.1em;
+            text-transform: uppercase; transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--text); }
+
+        /* ===== GALLERY WALL ===== */
+        .gallery-wall {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== HERO / ENTRANCE ===== */
+        .entrance {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+        .entrance-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text-label);
+            margin-bottom: 3rem;
+        }
+        .entrance-photo {
+            width: 200px;
+            height: 250px;
+            object-fit: cover;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            opacity: 0;
+            animation: galleryFadeIn 1.2s 0.3s forwards;
+        }
+        .entrance-name {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: galleryFadeIn 1.2s 0.5s forwards;
+        }
+        .entrance-dates {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: galleryFadeIn 1.2s 0.7s forwards;
+        }
+        .entrance-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-label);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: galleryFadeIn 1.2s 0.9s forwards;
+        }
+
+        @keyframes galleryFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== EXHIBIT PIECES ===== */
+        .exhibit {
+            padding: var(--gallery-spacing) 0;
+            position: relative;
+        }
+        .exhibit-label {
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-label);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .exhibit-label .dot {
+            width: 4px; height: 4px;
+            border-radius: 50%;
+            background: var(--red-dot);
+        }
+        .exhibit-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.75rem, 3vw, 2.25rem);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+        }
+        .exhibit-text {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            max-width: 550px;
+        }
+        .exhibit-caption {
+            font-size: 0.65rem;
+            color: var(--text-label);
+            margin-top: 1.5rem;
+            font-style: italic;
+        }
+
+        .reveal {
+            opacity: 0; transform: translateY(15px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== ARTWORK / IMAGE ===== */
+        .artwork {
+            position: relative;
+            display: inline-block;
+        }
+        .artwork img {
+            display: block;
+            max-width: 100%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .artwork-plaque {
+            position: absolute;
+            bottom: -40px;
+            right: 0;
+            background: var(--bg);
+            padding: 0.5rem 0;
+            font-size: 0.6rem;
+            color: var(--text-label);
+            font-style: italic;
+        }
+
+        /* ===== ROOM LAYOUTS ===== */
+        .room-centered {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .room-left {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .room-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* ===== PHILOSOPHY PLAQUE ===== */
+        .plaque {
+            background: var(--bg-wall);
+            padding: 3rem;
+            max-width: 650px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .plaque::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--accent);
+        }
+        .plaque-text {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        .plaque-attr {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            color: var(--text-label);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 1.5rem;
+        }
+
+        /* ===== VENTURE EXHIBITS ===== */
+        .ventures-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+        .venture-exhibit {
+            text-align: center;
+        }
+        .venture-exhibit-icon {
+            width: 48px; height: 48px;
+            object-fit: contain;
+            margin: 0 auto 1.5rem;
+            opacity: 0.5;
+        }
+        .venture-exhibit-name {
+            font-family: var(--font-serif);
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        .venture-exhibit-type {
+            font-size: 0.6rem;
+            color: var(--text-label);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .venture-exhibit-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== ROLES ===== */
+        .roles-exhibit {
+            list-style: none;
+            max-width: 500px;
+        }
+        .roles-exhibit li {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .roles-exhibit .role-name {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .roles-exhibit .role-org {
+            font-size: 0.7rem;
+            color: var(--text-label);
+        }
+
+        /* ===== IMAGE GALLERY ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+            transition: transform 0.6s ease;
+        }
+        .gallery-grid img:hover { transform: scale(1.02); }
+        .gallery-grid img:nth-child(1) {
+            grid-column: span 2;
+            height: 320px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: var(--gallery-spacing);
+        }
+        footer p {
+            font-size: 0.7rem;
+            color: var(--text-label);
+            letter-spacing: 0.1em;
+        }
+        footer a { color: var(--text-secondary); text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .room-left, .room-right { grid-template-columns: 1fr; gap: 2rem; }
+            .ventures-gallery { grid-template-columns: 1fr; gap: 2rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-grid img:nth-child(1) { grid-column: span 1; height: 220px; }
+            :root { --gallery-spacing: 5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-brand">John Moss</div>
+            <ul class="nav-links">
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#ventures">Ventures</a></li>
+                <li><a href="#leadership">Leadership</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ENTRANCE -->
+    <section class="entrance">
+        <div class="entrance-label">A Retrospective</div>
+        <img src="../assets/profile.jpg" alt="John Moss" class="entrance-photo">
+        <h1 class="entrance-name">John Moss</h1>
+        <p class="entrance-dates">Entrepreneur, Builder, Leader</p>
+        <p class="entrance-subtitle">Wisconsin Rapids, Wisconsin</p>
+    </section>
+
+    <!-- GALLERY WALLS -->
+    <div class="gallery-wall">
+
+        <!-- EXHIBIT 1: PHILOSOPHY -->
+        <section class="exhibit room-centered" id="philosophy">
+            <div class="reveal">
+                <div class="exhibit-label"><span class="dot"></span> Room I · Philosophy</div>
+                <div class="plaque">
+                    <p class="plaque-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+                    <div class="plaque-attr">John Moss — Personal Philosophy</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXHIBIT 2: THE LAND -->
+        <section class="exhibit room-left reveal">
+            <div>
+                <div class="exhibit-label"><span class="dot"></span> Room II · The Land</div>
+                <h2 class="exhibit-title">Four generations of<br>cultivation and care.</h2>
+                <p class="exhibit-text">The Elm Lake Cranberry farm — 150 acres of bogs in Wisconsin Rapids — has been in the Moss family for over a century. What began as a family operation has evolved into a living laboratory where tradition meets precision agriculture, and the wisdom of generations informs the application of cutting-edge technology.</p>
+                <div class="exhibit-caption">Collection of the Moss Family, est. 1920s</div>
+            </div>
+            <div class="artwork">
+                <img src="../assets/photos/morning_mist.jpeg" alt="Morning mist over the bogs" loading="lazy" style="height: 380px; object-fit: cover;">
+                <div class="artwork-plaque">Morning mist, Elm Lake Cranberry</div>
+            </div>
+        </section>
+
+        <!-- EXHIBIT 3: VENTURES -->
+        <section class="exhibit" id="ventures">
+            <div class="reveal">
+                <div class="exhibit-label"><span class="dot"></span> Room III · The Ventures</div>
+                <h2 class="exhibit-title" style="text-align: center;">A portfolio of purpose.</h2>
+            </div>
+            <div class="ventures-gallery reveal" style="margin-top: 3rem;">
+                <div class="venture-exhibit">
+                    <img src="../assets/logos/ell.png" alt="Elm Lake Labs" class="venture-exhibit-icon">
+                    <div class="venture-exhibit-name">Elm Lake Labs</div>
+                    <div class="venture-exhibit-type">Agricultural Technology</div>
+                    <p class="venture-exhibit-desc">GIS services, drone operations, and autonomous equipment for precision farming.</p>
+                </div>
+                <div class="venture-exhibit">
+                    <img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-exhibit-icon">
+                    <div class="venture-exhibit-name">Blossom</div>
+                    <div class="venture-exhibit-type">Software Platform</div>
+                    <p class="venture-exhibit-desc">Streamlining agricultural operations with intuitive, data-driven software.</p>
+                </div>
+                <div class="venture-exhibit">
+                    <img src="../assets/logos/elc.png" alt="Elm Lake Cranberry" class="venture-exhibit-icon">
+                    <div class="venture-exhibit-name">Elm Lake Cranberry</div>
+                    <div class="venture-exhibit-type">Fourth Generation Farm</div>
+                    <p class="venture-exhibit-desc">150 acres of heritage, now a proving ground for innovation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXHIBIT 4: LEADERSHIP -->
+        <section class="exhibit room-right" id="leadership">
+            <div class="artwork reveal">
+                <img src="../assets/photos/harvest.jpeg" alt="Cranberry harvest" loading="lazy" style="height: 350px; object-fit: cover; width: 100%;">
+                <div class="artwork-plaque">Harvest season, Wisconsin Rapids</div>
+            </div>
+            <div class="reveal">
+                <div class="exhibit-label"><span class="dot"></span> Room IV · Leadership</div>
+                <h2 class="exhibit-title">Roles & stewardship.</h2>
+                <ul class="roles-exhibit">
+                    <li><div class="role-name">Founder & CEO</div><div class="role-org">Elm Lake Labs</div></li>
+                    <li><div class="role-name">Founder</div><div class="role-org">Blossom</div></li>
+                    <li><div class="role-name">Owner & Operator</div><div class="role-org">Elm Lake Cranberry — 4th Generation</div></li>
+                    <li><div class="role-name">President</div><div class="role-org">Wisconsin Cranberry Board</div></li>
+                    <li><div class="role-name">Board of Directors</div><div class="role-org">Ocean Spray — 2026</div></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- GALLERY -->
+        <section class="exhibit" id="gallery">
+            <div class="reveal">
+                <div class="exhibit-label"><span class="dot"></span> Room V · Gallery</div>
+            </div>
+            <div class="gallery-grid reveal">
+                <img src="../assets/photos/hero.jpeg" alt="Aerial view" loading="lazy">
+                <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+                <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+                <img src="../assets/photos/tech_field.jpg" alt="Technology" loading="lazy">
+                <img src="../assets/photos/sprinklers.jpeg" alt="Sprinklers" loading="lazy">
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 John Moss · Wisconsin Rapids, WI · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

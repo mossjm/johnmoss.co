@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 55: Chalk & Whiteboard ===== */
+        /* Hand-drawn aesthetic but polished. Sketch-like elements, organic feel */
+
+        :root {
+            --bg: #F8F6F0;
+            --board: #2C3E2D;
+            --chalk: #E8E4D8;
+            --text: #2C2C28;
+            --text-secondary: #5A5A50;
+            --text-muted: #9A9A8A;
+            --accent: #4A7C59;
+            --accent-light: rgba(74, 124, 89, 0.08);
+            --sketch: #3A3A32;
+            --border: rgba(44,44,40,0.1);
+            --font-hand: 'Caveat', cursive;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --max-width: 960px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+        ::selection { background: var(--accent-light); }
+
+        /* ===== CHALKBOARD HERO ===== */
+        .hero {
+            background: var(--board);
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 6rem 2rem;
+            position: relative;
+            color: var(--chalk);
+            /* Chalk texture */
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' type='fractalNoise'/%3E%3C/filter%3E%3Crect width='40' height='40' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+        .hero-chalk-line {
+            width: 100px; height: 2px;
+            background: rgba(232,228,216,0.3);
+            margin-bottom: 2rem;
+            opacity: 0; animation: drawLine 1s 0.2s forwards;
+        }
+        .hero-photo {
+            width: 160px; height: 160px;
+            border-radius: 50%; object-fit: cover;
+            margin-bottom: 2rem;
+            border: 3px solid rgba(232,228,216,0.3);
+            opacity: 0; animation: fadeIn 1s 0.3s forwards;
+        }
+        .hero-name {
+            font-family: var(--font-hand);
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 700; line-height: 1;
+            margin-bottom: 1rem;
+            opacity: 0; animation: fadeIn 1s 0.5s forwards;
+        }
+        .hero-tagline {
+            font-size: 1rem; font-weight: 300;
+            color: rgba(232,228,216,0.6);
+            max-width: 460px; line-height: 1.8;
+            opacity: 0; animation: fadeIn 1s 0.7s forwards;
+        }
+        .hero-arrow {
+            margin-top: 3rem;
+            font-family: var(--font-hand);
+            font-size: 1.5rem;
+            color: rgba(232,228,216,0.3);
+            animation: bounce 2s infinite;
+            opacity: 0; animation: fadeIn 1s 1s forwards, bounce 2s 2s infinite;
+        }
+        @keyframes drawLine { from { width: 0; opacity: 0; } to { width: 100px; opacity: 1; } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes bounce { 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(8px); } }
+
+        .reveal { opacity:0; transform:translateY(15px); transition:all 0.7s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+
+        /* ===== SECTIONS ===== */
+        .section { max-width: var(--max-width); margin: 0 auto; padding: 5rem 2rem; }
+        .section-label {
+            font-family: var(--font-hand);
+            font-size: 1.2rem; color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-size: 1.75rem; font-weight: 700;
+            letter-spacing: -0.03em; margin-bottom: 1rem;
+        }
+        .section-text {
+            font-size: 0.95rem; color: var(--text-secondary);
+            max-width: 540px; line-height: 1.9; font-weight: 300;
+        }
+
+        /* ===== PHILOSOPHY ===== */
+        .phil-card {
+            background: #FFFDF5;
+            border: 2px dashed var(--border);
+            border-radius: 4px;
+            padding: 2.5rem;
+            position: relative;
+            max-width: 650px;
+            margin: 3rem auto;
+            /* Slight rotation for organic feel */
+            transform: rotate(-0.5deg);
+        }
+        .phil-card::before {
+            content: '💡';
+            position: absolute; top: -15px; left: 2rem;
+            font-size: 1.5rem;
+            background: var(--bg); padding: 0 0.5rem;
+        }
+        .phil-text {
+            font-family: var(--font-hand);
+            font-size: 1.5rem; font-weight: 500;
+            line-height: 1.5; color: var(--sketch);
+        }
+        .phil-attr {
+            font-family: var(--font-body);
+            font-size: 0.7rem; color: var(--text-muted);
+            margin-top: 1rem;
+        }
+
+        /* ===== VENTURES ===== */
+        .ventures-sketch { list-style: none; margin-top: 2rem; }
+        .vs-item {
+            display: flex; gap: 1.5rem; align-items: flex-start;
+            padding: 2rem 0;
+            border-bottom: 2px dashed var(--border);
+        }
+        .vs-item:first-child { border-top: 2px dashed var(--border); }
+        .vs-num {
+            font-family: var(--font-hand);
+            font-size: 2.5rem; font-weight: 700;
+            color: var(--accent); opacity: 0.3;
+            min-width: 50px;
+        }
+        .vs-name { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.15rem; }
+        .vs-type {
+            font-family: var(--font-hand);
+            font-size: 0.9rem; color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .vs-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; }
+
+        /* ===== STATS ===== */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin: 4rem 0; text-align: center; }
+        .stat-val {
+            font-family: var(--font-hand);
+            font-size: 3rem; font-weight: 700;
+            color: var(--accent); line-height: 1;
+        }
+        .stat-lbl { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.25rem; }
+
+        /* ===== ROLES ===== */
+        .roles-list { list-style: none; margin-top: 2rem; }
+        .rl-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 0; border-bottom: 1px dashed var(--border);
+        }
+        .rl-name { font-weight: 600; font-size: 0.9rem; }
+        .rl-org { font-size: 0.75rem; color: var(--text-muted); }
+        .rl-badge {
+            font-family: var(--font-hand);
+            font-size: 0.85rem; color: var(--accent);
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 1rem; margin-top: 2rem;
+        }
+        .gallery-item {
+            position: relative;
+            transform: rotate(var(--rot, 0deg));
+            transition: transform 0.3s;
+        }
+        .gallery-item:nth-child(1) { --rot: -1deg; }
+        .gallery-item:nth-child(2) { --rot: 0.5deg; }
+        .gallery-item:nth-child(3) { --rot: -0.5deg; }
+        .gallery-item:nth-child(4) { --rot: 1deg; }
+        .gallery-item:nth-child(5) { --rot: -0.8deg; }
+        .gallery-item:hover { transform: rotate(0deg) scale(1.02); }
+        .gallery-item img {
+            width: 100%; height: 200px; object-fit: cover;
+            border-radius: 4px; border: 3px solid #FFF;
+            box-shadow: 2px 3px 8px rgba(0,0,0,0.08);
+        }
+        .gallery-item:nth-child(1) { grid-column: span 2; }
+        .gallery-item:nth-child(1) img { height: 280px; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center; padding: 3rem 2rem;
+            border-top: 2px dashed var(--border);
+        }
+        .footer-name { font-family: var(--font-hand); font-size: 1.5rem; color: var(--accent); margin-bottom: 0.5rem; }
+        footer p { font-size: 0.75rem; color: var(--text-muted); }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-item:nth-child(1) { grid-column: span 1; }
+            .gallery-item:nth-child(1) img { height: 200px; }
+            .vs-item { flex-direction: column; gap: 0.5rem; }
+            .rl-item { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="hero-chalk-line"></div>
+        <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+        <h1 class="hero-name">John Moss</h1>
+        <p class="hero-tagline">Entrepreneur, systems thinker, and builder — from ag-tech to four generations of farming in Wisconsin.</p>
+        <div class="hero-arrow">↓</div>
+    </section>
+
+    <div class="section"><div class="phil-card reveal"><p class="phil-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p><div class="phil-attr">— John Moss</div></div></div>
+
+    <section class="section">
+        <div class="reveal"><div class="section-label">About</div><h2 class="section-title">Heritage meets innovation.</h2><p class="section-text">Based in Wisconsin Rapids, John is a fourth-generation cranberry farmer and technology entrepreneur. He manages 150 acres of family land while building companies that bring precision to agriculture.</p></div>
+        <div class="stats-row reveal">
+            <div><div class="stat-val">150</div><div class="stat-lbl">Acres</div></div>
+            <div><div class="stat-val">100+</div><div class="stat-lbl">Years</div></div>
+            <div><div class="stat-val">4th</div><div class="stat-lbl">Generation</div></div>
+            <div><div class="stat-val">3</div><div class="stat-lbl">Companies</div></div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="reveal"><div class="section-label">Ventures</div><h2 class="section-title">What I'm building.</h2></div>
+        <ul class="ventures-sketch reveal">
+            <li class="vs-item"><span class="vs-num">1</span><div><div class="vs-name">Elm Lake Labs</div><div class="vs-type">agricultural technology</div><p class="vs-desc">GIS, drones, FJ Dynamics autonomous equipment, and precision farming.</p></div></li>
+            <li class="vs-item"><span class="vs-num">2</span><div><div class="vs-name">Blossom</div><div class="vs-type">SaaS platform</div><p class="vs-desc">Software streamlining agricultural operations.</p></div></li>
+            <li class="vs-item"><span class="vs-num">3</span><div><div class="vs-name">Elm Lake Cranberry</div><div class="vs-type">family farm · 4th generation</div><p class="vs-desc">150 acres, 100+ years of continuous cultivation.</p></div></li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <div class="reveal"><div class="section-label">Leadership</div><h2 class="section-title">Roles & boards.</h2></div>
+        <ul class="roles-list reveal">
+            <li class="rl-item"><div><div class="rl-name">Founder & CEO</div><div class="rl-org">Elm Lake Labs</div></div><span class="rl-badge">✓ Active</span></li>
+            <li class="rl-item"><div><div class="rl-name">Founder</div><div class="rl-org">Blossom</div></div><span class="rl-badge">✓ Active</span></li>
+            <li class="rl-item"><div><div class="rl-name">Owner</div><div class="rl-org">Elm Lake Cranberry</div></div><span class="rl-badge">4th Gen</span></li>
+            <li class="rl-item"><div><div class="rl-name">President</div><div class="rl-org">Wisconsin Cranberry Board</div></div><span class="rl-badge">Current</span></li>
+            <li class="rl-item"><div><div class="rl-name">Board of Directors</div><div class="rl-org">Ocean Spray</div></div><span class="rl-badge">2026</span></li>
+        </ul>
+    </section>
+
+    <section class="section">
+        <div class="section-label reveal">Gallery</div>
+        <div class="gallery-grid reveal">
+            <div class="gallery-item"><img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy"></div>
+            <div class="gallery-item"><img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy"></div>
+            <div class="gallery-item"><img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy"></div>
+            <div class="gallery-item"><img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy"></div>
+            <div class="gallery-item"><img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy"></div>
+        </div>
+    </section>
+
+    <footer><div class="footer-name">John Moss</div><p>Wisconsin Rapids, WI · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a> · © 2025</p></footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

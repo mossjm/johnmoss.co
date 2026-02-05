@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 52: Stacked Cards ===== */
+        /* Full-screen cards that stack/overlap as you scroll. Each card is a section */
+
+        :root {
+            --font: 'Albert Sans', -apple-system, sans-serif;
+            --radius: 24px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: #111; color: #FFF; line-height: 1.6; overflow-x: hidden; }
+        ::selection { background: rgba(255,255,255,0.15); }
+
+        .cards-container {
+            position: relative;
+            padding-bottom: 100vh;
+        }
+
+        .card {
+            position: sticky;
+            top: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+            border-radius: var(--radius) var(--radius) 0 0;
+            overflow: hidden;
+            will-change: transform;
+        }
+        .card-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Card 1: Hero — White */
+        .card-1 { background: #FFFFFF; color: #1A1A1A; z-index: 1; }
+        .card-1 .card-label { color: #666; }
+        /* Card 2: Philosophy — Deep Green */
+        .card-2 { background: #1B3A2D; color: #E8F0E8; z-index: 2; }
+        .card-2 .card-label { color: #7FC49E; }
+        /* Card 3: Ventures — Cream */
+        .card-3 { background: #F5F0E4; color: #2A2520; z-index: 3; }
+        .card-3 .card-label { color: #8B7355; }
+        /* Card 4: Leadership — Dark Navy */
+        .card-4 { background: #0F1728; color: #D0D4E0; z-index: 4; }
+        .card-4 .card-label { color: #5B7FDB; }
+        /* Card 5: Gallery — Warm Gray */
+        .card-5 { background: #2A2826; color: #E8E4DE; z-index: 5; }
+        .card-5 .card-label { color: #D4A574; }
+        /* Card 6: Contact — Black */
+        .card-6 { background: #0A0A0A; color: #FFFFFF; z-index: 6; }
+
+        .card-label {
+            font-size: 0.65rem; font-weight: 600;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .card-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800; letter-spacing: -0.04em;
+            line-height: 1.1; margin-bottom: 1.5rem;
+        }
+        .card-text {
+            font-size: 1.05rem; font-weight: 300;
+            max-width: 560px; line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        /* ===== HERO SPECIFICS ===== */
+        .hero-top { display: flex; align-items: center; gap: 2rem; margin-bottom: 3rem; }
+        .hero-photo {
+            width: 120px; height: 120px;
+            border-radius: 50%; object-fit: cover;
+            flex-shrink: 0;
+        }
+        .hero-meta {}
+        .hero-name {
+            font-size: clamp(3rem, 7vw, 4.5rem);
+            font-weight: 800; letter-spacing: -0.04em; line-height: 1;
+        }
+        .hero-sub { font-size: 0.9rem; color: #666; margin-top: 0.5rem; }
+
+        /* ===== PHILOSOPHY ===== */
+        .phil-text {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 400; line-height: 1.7;
+            max-width: 600px;
+        }
+
+        /* ===== VENTURES ===== */
+        .ventures-list { list-style: none; margin-top: 2rem; }
+        .v-item {
+            display: flex; gap: 2rem; align-items: flex-start;
+            padding: 2rem 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+        .v-item:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+        .v-num { font-size: 2rem; font-weight: 800; opacity: 0.15; min-width: 50px; }
+        .v-name { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .v-type { font-size: 0.65rem; font-weight: 600; color: #8B7355; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .v-desc { font-size: 0.9rem; opacity: 0.7; line-height: 1.7; }
+
+        /* ===== STATS ===== */
+        .stats-row {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 2rem; margin-top: 3rem; text-align: center;
+        }
+        .stat-val { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.03em; }
+        .card-4 .stat-val { color: #5B7FDB; }
+        .stat-lbl { font-size: 0.7rem; opacity: 0.5; margin-top: 0.25rem; }
+
+        /* ===== ROLES ===== */
+        .roles-list { list-style: none; margin-top: 2rem; }
+        .r-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .r-name { font-weight: 600; font-size: 0.95rem; }
+        .r-org { font-size: 0.8rem; opacity: 0.5; }
+        .r-badge { font-size: 0.6rem; padding: 0.2rem 0.6rem; border-radius: 100px; background: rgba(91,127,219,0.1); color: #5B7FDB; font-weight: 600; }
+
+        /* ===== GALLERY ===== */
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem; margin-top: 2rem;
+        }
+        .gallery-grid img {
+            width: 100%; height: 200px; object-fit: cover;
+            border-radius: 12px; transition: transform 0.3s;
+        }
+        .gallery-grid img:hover { transform: scale(1.02); }
+        .gallery-grid img:nth-child(1) { grid-column: span 2; height: 280px; }
+
+        /* ===== CONTACT ===== */
+        .contact-content { text-align: center; }
+        .contact-name {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800; letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+        .contact-info { font-size: 0.85rem; opacity: 0.5; }
+        .contact-info a { color: #FFF; text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .hero-top { flex-direction: column; text-align: center; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .gallery-grid img:nth-child(1) { grid-column: span 1; height: 200px; }
+            .v-item { flex-direction: column; gap: 0.5rem; }
+            .r-item { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="cards-container">
+        <!-- CARD 1: HERO -->
+        <section class="card card-1">
+            <div class="card-inner">
+                <div class="card-label">Personal Website</div>
+                <div class="hero-top">
+                    <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+                    <div class="hero-meta">
+                        <h1 class="hero-name">John Moss</h1>
+                        <p class="hero-sub">Entrepreneur · Builder · Leader · Wisconsin Rapids, WI</p>
+                    </div>
+                </div>
+                <p class="card-text">Building systems that turn chaos into clarity — from ag-tech innovation to four generations of family farming.</p>
+            </div>
+        </section>
+
+        <!-- CARD 2: PHILOSOPHY -->
+        <section class="card card-2">
+            <div class="card-inner">
+                <div class="card-label">Philosophy</div>
+                <p class="phil-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+            </div>
+        </section>
+
+        <!-- CARD 3: VENTURES -->
+        <section class="card card-3">
+            <div class="card-inner">
+                <div class="card-label">Ventures</div>
+                <h2 class="card-title">What I'm building.</h2>
+                <ul class="ventures-list">
+                    <li class="v-item"><span class="v-num">01</span><div><div class="v-name">Elm Lake Labs</div><div class="v-type">Ag-Tech</div><p class="v-desc">GIS services, drone operations, FJ Dynamics autonomous equipment, and precision farming.</p></div></li>
+                    <li class="v-item"><span class="v-num">02</span><div><div class="v-name">Blossom</div><div class="v-type">SaaS</div><p class="v-desc">Software platform streamlining agricultural operations with intuitive tools.</p></div></li>
+                    <li class="v-item"><span class="v-num">03</span><div><div class="v-name">Elm Lake Cranberry</div><div class="v-type">Agriculture</div><p class="v-desc">150-acre fourth-generation family cranberry farm, 100+ years of heritage.</p></div></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CARD 4: LEADERSHIP -->
+        <section class="card card-4">
+            <div class="card-inner">
+                <div class="card-label">Leadership</div>
+                <h2 class="card-title">Roles & boards.</h2>
+                <div class="stats-row">
+                    <div><div class="stat-val">150</div><div class="stat-lbl">Acres</div></div>
+                    <div><div class="stat-val">100+</div><div class="stat-lbl">Years</div></div>
+                    <div><div class="stat-val">4th</div><div class="stat-lbl">Generation</div></div>
+                    <div><div class="stat-val">3</div><div class="stat-lbl">Companies</div></div>
+                </div>
+                <ul class="roles-list">
+                    <li class="r-item"><div><div class="r-name">Founder & CEO</div><div class="r-org">Elm Lake Labs</div></div><span class="r-badge">Active</span></li>
+                    <li class="r-item"><div><div class="r-name">Founder</div><div class="r-org">Blossom</div></div><span class="r-badge">Active</span></li>
+                    <li class="r-item"><div><div class="r-name">President</div><div class="r-org">Wisconsin Cranberry Board</div></div><span class="r-badge">Current</span></li>
+                    <li class="r-item"><div><div class="r-name">Board of Directors</div><div class="r-org">Ocean Spray</div></div><span class="r-badge">2026</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CARD 5: GALLERY -->
+        <section class="card card-5">
+            <div class="card-inner">
+                <div class="card-label">Gallery</div>
+                <h2 class="card-title">The land.</h2>
+                <div class="gallery-grid">
+                    <img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy">
+                    <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+                    <img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy">
+                    <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+                    <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- CARD 6: CONTACT -->
+        <section class="card card-6">
+            <div class="card-inner contact-content">
+                <div class="contact-name">John Moss</div>
+                <p class="contact-info">Wisconsin Rapids, WI · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p>
+                <p class="contact-info" style="margin-top: 0.5rem;">© 2025</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

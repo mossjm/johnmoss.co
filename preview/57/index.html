@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 57: Blueprint ===== */
+        /* Technical drawing aesthetic. Grid paper, annotation-style labels, precision */
+
+        :root {
+            --bg: #1A2740;
+            --bg-light: #213153;
+            --grid-line: rgba(100,150,220,0.08);
+            --text: #C8D8F0;
+            --text-secondary: #8098B8;
+            --text-muted: #506680;
+            --accent: #4DACFF;
+            --white: #FFFFFF;
+            --border: rgba(77,172,255,0.15);
+            --font: 'IBM Plex Sans', -apple-system, sans-serif;
+            --font-mono: 'IBM Plex Mono', monospace;
+            --max-width: 1000px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            /* Blueprint grid */
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        ::selection { background: rgba(77,172,255,0.2); }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 48px; display: flex; align-items: center; justify-content: center;
+            background: rgba(26,39,64,0.95); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; max-width: var(--max-width); padding: 0 2rem;
+        }
+        .nav-brand { font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem; color: var(--accent); }
+        .nav-info { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 6rem 2rem; max-width: var(--max-width); margin: 0 auto;
+        }
+        .hero-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center; width: 100%;
+        }
+        .hero-photo-frame { position: relative; }
+        .hero-photo {
+            width: 220px; height: 280px; object-fit: cover;
+            border: 1px solid var(--border);
+            opacity: 0; animation: fadeIn 0.8s 0.3s forwards;
+        }
+        /* Dimension annotations */
+        .dim-h, .dim-v {
+            position: absolute;
+            font-family: var(--font-mono);
+            font-size: 0.5rem; color: var(--accent);
+        }
+        .dim-h { bottom: -20px; left: 0; width: 220px; text-align: center; border-top: 1px solid var(--accent); padding-top: 2px; }
+        .dim-v { top: 0; right: -40px; height: 280px; writing-mode: vertical-lr; text-align: center; border-left: 1px solid var(--accent); padding-left: 4px; }
+        /* Crosshair */
+        .crosshair { position: absolute; top: -8px; left: -8px; width: 16px; height: 16px; }
+        .crosshair::before, .crosshair::after { content: ''; position: absolute; background: var(--accent); }
+        .crosshair::before { width: 1px; height: 100%; left: 50%; }
+        .crosshair::after { width: 100%; height: 1px; top: 50%; }
+
+        .hero-text {}
+        .hero-ref { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); margin-bottom: 1rem; }
+        .hero-name {
+            font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700;
+            letter-spacing: -0.03em; line-height: 1.1;
+            color: var(--white); margin-bottom: 1.5rem;
+            opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+        }
+        .hero-desc {
+            font-size: 0.95rem; color: var(--text-secondary);
+            max-width: 400px; line-height: 1.8;
+            opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+        }
+        .hero-specs {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 1rem; margin-top: 2rem;
+            font-family: var(--font-mono); font-size: 0.65rem;
+            opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+        }
+        .spec-label { color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+        .spec-value { color: var(--accent); font-weight: 600; margin-top: 0.15rem; }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .reveal { opacity:0; transform:translateY(15px); transition:all 0.7s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+
+        /* ===== SECTIONS ===== */
+        .section { max-width: var(--max-width); margin: 0 auto; padding: 5rem 2rem; }
+        .section-header {
+            display: flex; align-items: baseline; gap: 1rem;
+            padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+            margin-bottom: 2rem;
+        }
+        .section-num { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); }
+        .section-title { font-size: 1.25rem; font-weight: 600; color: var(--white); }
+
+        /* ===== PHILOSOPHY ===== */
+        .phil-block {
+            border: 1px solid var(--border);
+            padding: 2rem; position: relative;
+            margin: 3rem auto; max-width: 650px;
+        }
+        .phil-block::before {
+            content: 'NOTE'; position: absolute; top: -8px; left: 1rem;
+            font-family: var(--font-mono); font-size: 0.5rem; color: var(--accent);
+            background: var(--bg); padding: 0 0.5rem; letter-spacing: 0.1em;
+        }
+        .phil-text { font-size: 1rem; line-height: 1.7; color: var(--text); }
+        .phil-attr { font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); margin-top: 1rem; }
+
+        /* ===== VENTURES ===== */
+        .ventures-table {
+            width: 100%; border-collapse: collapse;
+            font-size: 0.85rem; margin-top: 1rem;
+        }
+        .ventures-table th {
+            font-family: var(--font-mono); font-size: 0.55rem;
+            color: var(--text-muted); text-transform: uppercase;
+            letter-spacing: 0.1em; text-align: left;
+            padding: 0.5rem; border-bottom: 1px solid var(--border);
+        }
+        .ventures-table td {
+            padding: 0.75rem 0.5rem; border-bottom: 1px solid rgba(77,172,255,0.06);
+        }
+        .ventures-table .name { font-weight: 600; color: var(--white); }
+        .ventures-table .status { font-family: var(--font-mono); font-size: 0.6rem; color: var(--accent); }
+
+        /* ===== IMAGES ===== */
+        .images-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 2rem; }
+        .images-row img {
+            width: 100%; height: 180px; object-fit: cover;
+            border: 1px solid var(--border);
+            filter: brightness(0.8) saturate(0.8); transition: filter 0.3s;
+        }
+        .images-row img:hover { filter: brightness(1) saturate(1); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            max-width: var(--max-width); margin: 0 auto;
+            padding: 2rem; display: flex; justify-content: space-between;
+            border-top: 1px solid var(--border);
+            font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero-photo { width: 180px; height: 230px; }
+            .dim-h { width: 180px; }
+            .images-row { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <nav><div class="nav-inner"><div class="nav-brand">JOHN MOSS</div><div class="nav-info">BLUEPRINT REV. 2025-A</div></div></nav>
+
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-photo-frame">
+                <div class="crosshair"></div>
+                <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+                <div class="dim-h">220px</div>
+                <div class="dim-v">280px</div>
+            </div>
+            <div class="hero-text">
+                <div class="hero-ref">REF: JM-PROFILE-001</div>
+                <h1 class="hero-name">John Moss</h1>
+                <p class="hero-desc">Entrepreneur, systems thinker, and builder — architecting technology solutions from a four-generation family farm.</p>
+                <div class="hero-specs">
+                    <div><div class="spec-label">Location</div><div class="spec-value">Wisconsin Rapids, WI</div></div>
+                    <div><div class="spec-label">Coordinates</div><div class="spec-value">44.3836°N 89.8171°W</div></div>
+                    <div><div class="spec-label">Acreage</div><div class="spec-value">150 acres</div></div>
+                    <div><div class="spec-label">Generation</div><div class="spec-value">4th (100+ yrs)</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section"><div class="phil-block reveal"><p class="phil-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p><div class="phil-attr">— JOHN MOSS / PHILOSOPHY</div></div></div>
+
+    <section class="section">
+        <div class="section-header reveal"><span class="section-num">SECTION 01</span><h2 class="section-title">Ventures</h2></div>
+        <table class="ventures-table reveal">
+            <thead><tr><th>Entity</th><th>Sector</th><th>Description</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td class="name">Elm Lake Labs</td><td>Ag-Tech</td><td>GIS, drones, autonomous equipment</td><td class="status">ACTIVE</td></tr>
+                <tr><td class="name">Blossom</td><td>SaaS</td><td>Agricultural operations platform</td><td class="status">ACTIVE</td></tr>
+                <tr><td class="name">Elm Lake Cranberry</td><td>Agriculture</td><td>150-acre 4th gen farm</td><td class="status">ACTIVE</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="section">
+        <div class="section-header reveal"><span class="section-num">SECTION 02</span><h2 class="section-title">Leadership</h2></div>
+        <table class="ventures-table reveal">
+            <thead><tr><th>Position</th><th>Organization</th><th>Status</th></tr></thead>
+            <tbody>
+                <tr><td class="name">Founder & CEO</td><td>Elm Lake Labs</td><td class="status">ACTIVE</td></tr>
+                <tr><td class="name">Founder</td><td>Blossom</td><td class="status">ACTIVE</td></tr>
+                <tr><td class="name">Owner & Operator</td><td>Elm Lake Cranberry</td><td class="status">4TH GEN</td></tr>
+                <tr><td class="name">President</td><td>Wisconsin Cranberry Board</td><td class="status">CURRENT</td></tr>
+                <tr><td class="name">Board of Directors</td><td>Ocean Spray</td><td class="status">2026</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="section">
+        <div class="section-header reveal"><span class="section-num">SECTION 03</span><h2 class="section-title">Visual Documentation</h2></div>
+        <div class="images-row reveal">
+            <img src="../assets/photos/hero.jpeg" alt="Aerial" loading="lazy">
+            <img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy">
+            <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+            <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+        </div>
+    </section>
+
+    <footer><span>© 2025 JOHN MOSS · WISCONSIN RAPIDS, WI</span><a href="mailto:john@johnmoss.co">JOHN@JOHNMOSS.CO</a></footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

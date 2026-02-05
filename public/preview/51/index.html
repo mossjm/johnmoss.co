@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 51: Monogram ===== */
+        /* Built around a strong "JM" monogram/logo. Brand-identity forward */
+
+        :root {
+            --bg: #FAFAF8;
+            --bg-dark: #1A1A18;
+            --surface: #FFFFFF;
+            --text: #1A1A18;
+            --text-secondary: #5A5A56;
+            --text-muted: #9A9A96;
+            --accent: #2D5016;
+            --accent-light: rgba(45, 80, 22, 0.06);
+            --gold: #B8956A;
+            --border: rgba(26, 26, 24, 0.08);
+            --font-display: 'DM Serif Display', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --max-width: 960px;
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font-body); background: var(--bg); color: var(--text); line-height: 1.7; overflow-x: hidden; }
+        ::selection { background: var(--accent-light); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 6rem 2rem;
+            position: relative;
+        }
+        /* Giant monogram background */
+        .monogram-bg {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: clamp(20rem, 40vw, 35rem);
+            font-weight: 400;
+            color: rgba(45, 80, 22, 0.03);
+            line-height: 0.8;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-monogram {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            line-height: 1;
+            position: relative;
+            display: inline-block;
+            opacity: 0; animation: fadeIn 1s 0.2s forwards;
+        }
+        .hero-monogram::after {
+            content: '';
+            position: absolute;
+            bottom: -8px; left: 50%;
+            transform: translateX(-50%);
+            width: 30px; height: 2px;
+            background: var(--gold);
+        }
+        .hero-photo {
+            width: 140px; height: 140px;
+            border-radius: 50%; object-fit: cover;
+            margin-bottom: 2rem;
+            border: 3px solid var(--accent);
+            opacity: 0; animation: fadeIn 1s 0.4s forwards;
+        }
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 400; line-height: 1.1;
+            margin-bottom: 1rem;
+            opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+        }
+        .hero-tagline {
+            font-size: 1.05rem; font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 480px; line-height: 1.8;
+            opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes fadeUp { from { opacity:0; transform:translateY(15px); } to { opacity:1; transform:translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== NAV (below hero) ===== */
+        .sticky-nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(250,250,248,0.95); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+        }
+        .sticky-nav-inner {
+            max-width: var(--max-width); margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .sticky-nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.2rem; color: var(--accent);
+        }
+        .sticky-nav-links { display: flex; gap: 2rem; list-style: none; }
+        .sticky-nav-links a {
+            text-decoration: none; color: var(--text-muted);
+            font-size: 0.8rem; font-weight: 500; transition: color 0.2s;
+        }
+        .sticky-nav-links a:hover { color: var(--accent); }
+
+        /* ===== SECTIONS ===== */
+        .section { max-width: var(--max-width); margin: 0 auto; padding: 5rem 2rem; }
+        .section-dark { background: var(--bg-dark); color: #F0EDE8; max-width: none; padding: 5rem 2rem; }
+        .section-dark .section-inner { max-width: var(--max-width); margin: 0 auto; }
+        .section-label { font-size: 0.65rem; font-weight: 600; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+        .section-dark .section-label { color: var(--gold); }
+        .section-title { font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 400; line-height: 1.2; margin-bottom: 1rem; }
+        .section-desc { font-size: 1rem; font-weight: 300; color: var(--text-secondary); max-width: 540px; line-height: 1.8; }
+        .section-dark .section-desc { color: #9A9590; }
+
+        /* ===== PHILOSOPHY ===== */
+        .philosophy-block {
+            border-left: 3px solid var(--accent);
+            padding: 2rem 3rem;
+            margin: 3rem 0;
+        }
+        .philosophy-text {
+            font-family: var(--font-display);
+            font-size: 1.35rem; font-weight: 400; font-style: italic;
+            line-height: 1.6;
+        }
+        .philosophy-attr { font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem; }
+
+        /* ===== VENTURES ===== */
+        .ventures-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+        .venture-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 2rem;
+            transition: all 0.3s; position: relative;
+        }
+        .venture-card::before {
+            content: ''; position: absolute; top: 1.5rem; right: 1.5rem;
+            font-family: var(--font-display); font-size: 2rem;
+            color: rgba(45, 80, 22, 0.05);
+        }
+        .venture-card:nth-child(1)::before { content: 'E'; }
+        .venture-card:nth-child(2)::before { content: 'B'; }
+        .venture-card:nth-child(3)::before { content: 'E'; }
+        .venture-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        .venture-icon { width: 40px; height: 40px; object-fit: contain; margin-bottom: 1rem; opacity: 0.6; }
+        .venture-name { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 0.25rem; }
+        .venture-type { font-size: 0.65rem; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+        .venture-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; font-weight: 300; }
+
+        /* ===== STATS ===== */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin: 4rem 0; text-align: center; }
+        .stat-value { font-family: var(--font-display); font-size: 2.5rem; color: var(--gold); line-height: 1; }
+        .stat-label { font-size: 0.7rem; color: #9A9590; margin-top: 0.5rem; }
+
+        /* ===== ROLES ===== */
+        .roles-list { list-style: none; margin-top: 2rem; }
+        .role-item { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        .role-name { font-family: var(--font-display); font-size: 1rem; }
+        .role-org { font-size: 0.8rem; color: #9A9590; }
+        .role-badge { font-size: 0.6rem; padding: 0.2rem 0.75rem; border-radius: 100px; background: rgba(184,149,106,0.1); color: var(--gold); font-weight: 600; }
+
+        /* ===== IMAGES ===== */
+        .images-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+        .images-grid img { width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius); transition: transform 0.4s; }
+        .images-grid img:hover { transform: scale(1.02); }
+        .images-grid img:nth-child(1) { grid-column: span 2; height: 300px; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center; padding: 4rem 2rem; border-top: 1px solid var(--border);
+        }
+        .footer-monogram { font-family: var(--font-display); font-size: 2rem; color: var(--accent); margin-bottom: 1rem; }
+        footer p { font-size: 0.75rem; color: var(--text-muted); }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .sticky-nav-links { display: none; }
+            .ventures-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .images-grid { grid-template-columns: 1fr; }
+            .images-grid img:nth-child(1) { grid-column: span 1; height: 220px; }
+            .role-item { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .philosophy-block { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="monogram-bg">JM</div>
+        <div class="hero-content">
+            <div class="hero-monogram">JM</div>
+            <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+            <h1 class="hero-name">John Moss</h1>
+            <p class="hero-tagline">Entrepreneur, systems thinker, and builder — creating lasting infrastructure at the intersection of heritage and innovation.</p>
+        </div>
+    </section>
+
+    <div class="sticky-nav">
+        <div class="sticky-nav-inner">
+            <div class="sticky-nav-brand">JM</div>
+            <ul class="sticky-nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#ventures">Ventures</a></li>
+                <li><a href="#leadership">Leadership</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <section class="section" id="about">
+        <div class="reveal">
+            <div class="section-label">About</div>
+            <h2 class="section-title">Heritage meets innovation.</h2>
+            <p class="section-desc">Based in Wisconsin Rapids, John Moss bridges four generations of cranberry farming with cutting-edge technology. At 40, he manages a 150-acre family farm while building companies that bring precision and clarity to modern agriculture.</p>
+        </div>
+        <div class="philosophy-block reveal">
+            <p class="philosophy-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+            <div class="philosophy-attr">— John Moss</div>
+        </div>
+    </section>
+
+    <section class="section" id="ventures">
+        <div class="reveal"><div class="section-label">Ventures</div><h2 class="section-title">What I'm building.</h2></div>
+        <div class="ventures-grid reveal">
+            <div class="venture-card"><img src="../assets/logos/ell.png" alt="ELL" class="venture-icon"><div class="venture-name">Elm Lake Labs</div><div class="venture-type">Ag-Tech</div><p class="venture-desc">GIS, drones, and autonomous equipment for precision agriculture.</p></div>
+            <div class="venture-card"><img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-icon"><div class="venture-name">Blossom</div><div class="venture-type">SaaS</div><p class="venture-desc">Software platform streamlining agricultural operations.</p></div>
+            <div class="venture-card"><img src="../assets/logos/elc.png" alt="ELC" class="venture-icon"><div class="venture-name">Elm Lake Cranberry</div><div class="venture-type">Agriculture</div><p class="venture-desc">150-acre fourth-gen family farm, 100+ years.</p></div>
+        </div>
+    </section>
+
+    <section class="section-dark" id="leadership">
+        <div class="section-inner">
+            <div class="reveal"><div class="section-label">Leadership</div><h2 class="section-title">Roles & boards.</h2></div>
+            <div class="stats-grid reveal">
+                <div><div class="stat-value">150</div><div class="stat-label">Acres</div></div>
+                <div><div class="stat-value">100+</div><div class="stat-label">Years</div></div>
+                <div><div class="stat-value">4th</div><div class="stat-label">Generation</div></div>
+                <div><div class="stat-value">3</div><div class="stat-label">Companies</div></div>
+            </div>
+            <ul class="roles-list reveal">
+                <li class="role-item"><div><div class="role-name">Founder & CEO</div><div class="role-org">Elm Lake Labs</div></div><span class="role-badge">Active</span></li>
+                <li class="role-item"><div><div class="role-name">Founder</div><div class="role-org">Blossom</div></div><span class="role-badge">Active</span></li>
+                <li class="role-item"><div><div class="role-name">Owner & Operator</div><div class="role-org">Elm Lake Cranberry</div></div><span class="role-badge">4th Gen</span></li>
+                <li class="role-item"><div><div class="role-name">President</div><div class="role-org">Wisconsin Cranberry Board</div></div><span class="role-badge">Current</span></li>
+                <li class="role-item"><div><div class="role-name">Board of Directors</div><div class="role-org">Ocean Spray</div></div><span class="role-badge">2026</span></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-label reveal">Gallery</div>
+        <div class="images-grid reveal">
+            <img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy">
+            <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+            <img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy">
+            <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+            <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-monogram">JM</div>
+        <p>© 2025 John Moss · Wisconsin Rapids, WI · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

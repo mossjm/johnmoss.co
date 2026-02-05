@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <meta name="description" content="John Moss — Entrepreneur, ag-tech founder, and systems builder from Wisconsin Rapids.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 32: Notion-Style ===== */
+        /* Clean, system-font feel, toggle sections, wiki-like but beautiful */
+
+        :root {
+            --bg: #FFFFFF;
+            --bg-hover: #F7F7F5;
+            --bg-toggle: #F1F1EF;
+            --text: #37352F;
+            --text-secondary: #787774;
+            --text-light: #9B9A97;
+            --accent: #2EAADC;
+            --accent-bg: rgba(46, 170, 220, 0.08);
+            --red: #E03E3E;
+            --orange: #D9730D;
+            --green: #0F7B6C;
+            --purple: #6940A5;
+            --blue: #0B6E99;
+            --border: rgba(55, 53, 47, 0.09);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
+            --content-width: 720px;
+            --page-padding: max(2rem, calc((100vw - var(--content-width)) / 2));
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        ::selection { background: var(--accent-bg); }
+
+        /* ===== COVER ===== */
+        .cover {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #FFF3E0 0%, #E8F5E9 50%, #E3F2FD 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .cover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(transparent, var(--bg));
+        }
+        .cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        /* ===== PAGE WRAPPER ===== */
+        .page {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        /* ===== PROFILE ===== */
+        .profile-section {
+            display: flex;
+            align-items: flex-end;
+            gap: 1.5rem;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 1.5rem;
+        }
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 4px solid var(--bg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            flex-shrink: 0;
+        }
+        .profile-meta {
+            padding-bottom: 0.5rem;
+        }
+        .profile-emoji {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        /* ===== TITLE ===== */
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        /* ===== PROPERTIES TABLE ===== */
+        .properties {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 1.5rem;
+        }
+        .property-row {
+            display: flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 2px 0;
+        }
+        .property-label {
+            width: 160px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .property-label .icon {
+            width: 16px;
+            opacity: 0.5;
+        }
+        .property-value {
+            font-size: 0.875rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        .tag-blue { background: rgba(11, 110, 153, 0.1); color: var(--blue); }
+        .tag-green { background: rgba(15, 123, 108, 0.1); color: var(--green); }
+        .tag-orange { background: rgba(217, 115, 13, 0.1); color: var(--orange); }
+        .tag-purple { background: rgba(105, 64, 165, 0.1); color: var(--purple); }
+        .tag-red { background: rgba(224, 62, 62, 0.1); color: var(--red); }
+
+        /* ===== CONTENT BLOCKS ===== */
+        .content h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-top: 2.5rem;
+            margin-bottom: 0.75rem;
+            padding-top: 1rem;
+        }
+        .content h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .content p {
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .content p.muted {
+            color: var(--text-secondary);
+        }
+
+        /* ===== CALLOUT ===== */
+        .callout {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            background: var(--bg-hover);
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            align-items: flex-start;
+        }
+        .callout-emoji {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            line-height: 1.5;
+        }
+        .callout-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        /* ===== TOGGLE SECTIONS ===== */
+        .toggle {
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+        .toggle-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            user-select: none;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text);
+            transition: background 0.15s ease;
+        }
+        .toggle-header:hover {
+            background: var(--bg-hover);
+        }
+        .toggle-arrow {
+            transition: transform 0.2s ease;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+        }
+        .toggle.open .toggle-arrow {
+            transform: rotate(90deg);
+        }
+        .toggle-content {
+            padding: 0 1rem 1rem 2rem;
+            display: none;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+        .toggle.open .toggle-content {
+            display: block;
+        }
+
+        /* ===== TABLE ===== */
+        .notion-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+        }
+        .notion-table th {
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.8rem;
+        }
+        .notion-table td {
+            padding: 0.5rem 0.75rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .notion-table tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        /* ===== INLINE CODE ===== */
+        code {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            padding: 2px 5px;
+            background: var(--bg-toggle);
+            border-radius: 3px;
+            color: var(--red);
+        }
+
+        /* ===== DIVIDER ===== */
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 2rem 0;
+        }
+
+        /* ===== IMAGE GALLERY ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: opacity 0.2s ease;
+            cursor: pointer;
+        }
+        .gallery-grid img:hover {
+            opacity: 0.85;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            margin-bottom: 0.5rem;
+        }
+        .breadcrumb span {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+        .breadcrumb a {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            color: var(--text);
+        }
+
+        /* ===== SIDEBAR-STYLE TOC ===== */
+        .toc {
+            position: fixed;
+            left: calc((100vw - var(--content-width)) / 2 - 220px);
+            top: 200px;
+            width: 200px;
+            font-size: 0.8rem;
+        }
+        .toc-title {
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+        .toc a {
+            display: block;
+            padding: 3px 0 3px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.15s ease;
+        }
+        .toc a:hover {
+            color: var(--text);
+        }
+        .toc a.active {
+            color: var(--text);
+            border-left-color: var(--text);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(8px);
+            animation: notionFadeIn 0.5s ease forwards;
+        }
+        .fade-in:nth-child(2) { animation-delay: 0.05s; }
+        .fade-in:nth-child(3) { animation-delay: 0.1s; }
+        .fade-in:nth-child(4) { animation-delay: 0.15s; }
+        .fade-in:nth-child(5) { animation-delay: 0.2s; }
+
+        @keyframes notionFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .toc { display: none; }
+        }
+        @media (max-width: 768px) {
+            .cover { height: 180px; }
+            .profile-section { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .profile-photo { width: 90px; height: 90px; }
+            .page { padding: 0 1.25rem; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .property-row { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+            .property-label { width: auto; }
+            .page-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COVER IMAGE -->
+    <div class="cover">
+        <img src="../assets/photos/morning_mist.jpeg" alt="Cover" class="cover-img">
+    </div>
+
+    <!-- TABLE OF CONTENTS (Desktop sidebar) -->
+    <nav class="toc">
+        <div class="toc-title">On This Page</div>
+        <a href="#about" class="active">About</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="#ventures">Ventures</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#roots">Roots</a>
+        <a href="#gallery">Gallery</a>
+    </nav>
+
+    <!-- PAGE CONTENT -->
+    <div class="page">
+        <!-- Profile -->
+        <div class="profile-section fade-in">
+            <img src="../assets/profile.jpg" alt="John Moss" class="profile-photo">
+            <div class="profile-meta">
+                <div class="profile-emoji">🌿</div>
+            </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="page-title fade-in">John Moss</h1>
+
+        <!-- Properties -->
+        <div class="properties fade-in">
+            <div class="property-row">
+                <div class="property-label">
+                    <span class="icon">📍</span> Location
+                </div>
+                <div class="property-value">Wisconsin Rapids, Wisconsin</div>
+            </div>
+            <div class="property-row">
+                <div class="property-label">
+                    <span class="icon">💼</span> Role
+                </div>
+                <div class="property-value">
+                    <span class="tag tag-blue">Entrepreneur</span>
+                    <span class="tag tag-green">Farmer</span>
+                    <span class="tag tag-purple">Board Director</span>
+                </div>
+            </div>
+            <div class="property-row">
+                <div class="property-label">
+                    <span class="icon">🏢</span> Companies
+                </div>
+                <div class="property-value">
+                    <span class="tag tag-orange">Elm Lake Labs</span>
+                    <span class="tag tag-blue">Blossom</span>
+                    <span class="tag tag-green">Elm Lake Cranberry</span>
+                </div>
+            </div>
+            <div class="property-row">
+                <div class="property-label">
+                    <span class="icon">🔗</span> Tags
+                </div>
+                <div class="property-value">
+                    <span class="tag tag-purple">Ag-Tech</span>
+                    <span class="tag tag-green">Systems Thinking</span>
+                    <span class="tag tag-blue">GIS/Drones</span>
+                    <span class="tag tag-red">Leadership</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            <section id="about">
+                <h2>About</h2>
+                <p>I'm a fourth-generation cranberry farmer turned technology entrepreneur based in Wisconsin Rapids. I build companies at the intersection of agriculture and technology — tools that reduce friction, create leverage, and leave people more capable than when I found them.</p>
+                <p>At 40, I run multiple ventures while managing a 150-acre family cranberry farm that's been in operation for over a century. My work spans precision agriculture, SaaS development, autonomous equipment, and industry leadership.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="philosophy">
+                <h2>Philosophy</h2>
+                <div class="callout">
+                    <div class="callout-emoji">💡</div>
+                    <div class="callout-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</div>
+                </div>
+                <p class="muted">Everything I build follows this principle. Whether it's software, a farm operation, or an organization — the goal is always to create lasting infrastructure that makes everything around it work better.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="ventures">
+                <h2>Ventures</h2>
+                <p class="muted">A portfolio of interconnected companies, each solving real problems.</p>
+
+                <div class="toggle open">
+                    <button class="toggle-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="toggle-arrow">▶</span>
+                        <strong>Elm Lake Labs</strong> — Agricultural Technology
+                    </button>
+                    <div class="toggle-content">
+                        Ag-tech company delivering GIS services, drone operations, FJ Dynamics autonomous equipment dealership, and precision farming solutions. We bring cutting-edge technology to farms that need it most.
+                    </div>
+                </div>
+
+                <div class="toggle">
+                    <button class="toggle-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="toggle-arrow">▶</span>
+                        <strong>Blossom</strong> — SaaS Platform
+                    </button>
+                    <div class="toggle-content">
+                        Software platform streamlining agricultural operations. Built for the people who grow our food — intuitive, powerful, and designed to reduce the complexity of modern farming.
+                    </div>
+                </div>
+
+                <div class="toggle">
+                    <button class="toggle-header" onclick="this.parentElement.classList.toggle('open')">
+                        <span class="toggle-arrow">▶</span>
+                        <strong>Elm Lake Cranberry</strong> — Family Farm
+                    </button>
+                    <div class="toggle-content">
+                        150-acre fourth-generation family cranberry farm, operating for 100+ years. A living laboratory for testing and implementing the technologies we develop, while honoring a century of agricultural tradition.
+                    </div>
+                </div>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="leadership">
+                <h2>Leadership & Boards</h2>
+                <table class="notion-table">
+                    <thead>
+                        <tr>
+                            <th>Position</th>
+                            <th>Organization</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Founder & CEO</td>
+                            <td>Elm Lake Labs</td>
+                            <td><span class="tag tag-green">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Founder</td>
+                            <td>Blossom</td>
+                            <td><span class="tag tag-green">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>Owner & Operator</td>
+                            <td>Elm Lake Cranberry</td>
+                            <td><span class="tag tag-green">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td>President</td>
+                            <td>Wisconsin Cranberry Board</td>
+                            <td><span class="tag tag-blue">Current</span></td>
+                        </tr>
+                        <tr>
+                            <td>Board of Directors</td>
+                            <td>Ocean Spray</td>
+                            <td><span class="tag tag-purple">2026</span></td>
+                        </tr>
+                        <tr>
+                            <td>FJ Dynamics Dealer</td>
+                            <td>Agricultural Robotics</td>
+                            <td><span class="tag tag-orange">Active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="roots">
+                <h2>Roots</h2>
+                <p>The Moss family has farmed cranberries in Wisconsin Rapids for four generations — over 100 years. What began as a family operation has evolved into a proving ground for modern agricultural technology.</p>
+                <p>This heritage isn't nostalgia — it's context. Understanding the land, the cycles, and the challenges of farming over generations is what makes our technology solutions practical. We don't just build for farmers; we <em>are</em> farmers.</p>
+            </section>
+
+            <div class="divider"></div>
+
+            <section id="gallery">
+                <h2>Gallery</h2>
+                <div class="gallery-grid">
+                    <img src="../assets/photos/hero.jpeg" alt="Farm aerial" loading="lazy">
+                    <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+                    <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+                    <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+                    <img src="../assets/photos/morning_mist.jpeg" alt="Morning mist" loading="lazy">
+                    <img src="../assets/photos/tech_field.jpg" alt="Tech in field" loading="lazy">
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <span>© 2025 John Moss · Wisconsin Rapids, WI</span>
+                <a href="mailto:john@johnmoss.co">john@johnmoss.co</a>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Active TOC tracking
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc a');
+
+        const tocObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    tocLinks.forEach(link => link.classList.remove('active'));
+                    const active = document.querySelector(`.toc a[href="#${entry.target.id}"]`);
+                    if (active) active.classList.add('active');
+                }
+            });
+        }, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+
+        sections.forEach(section => tocObserver.observe(section));
+
+        // Fade in on scroll
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.toggle, .callout, .notion-table, .gallery-grid').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(8px)';
+            el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            fadeObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

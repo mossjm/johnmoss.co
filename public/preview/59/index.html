@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 59: Neon Glow ===== */
+        /* Dark with vibrant neon accents (not tacky). Electric, modern, attention-grabbing */
+
+        :root {
+            --bg: #0A0A0F;
+            --bg-card: #12121A;
+            --text: #E8E8F0;
+            --text-secondary: #8888A0;
+            --text-muted: #4A4A5A;
+            --neon-blue: #00D4FF;
+            --neon-purple: #A855F7;
+            --neon-pink: #EC4899;
+            --neon-green: #10B981;
+            --glow-blue: 0 0 20px rgba(0,212,255,0.2), 0 0 60px rgba(0,212,255,0.05);
+            --glow-purple: 0 0 20px rgba(168,85,247,0.2);
+            --border: rgba(255,255,255,0.06);
+            --font: 'Urbanist', -apple-system, sans-serif;
+            --max-width: 1000px;
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        ::selection { background: rgba(0,212,255,0.2); }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 60px; display: flex; align-items: center; justify-content: center;
+            background: rgba(10,10,15,0.8); backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; max-width: var(--max-width); padding: 0 2rem;
+        }
+        .nav-brand {
+            font-weight: 800; font-size: 1rem; letter-spacing: -0.02em;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 0.8rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--neon-blue); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 8rem 2rem;
+            position: relative;
+        }
+        /* Neon glow effects */
+        .hero::before {
+            content: ''; position: absolute;
+            top: 20%; left: 50%; transform: translateX(-50%);
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-photo {
+            width: 160px; height: 160px; border-radius: 50%;
+            object-fit: cover; margin-bottom: 2.5rem;
+            border: 2px solid rgba(0,212,255,0.3);
+            box-shadow: var(--glow-blue);
+            opacity: 0; animation: neonFade 1s 0.3s forwards;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 100px; font-size: 0.7rem; font-weight: 600;
+            color: var(--neon-blue); margin-bottom: 1.5rem;
+            opacity: 0; animation: neonFade 0.8s 0.2s forwards;
+        }
+        .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--neon-green); box-shadow: 0 0 8px var(--neon-green); }
+        .hero-name {
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
+            font-weight: 900; letter-spacing: -0.04em; line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            opacity: 0; animation: neonFade 1s 0.5s forwards;
+        }
+        .hero-tagline {
+            font-size: 1.1rem; font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 500px; line-height: 1.7;
+            opacity: 0; animation: neonFade 1s 0.7s forwards;
+        }
+
+        @keyframes neonFade { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .reveal { opacity:0; transform:translateY(20px); transition:all 0.7s ease; }
+        .reveal.visible { opacity:1; transform:translateY(0); }
+
+        /* ===== SECTIONS ===== */
+        .section { max-width: var(--max-width); margin: 0 auto; padding: 5rem 2rem; }
+        .section-label { font-size: 0.65rem; font-weight: 700; color: var(--neon-blue); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+        .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem; }
+        .section-desc { font-size: 1rem; font-weight: 300; color: var(--text-secondary); max-width: 520px; line-height: 1.8; }
+
+        /* ===== PHILOSOPHY ===== */
+        .phil-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 3rem;
+            position: relative; overflow: hidden;
+            max-width: 700px; margin: 0 auto;
+        }
+        .phil-card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+        }
+        .phil-text { font-size: 1.15rem; font-weight: 400; line-height: 1.7; text-align: center; }
+        .phil-attr { font-size: 0.7rem; color: var(--text-muted); margin-top: 1.5rem; text-align: center; }
+
+        /* ===== VENTURES ===== */
+        .ventures-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+        .vc {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 2rem;
+            position: relative; overflow: hidden; transition: all 0.3s;
+        }
+        .vc::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0; height: 2px;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .vc:nth-child(1)::after { background: var(--neon-blue); }
+        .vc:nth-child(2)::after { background: var(--neon-purple); }
+        .vc:nth-child(3)::after { background: var(--neon-green); }
+        .vc:hover { border-color: rgba(0,212,255,0.15); transform: translateY(-3px); }
+        .vc:hover::after { opacity: 1; }
+        .vc-icon { width: 36px; height: 36px; object-fit: contain; filter: brightness(0) invert(0.7); margin-bottom: 1rem; }
+        .vc-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.15rem; }
+        .vc-type { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+        .vc:nth-child(1) .vc-type { color: var(--neon-blue); }
+        .vc:nth-child(2) .vc-type { color: var(--neon-purple); }
+        .vc:nth-child(3) .vc-type { color: var(--neon-green); }
+        .vc-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ===== STATS ===== */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin: 4rem 0; }
+        .sb {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 1.5rem; text-align: center;
+        }
+        .sb-val { font-size: 2rem; font-weight: 900; line-height: 1; }
+        .sb:nth-child(1) .sb-val { color: var(--neon-blue); text-shadow: 0 0 20px rgba(0,212,255,0.3); }
+        .sb:nth-child(2) .sb-val { color: var(--neon-purple); text-shadow: 0 0 20px rgba(168,85,247,0.3); }
+        .sb:nth-child(3) .sb-val { color: var(--neon-pink); text-shadow: 0 0 20px rgba(236,72,153,0.3); }
+        .sb:nth-child(4) .sb-val { color: var(--neon-green); text-shadow: 0 0 20px rgba(16,185,129,0.3); }
+        .sb-lbl { font-size: 0.65rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+        /* ===== ROLES ===== */
+        .roles-list { list-style: none; margin-top: 2rem; }
+        .rl { display: flex; justify-content: space-between; align-items: center; padding: 1.1rem 0; border-bottom: 1px solid var(--border); }
+        .rl-name { font-weight: 600; font-size: 0.9rem; }
+        .rl-org { font-size: 0.75rem; color: var(--text-muted); }
+        .rl-badge { font-size: 0.6rem; padding: 0.2rem 0.6rem; border-radius: 100px; border: 1px solid; font-weight: 600; }
+        .rl:nth-child(odd) .rl-badge { border-color: rgba(0,212,255,0.2); color: var(--neon-blue); }
+        .rl:nth-child(even) .rl-badge { border-color: rgba(168,85,247,0.2); color: var(--neon-purple); }
+
+        /* ===== GALLERY ===== */
+        .gallery-strip { display: flex; gap: 0.75rem; overflow-x: auto; padding: 2rem; scrollbar-width: none; }
+        .gallery-strip::-webkit-scrollbar { display: none; }
+        .gallery-strip img { height: 240px; border-radius: var(--radius); object-fit: cover; flex-shrink: 0; border: 1px solid var(--border); transition: all 0.3s; }
+        .gallery-strip img:hover { box-shadow: var(--glow-blue); }
+
+        /* ===== FOOTER ===== */
+        footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+        footer a { color: var(--neon-blue); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .ventures-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .rl { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav><div class="nav-inner"><div class="nav-brand">John Moss</div><ul class="nav-links"><li><a href="#ventures">Ventures</a></li><li><a href="#leadership">Leadership</a></li></ul></div></nav>
+
+    <section class="hero">
+        <div class="hero-badge"><span class="dot"></span> Entrepreneur · Builder · Leader</div>
+        <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+        <h1 class="hero-name">John Moss</h1>
+        <p class="hero-tagline">Building systems that turn chaos into clarity — from ag-tech innovation to four generations of family farming.</p>
+    </section>
+
+    <div class="section"><div class="phil-card reveal"><p class="phil-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p><div class="phil-attr">— John Moss</div></div></div>
+
+    <section class="section" id="ventures">
+        <div class="reveal"><div class="section-label">Ventures</div><h2 class="section-title">What I'm building.</h2></div>
+        <div class="ventures-grid reveal">
+            <div class="vc"><img src="../assets/logos/ell.png" alt="ELL" class="vc-icon"><div class="vc-name">Elm Lake Labs</div><div class="vc-type">Ag-Tech</div><p class="vc-desc">GIS, drones, autonomous equipment for precision farming.</p></div>
+            <div class="vc"><img src="../assets/logos/blossom.svg" alt="Blossom" class="vc-icon"><div class="vc-name">Blossom</div><div class="vc-type">SaaS</div><p class="vc-desc">Software streamlining agricultural operations.</p></div>
+            <div class="vc"><img src="../assets/logos/elc.png" alt="ELC" class="vc-icon"><div class="vc-name">Elm Lake Cranberry</div><div class="vc-type">Agriculture</div><p class="vc-desc">150-acre 4th-gen family farm, 100+ years.</p></div>
+        </div>
+        <div class="stats-row reveal">
+            <div class="sb"><div class="sb-val">150</div><div class="sb-lbl">Acres</div></div>
+            <div class="sb"><div class="sb-val">100+</div><div class="sb-lbl">Years</div></div>
+            <div class="sb"><div class="sb-val">4th</div><div class="sb-lbl">Generation</div></div>
+            <div class="sb"><div class="sb-val">3</div><div class="sb-lbl">Companies</div></div>
+        </div>
+    </section>
+
+    <section class="section" id="leadership">
+        <div class="reveal"><div class="section-label">Leadership</div><h2 class="section-title">Roles & boards.</h2></div>
+        <ul class="roles-list reveal">
+            <li class="rl"><div><div class="rl-name">Founder & CEO</div><div class="rl-org">Elm Lake Labs</div></div><span class="rl-badge">Active</span></li>
+            <li class="rl"><div><div class="rl-name">Founder</div><div class="rl-org">Blossom</div></div><span class="rl-badge">Active</span></li>
+            <li class="rl"><div><div class="rl-name">Owner</div><div class="rl-org">Elm Lake Cranberry</div></div><span class="rl-badge">4th Gen</span></li>
+            <li class="rl"><div><div class="rl-name">President</div><div class="rl-org">Wisconsin Cranberry Board</div></div><span class="rl-badge">Current</span></li>
+            <li class="rl"><div><div class="rl-name">Board of Directors</div><div class="rl-org">Ocean Spray</div></div><span class="rl-badge">2026</span></li>
+        </ul>
+    </section>
+
+    <div class="reveal"><div class="gallery-strip">
+        <img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy">
+        <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+        <img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy">
+        <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+        <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+    </div></div>
+
+    <footer><p>© 2025 John Moss · Wisconsin Rapids, WI · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p></footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

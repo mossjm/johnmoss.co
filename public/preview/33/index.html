@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 33: Vercel/Next.js Aesthetic ===== */
+        /* Dark with sharp geometric accents, developer-meets-executive energy, monospace touches */
+
+        :root {
+            --bg: #000000;
+            --bg-surface: #0A0A0A;
+            --bg-card: #111111;
+            --bg-card-hover: #171717;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(255,255,255,0.15);
+            --text: #EDEDED;
+            --text-secondary: #888888;
+            --text-muted: #666666;
+            --accent: #FFFFFF;
+            --accent-gradient: linear-gradient(135deg, #FF4088, #FF6E40, #FFAB40);
+            --gradient-border: linear-gradient(135deg, rgba(255,64,136,0.5), rgba(255,110,64,0.5), rgba(255,171,64,0.5));
+            --blue: #0070F3;
+            --cyan: #50E3C2;
+            --purple: #7928CA;
+            --pink: #FF0080;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --max-width: 1100px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        ::selection { background: rgba(0, 112, 243, 0.3); }
+
+        /* ===== GEOMETRIC GRID BG ===== */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 64px 64px;
+            pointer-events: none;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px) saturate(150%);
+            -webkit-backdrop-filter: blur(12px) saturate(150%);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 0 2rem;
+        }
+        .nav-brand {
+            font-family: var(--font-mono);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .nav-brand .triangle {
+            width: 0; height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 14px solid white;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.2s ease;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            padding: 0.4rem 1rem;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 6rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(0,112,243,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-photo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2.5rem;
+            border: 2px solid var(--border);
+            opacity: 0;
+            animation: fadeIn 0.8s 0.2s forwards;
+            position: relative;
+        }
+        .hero-photo-wrapper {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        .hero-photo-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: var(--accent-gradient);
+            z-index: -1;
+            opacity: 0;
+            animation: fadeIn 0.8s 0.3s forwards;
+        }
+        .hero-badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding: 0.35rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeIn 0.6s 0.1s forwards;
+        }
+        .hero-badge .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--cyan);
+            animation: blink 2s infinite;
+        }
+        .hero-name {
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.6) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: fadeIn 0.8s 0.3s forwards;
+        }
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: var(--text-secondary);
+            max-width: 580px;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            animation: fadeIn 0.8s 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* ===== SECTION STYLES ===== */
+        .section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+        .section-header {
+            margin-bottom: 4rem;
+        }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--text-muted);
+        }
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+        }
+        .section-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 550px;
+            margin-top: 1rem;
+            line-height: 1.7;
+        }
+
+        /* Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== VENTURE CARDS ===== */
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .venture-card {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            transition: background 0.3s ease;
+            position: relative;
+        }
+        .venture-card:hover {
+            background: var(--bg-card-hover);
+        }
+        .venture-card-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+        .venture-card-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .venture-card-type {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+        .venture-card-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+        .stat {
+            background: var(--bg-card);
+            padding: 2rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        /* ===== CODE BLOCK PHILOSOPHY ===== */
+        .code-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid var(--border);
+        }
+        .code-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+        }
+        .code-dot.red { background: #FF5F56; }
+        .code-dot.yellow { background: #FFBD2E; }
+        .code-dot.green { background: #27C93F; }
+        .code-filename {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-left: 0.75rem;
+        }
+        .code-body {
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            line-height: 2;
+            color: var(--text-secondary);
+        }
+        .code-body .keyword { color: var(--pink); }
+        .code-body .string { color: var(--cyan); }
+        .code-body .comment { color: var(--text-muted); font-style: italic; }
+        .code-body .property { color: var(--blue); }
+
+        /* ===== ROLES ===== */
+        .roles-list {
+            list-style: none;
+        }
+        .role {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: padding-left 0.3s ease;
+        }
+        .role:hover {
+            padding-left: 1rem;
+        }
+        .role-title {
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: -0.01em;
+        }
+        .role-org {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        .role-badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: var(--text-muted);
+        }
+
+        /* ===== PHOTO STRIP ===== */
+        .photo-strip {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 2rem;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .photo-strip::-webkit-scrollbar { display: none; }
+        .photo-strip img {
+            height: 280px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+            transition: transform 0.4s ease;
+        }
+        .photo-strip img:hover {
+            transform: scale(1.02);
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            text-align: center;
+            padding: 8rem 2rem;
+            position: relative;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(121,40,202,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+        .cta-desc {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        .cta-btn:hover {
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        footer a { color: var(--text-secondary); text-decoration: none; }
+        footer a:hover { color: var(--text); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta { display: none; }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .ventures-grid { grid-template-columns: 1fr; }
+            .hero { padding-top: 6rem; }
+            .role { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        }
+        @media (max-width: 480px) {
+            .section { padding: 4rem 1.25rem; }
+            .stats-bar { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <div class="content-wrapper">
+        <!-- NAV -->
+        <nav>
+            <div class="nav-inner">
+                <div class="nav-brand">
+                    <div class="triangle"></div>
+                    john moss
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#ventures">Ventures</a></li>
+                    <li><a href="#leadership">Leadership</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                </ul>
+                <a href="mailto:john@johnmoss.co" class="nav-cta">Contact</a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                Building the future of agriculture
+            </div>
+            <div class="hero-photo-wrapper">
+                <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+            </div>
+            <h1 class="hero-name">John Moss</h1>
+            <p class="hero-tagline">Entrepreneur, systems thinker, and builder — creating technology that bridges innovation and tradition in agriculture.</p>
+        </section>
+
+        <!-- VENTURES -->
+        <section class="section" id="ventures">
+            <div class="section-header reveal">
+                <div class="section-label">Ventures</div>
+                <h2 class="section-title">What I'm building</h2>
+                <p class="section-desc">A portfolio of ventures at the intersection of agriculture, technology, and systems design.</p>
+            </div>
+            <div class="ventures-grid reveal">
+                <div class="venture-card">
+                    <img src="../assets/logos/ell.png" alt="Elm Lake Labs" class="venture-card-icon">
+                    <div class="venture-card-type">Ag-Tech</div>
+                    <div class="venture-card-name">Elm Lake Labs</div>
+                    <p class="venture-card-desc">GIS services, drone operations, FJ Dynamics autonomous equipment, and precision farming solutions.</p>
+                </div>
+                <div class="venture-card">
+                    <img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-card-icon">
+                    <div class="venture-card-type">SaaS</div>
+                    <div class="venture-card-name">Blossom</div>
+                    <p class="venture-card-desc">Software platform streamlining agricultural operations with intuitive tools and data-driven insights.</p>
+                </div>
+                <div class="venture-card">
+                    <img src="../assets/logos/elc.png" alt="Elm Lake Cranberry" class="venture-card-icon">
+                    <div class="venture-card-type">Agriculture</div>
+                    <div class="venture-card-name">Elm Lake Cranberry</div>
+                    <p class="venture-card-desc">150-acre fourth-generation family cranberry farm. A century of heritage meets cutting-edge technology.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS -->
+        <div class="section reveal">
+            <div class="stats-bar">
+                <div class="stat">
+                    <div class="stat-value">150</div>
+                    <div class="stat-label">Acres</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">100+</div>
+                    <div class="stat-label">Years</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">4th</div>
+                    <div class="stat-label">Generation</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Companies</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHILOSOPHY (Code Block) -->
+        <div class="section reveal">
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dot red"></div>
+                    <div class="code-dot yellow"></div>
+                    <div class="code-dot green"></div>
+                    <span class="code-filename">philosophy.ts</span>
+                </div>
+                <div class="code-body">
+                    <span class="comment">// The operating philosophy behind everything I build</span><br>
+                    <span class="keyword">const</span> <span class="property">mission</span> = {<br>
+                    &nbsp;&nbsp;<span class="property">goal</span>: <span class="string">"To build things that last"</span>,<br>
+                    &nbsp;&nbsp;<span class="property">method</span>: <span class="string">"Turn chaos into clarity"</span>,<br>
+                    &nbsp;&nbsp;<span class="property">through</span>: <span class="string">"Systems that reduce friction"</span>,<br>
+                    &nbsp;&nbsp;<span class="property">create</span>: <span class="string">"Leverage"</span>,<br>
+                    &nbsp;&nbsp;<span class="property">outcome</span>: <span class="string">"Leave people more capable"</span>,<br>
+                    };<br><br>
+                    <span class="keyword">export default</span> mission;
+                </div>
+            </div>
+        </div>
+
+        <!-- LEADERSHIP -->
+        <section class="section" id="leadership">
+            <div class="section-header reveal">
+                <div class="section-label">Leadership</div>
+                <h2 class="section-title">Roles & Boards</h2>
+            </div>
+            <ul class="roles-list reveal">
+                <li class="role">
+                    <div>
+                        <div class="role-title">Founder & CEO</div>
+                        <div class="role-org">Elm Lake Labs</div>
+                    </div>
+                    <div class="role-badge">active</div>
+                </li>
+                <li class="role">
+                    <div>
+                        <div class="role-title">Founder</div>
+                        <div class="role-org">Blossom</div>
+                    </div>
+                    <div class="role-badge">active</div>
+                </li>
+                <li class="role">
+                    <div>
+                        <div class="role-title">Owner & Operator</div>
+                        <div class="role-org">Elm Lake Cranberry</div>
+                    </div>
+                    <div class="role-badge">4th gen</div>
+                </li>
+                <li class="role">
+                    <div>
+                        <div class="role-title">President</div>
+                        <div class="role-org">Wisconsin Cranberry Board</div>
+                    </div>
+                    <div class="role-badge">current</div>
+                </li>
+                <li class="role">
+                    <div>
+                        <div class="role-title">Board of Directors</div>
+                        <div class="role-org">Ocean Spray</div>
+                    </div>
+                    <div class="role-badge">2026</div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- PHOTO STRIP -->
+        <div id="gallery">
+            <div class="section reveal" style="padding-bottom: 0;">
+                <div class="section-label">Gallery</div>
+            </div>
+            <div class="photo-strip reveal">
+                <img src="../assets/photos/hero.jpeg" alt="Farm aerial" loading="lazy">
+                <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+                <img src="../assets/photos/morning_mist.jpeg" alt="Morning mist" loading="lazy">
+                <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+                <img src="../assets/photos/tech_field.jpg" alt="Tech in field" loading="lazy">
+                <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+                <img src="../assets/photos/sprinklers.jpeg" alt="Sprinklers" loading="lazy">
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section reveal">
+            <h2 class="cta-title">Let's build something.</h2>
+            <p class="cta-desc">Reach out to discuss agriculture, technology, or the future.</p>
+            <a href="mailto:john@johnmoss.co" class="cta-btn">
+                Get in Touch →
+            </a>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>© 2025 John Moss · Wisconsin Rapids, WI · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p>
+        </footer>
+    </div>
+
+    <script>
+        // Scroll reveal
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Parallax grid background
+        window.addEventListener('scroll', () => {
+            const grid = document.querySelector('.grid-bg');
+            if (grid) {
+                grid.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

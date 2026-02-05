@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 50: Gradient Mesh ===== */
+        /* Abstract gradient mesh backgrounds (CSS), organic flowing color, modern and artistic */
+
+        :root {
+            --bg: #0A0A12;
+            --text: #FFFFFF;
+            --text-secondary: #B0AEC0;
+            --text-muted: #6B6980;
+            --accent: #8B5CF6;
+            --pink: #EC4899;
+            --cyan: #06B6D4;
+            --amber: #F59E0B;
+            --border: rgba(255,255,255,0.06);
+            --font: 'Manrope', -apple-system, sans-serif;
+            --max-width: 1000px;
+            --radius: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        ::selection { background: rgba(139, 92, 246, 0.3); }
+
+        /* ===== GRADIENT MESH BACKGROUND ===== */
+        .mesh-bg {
+            position: fixed; inset: 0; z-index: 0;
+            overflow: hidden;
+        }
+        .mesh-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: float 20s ease-in-out infinite;
+        }
+        .mesh-blob-1 {
+            width: 600px; height: 600px;
+            background: rgba(139, 92, 246, 0.12);
+            top: -200px; right: -100px;
+            animation-delay: 0s;
+        }
+        .mesh-blob-2 {
+            width: 500px; height: 500px;
+            background: rgba(236, 72, 153, 0.08);
+            bottom: -200px; left: -100px;
+            animation-delay: -7s;
+        }
+        .mesh-blob-3 {
+            width: 400px; height: 400px;
+            background: rgba(6, 182, 212, 0.06);
+            top: 50%; left: 40%;
+            animation-delay: -14s;
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.05); }
+            66% { transform: translate(-20px, 20px) scale(0.95); }
+        }
+
+        .content { position: relative; z-index: 1; }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 60px; display: flex; align-items: center; justify-content: center;
+            background: rgba(10, 10, 18, 0.7); backdrop-filter: blur(20px);
+        }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; max-width: var(--max-width); padding: 0 2rem;
+        }
+        .nav-brand { font-weight: 700; font-size: 0.95rem; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 0.8rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center; padding: 8rem 2rem;
+        }
+        .hero-photo {
+            width: 160px; height: 160px; border-radius: 50%;
+            object-fit: cover; margin-bottom: 2.5rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 80px rgba(139, 92, 246, 0.15), 0 0 40px rgba(236, 72, 153, 0.1);
+            opacity: 0; animation: meshFadeIn 1s 0.3s forwards;
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.35rem 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 100px; font-size: 0.7rem; font-weight: 600;
+            color: var(--accent); margin-bottom: 1.5rem;
+            opacity: 0; animation: meshFadeIn 0.8s 0.2s forwards;
+        }
+        .hero-name {
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 800; letter-spacing: -0.04em; line-height: 1.05;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, #B0AEC0 50%, #8B5CF6 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0; animation: meshFadeIn 1s 0.5s forwards;
+        }
+        .hero-tagline {
+            font-size: 1.15rem; font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 520px; line-height: 1.7;
+            opacity: 0; animation: meshFadeIn 1s 0.7s forwards;
+        }
+
+        @keyframes meshFadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== SECTIONS ===== */
+        .section { max-width: var(--max-width); margin: 0 auto; padding: 5rem 2rem; }
+        .section-label { font-size: 0.65rem; font-weight: 700; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+        .section-title { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; }
+        .section-desc { font-size: 1rem; font-weight: 300; color: var(--text-secondary); max-width: 520px; line-height: 1.8; }
+
+        /* ===== PHILOSOPHY ===== */
+        .philosophy-card {
+            background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(236,72,153,0.05), rgba(6,182,212,0.05));
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: var(--radius); padding: 3rem;
+            text-align: center; max-width: 700px; margin: 0 auto;
+        }
+        .philosophy-text { font-size: 1.2rem; font-weight: 400; line-height: 1.7; }
+        .philosophy-attr { font-size: 0.75rem; color: var(--text-muted); margin-top: 1.5rem; }
+
+        /* ===== VENTURES ===== */
+        .ventures-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3rem; }
+        .venture-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 2rem;
+            transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .venture-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            border-radius: var(--radius) var(--radius) 0 0;
+        }
+        .venture-card:nth-child(1)::before { background: linear-gradient(90deg, var(--accent), var(--pink)); }
+        .venture-card:nth-child(2)::before { background: linear-gradient(90deg, var(--cyan), var(--accent)); }
+        .venture-card:nth-child(3)::before { background: linear-gradient(90deg, var(--amber), var(--pink)); }
+        .venture-card:hover { border-color: rgba(139,92,246,0.2); transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .venture-icon { width: 40px; height: 40px; object-fit: contain; margin-bottom: 1.25rem; filter: brightness(0) invert(0.8); opacity: 0.7; }
+        .venture-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .venture-type { font-size: 0.65rem; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.75rem; }
+        .venture-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; font-weight: 300; }
+
+        /* ===== STATS ===== */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin: 4rem 0; }
+        .stat-card {
+            background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.5rem; text-align: center;
+        }
+        .stat-value { font-size: 2rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+        .stat-card:nth-child(1) .stat-value { color: var(--accent); }
+        .stat-card:nth-child(2) .stat-value { color: var(--pink); }
+        .stat-card:nth-child(3) .stat-value { color: var(--cyan); }
+        .stat-card:nth-child(4) .stat-value { color: var(--amber); }
+        .stat-label { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; margin-top: 0.5rem; }
+
+        /* ===== ROLES ===== */
+        .roles-list { list-style: none; margin-top: 2rem; }
+        .role-row {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.25rem 0; border-bottom: 1px solid var(--border);
+        }
+        .role-name { font-weight: 600; font-size: 0.95rem; }
+        .role-org { font-size: 0.8rem; color: var(--text-muted); }
+        .role-badge { font-size: 0.6rem; padding: 0.2rem 0.75rem; border-radius: 100px; font-weight: 600; background: rgba(139,92,246,0.1); color: var(--accent); }
+
+        /* ===== IMAGES ===== */
+        .images-strip { display: flex; gap: 0.75rem; overflow-x: auto; padding: 2rem; scrollbar-width: none; }
+        .images-strip::-webkit-scrollbar { display: none; }
+        .images-strip img { height: 240px; border-radius: 16px; object-fit: cover; flex-shrink: 0; transition: transform 0.3s; }
+        .images-strip img:hover { transform: scale(1.03); }
+
+        /* ===== FOOTER ===== */
+        footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-muted); }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .ventures-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .role-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="mesh-bg">
+        <div class="mesh-blob mesh-blob-1"></div>
+        <div class="mesh-blob mesh-blob-2"></div>
+        <div class="mesh-blob mesh-blob-3"></div>
+    </div>
+
+    <div class="content">
+        <nav><div class="nav-inner"><div class="nav-brand">John Moss</div><ul class="nav-links"><li><a href="#ventures">Ventures</a></li><li><a href="#leadership">Leadership</a></li></ul></div></nav>
+
+        <section class="hero">
+            <div class="hero-badge">🌿 Entrepreneur · Builder · Leader</div>
+            <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+            <h1 class="hero-name">John Moss</h1>
+            <p class="hero-tagline">Building systems that turn chaos into clarity — from ag-tech innovation to four generations of family farming in Wisconsin.</p>
+        </section>
+
+        <div class="section"><div class="philosophy-card reveal">
+            <p class="philosophy-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+            <div class="philosophy-attr">— John Moss</div>
+        </div></div>
+
+        <section class="section" id="ventures">
+            <div class="reveal"><div class="section-label">Ventures</div><h2 class="section-title">What I'm building.</h2></div>
+            <div class="ventures-grid reveal">
+                <div class="venture-card"><img src="../assets/logos/ell.png" alt="ELL" class="venture-icon"><div class="venture-name">Elm Lake Labs</div><div class="venture-type">Ag-Tech</div><p class="venture-desc">GIS, drones, and autonomous equipment for precision agriculture.</p></div>
+                <div class="venture-card"><img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-icon"><div class="venture-name">Blossom</div><div class="venture-type">SaaS</div><p class="venture-desc">Software platform streamlining agricultural operations.</p></div>
+                <div class="venture-card"><img src="../assets/logos/elc.png" alt="ELC" class="venture-icon"><div class="venture-name">Elm Lake Cranberry</div><div class="venture-type">Agriculture</div><p class="venture-desc">150-acre fourth-gen family farm, 100+ years of heritage.</p></div>
+            </div>
+            <div class="stats-row reveal">
+                <div class="stat-card"><div class="stat-value">150</div><div class="stat-label">Acres</div></div>
+                <div class="stat-card"><div class="stat-value">100+</div><div class="stat-label">Years</div></div>
+                <div class="stat-card"><div class="stat-value">4th</div><div class="stat-label">Generation</div></div>
+                <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Companies</div></div>
+            </div>
+        </section>
+
+        <section class="section" id="leadership">
+            <div class="reveal"><div class="section-label">Leadership</div><h2 class="section-title">Roles & boards.</h2></div>
+            <ul class="roles-list reveal">
+                <li class="role-row"><div><div class="role-name">Founder & CEO</div><div class="role-org">Elm Lake Labs</div></div><span class="role-badge">Active</span></li>
+                <li class="role-row"><div><div class="role-name">Founder</div><div class="role-org">Blossom</div></div><span class="role-badge">Active</span></li>
+                <li class="role-row"><div><div class="role-name">Owner & Operator</div><div class="role-org">Elm Lake Cranberry</div></div><span class="role-badge">4th Gen</span></li>
+                <li class="role-row"><div><div class="role-name">President</div><div class="role-org">Wisconsin Cranberry Board</div></div><span class="role-badge">Current</span></li>
+                <li class="role-row"><div><div class="role-name">Board of Directors</div><div class="role-org">Ocean Spray</div></div><span class="role-badge">2026</span></li>
+            </ul>
+        </section>
+
+        <div class="reveal"><div class="images-strip">
+            <img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy">
+            <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+            <img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy">
+            <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+            <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+        </div></div>
+
+        <footer><p>© 2025 John Moss · Wisconsin Rapids, WI · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p></footer>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

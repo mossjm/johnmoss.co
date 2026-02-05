@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <meta name="description" content="John Moss — Entrepreneur, ag-tech founder, and systems builder from Wisconsin Rapids.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 31: Apple Keynote ===== */
+        /* Inspired by Apple's product pages: huge hero text, scroll-triggered reveals, minimal palette, dramatic spacing */
+
+        :root {
+            --bg: #FBFBFD;
+            --bg-dark: #000000;
+            --surface: #FFFFFF;
+            --text-primary: #1D1D1F;
+            --text-secondary: #86868B;
+            --text-tertiary: #6E6E73;
+            --accent: #0071E3;
+            --accent-hover: #0077ED;
+            --gradient-hero: linear-gradient(180deg, #FBFBFD 0%, #F5F5F7 100%);
+            --font-display: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+            --max-width: 980px;
+            --max-width-wide: 1200px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+        ::selection { background: rgba(0, 113, 227, 0.15); }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(251, 251, 253, 0.92);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 0 2rem;
+        }
+        .nav-brand {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            letter-spacing: -0.01em;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: var(--gradient-hero);
+            position: relative;
+        }
+        .hero-eyebrow {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--accent);
+            letter-spacing: -0.01em;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 0.3s forwards;
+        }
+        .hero-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            animation: fadeUpScale 1s 0.1s forwards;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+        }
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 0.5s forwards;
+        }
+        .hero-tagline {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s 0.7s forwards;
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 1s 1.2s forwards;
+        }
+        .hero-scroll span {
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .scroll-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--text-tertiary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeUpScale {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.8); }
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 8rem 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .section-wide {
+            max-width: var(--max-width-wide);
+        }
+        .section-dark {
+            background: var(--bg-dark);
+            color: #F5F5F7;
+            max-width: none;
+            padding: 8rem 2rem;
+        }
+        .section-dark .section-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .section-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1rem;
+        }
+        .section-dark .section-label {
+            color: #6E9FFF;
+        }
+        .section-headline {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .section-sub {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+        }
+        .section-dark .section-sub {
+            color: #86868B;
+        }
+
+        /* Reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== PHILOSOPHY ===== */
+        .philosophy-quote {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 600;
+            line-height: 1.35;
+            letter-spacing: -0.03em;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            color: var(--text-primary);
+        }
+        .philosophy-quote::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0 auto 2rem;
+            border-radius: 2px;
+        }
+
+        /* ===== VENTURES GRID ===== */
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+        .venture-card {
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .venture-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+        .venture-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            background: #F5F5F7;
+            padding: 8px;
+        }
+        .venture-name {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+        .venture-desc {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== STATS ===== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+            text-align: center;
+        }
+        .stat-item {
+            padding: 2rem 0;
+        }
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: #F5F5F7;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #86868B;
+            letter-spacing: 0.01em;
+        }
+
+        /* ===== PHOTO SECTION ===== */
+        .photo-section {
+            padding: 0 0 8rem;
+        }
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            max-width: var(--max-width-wide);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .photo-grid img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 16px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .photo-grid img:hover {
+            transform: scale(1.02);
+        }
+        .photo-grid img:nth-child(1) {
+            grid-column: span 2;
+            height: 400px;
+        }
+
+        /* ===== LEADERSHIP ===== */
+        .roles-list {
+            list-style: none;
+            margin-top: 3rem;
+        }
+        .role-item {
+            display: flex;
+            align-items: baseline;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+        }
+        .role-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 600;
+            flex: 1;
+            letter-spacing: -0.02em;
+        }
+        .role-org {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            min-width: 200px;
+        }
+        .role-year {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: #F5F5F7;
+        }
+        footer p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-grid img:nth-child(1) { grid-column: span 1; height: 250px; }
+            .photo-grid img { height: 220px; }
+            .role-item { flex-direction: column; gap: 0.5rem; }
+            .role-org { min-width: 0; }
+            .hero { padding-top: 5rem; }
+        }
+        @media (max-width: 480px) {
+            .hero-name { font-size: 2.8rem; }
+            .section { padding: 5rem 1.5rem; }
+            .ventures-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="nav">
+        <div class="nav-inner">
+            <div class="nav-brand">John Moss</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#ventures">Ventures</a></li>
+                <li><a href="#leadership">Leadership</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+        <div class="hero-eyebrow">Entrepreneur · Builder · Leader</div>
+        <h1 class="hero-name">John Moss</h1>
+        <p class="hero-tagline">Building systems that turn chaos into clarity — from ag-tech innovation to fourth-generation farming.</p>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="scroll-dot"></div>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <div class="philosophy-quote reveal">
+        "To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."
+    </div>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+        <div class="reveal">
+            <div class="section-label">About</div>
+            <h2 class="section-headline">Technology meets<br>tradition.</h2>
+            <p class="section-sub">Based in Wisconsin Rapids, John Moss bridges the gap between cutting-edge technology and time-tested agricultural wisdom. A fourth-generation cranberry farmer turned tech entrepreneur, he builds companies that create lasting infrastructure — tools and systems that empower others to do more with less.</p>
+        </div>
+    </section>
+
+    <!-- VENTURES -->
+    <section class="section section-wide" id="ventures">
+        <div class="reveal">
+            <div class="section-label">Ventures</div>
+            <h2 class="section-headline">What I'm building.</h2>
+            <p class="section-sub">A portfolio of interconnected ventures, each solving real problems at the intersection of agriculture, technology, and systems thinking.</p>
+        </div>
+        <div class="ventures-grid">
+            <div class="venture-card reveal">
+                <img src="../assets/logos/ell.png" alt="Elm Lake Labs" class="venture-icon">
+                <div class="venture-name">Elm Lake Labs</div>
+                <p class="venture-desc">Agricultural technology company delivering GIS services, drone operations, and precision farming solutions.</p>
+            </div>
+            <div class="venture-card reveal">
+                <img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-icon">
+                <div class="venture-name">Blossom</div>
+                <p class="venture-desc">SaaS platform streamlining agricultural operations with intuitive software and data-driven insights.</p>
+            </div>
+            <div class="venture-card reveal">
+                <img src="../assets/logos/elc.png" alt="Elm Lake Cranberry" class="venture-icon">
+                <div class="venture-name">Elm Lake Cranberry</div>
+                <p class="venture-desc">150-acre fourth-generation family cranberry farm. 100+ years of heritage, modernized with cutting-edge technology.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS (DARK) -->
+    <section class="section-dark">
+        <div class="section-inner">
+            <div class="reveal">
+                <div class="section-label">By the Numbers</div>
+                <h2 class="section-headline" style="color: #F5F5F7;">Impact at scale.</h2>
+            </div>
+            <div class="stats-row reveal">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Acres Managed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="100">0</div>
+                    <div class="stat-label">Years of Heritage</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="4">0</div>
+                    <div class="stat-label">Generations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="3">0</div>
+                    <div class="stat-label">Companies Built</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHOTO GALLERY -->
+    <section class="photo-section" id="gallery" style="padding-top: 8rem;">
+        <div class="reveal">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <div class="section-label" style="padding-left: 2rem;">Gallery</div>
+            </div>
+        </div>
+        <div class="photo-grid reveal">
+            <img src="../assets/photos/hero.jpeg" alt="Farm aerial view" loading="lazy">
+            <img src="../assets/photos/harvest.jpeg" alt="Harvest season" loading="lazy">
+            <img src="../assets/photos/morning_mist.jpeg" alt="Morning mist over bogs" loading="lazy">
+            <img src="../assets/photos/tech_field.jpg" alt="Technology in the field" loading="lazy">
+            <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+        </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section class="section" id="leadership">
+        <div class="reveal">
+            <div class="section-label">Leadership</div>
+            <h2 class="section-headline">Roles & boards.</h2>
+        </div>
+        <ul class="roles-list reveal">
+            <li class="role-item">
+                <span class="role-title">Founder & CEO</span>
+                <span class="role-org">Elm Lake Labs</span>
+                <span class="role-year">Present</span>
+            </li>
+            <li class="role-item">
+                <span class="role-title">Founder</span>
+                <span class="role-org">Blossom</span>
+                <span class="role-year">Present</span>
+            </li>
+            <li class="role-item">
+                <span class="role-title">Owner & Operator</span>
+                <span class="role-org">Elm Lake Cranberry</span>
+                <span class="role-year">4th Generation</span>
+            </li>
+            <li class="role-item">
+                <span class="role-title">President</span>
+                <span class="role-org">Wisconsin Cranberry Board</span>
+                <span class="role-year">Present</span>
+            </li>
+            <li class="role-item">
+                <span class="role-title">Board of Directors</span>
+                <span class="role-org">Ocean Spray</span>
+                <span class="role-year">2026</span>
+            </li>
+            <li class="role-item">
+                <span class="role-title">FJ Dynamics Dealer</span>
+                <span class="role-org">Agricultural Robotics</span>
+                <span class="role-year">Present</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 John Moss · Wisconsin Rapids, Wisconsin</p>
+        <p style="margin-top: 0.5rem;"><a href="mailto:john@johnmoss.co">john@johnmoss.co</a></p>
+    </footer>
+
+    <script>
+        // Scroll-triggered reveal animations (Apple-style)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // Counter animation for stats
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-number[data-target]');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.dataset.target);
+                        const suffix = target >= 100 ? '+' : '';
+                        let current = 0;
+                        const step = Math.max(1, Math.floor(target / 60));
+                        const timer = setInterval(() => {
+                            current += step;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            counter.textContent = current + suffix;
+                        }, 30);
+                    });
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.stats-row').forEach(el => counterObserver.observe(el));
+
+        // Smooth parallax on hero photo
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero-photo');
+            if (hero) {
+                const scrolled = window.scrollY;
+                hero.style.transform = `translateY(${scrolled * 0.1}px) scale(${1 - scrolled * 0.0003})`;
+            }
+        });
+    </script>
+</body>
+</html>

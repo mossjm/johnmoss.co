@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 47: Dashboard Bio ===== */
+        /* Personal dashboard/command center feel. Widgets, stats, live-feeling elements. SaaS UI as a bio */
+
+        :root {
+            --bg: #0C0E14;
+            --bg-card: #141720;
+            --bg-card-hover: #1A1E2A;
+            --border: rgba(255,255,255,0.06);
+            --border-hover: rgba(255,255,255,0.12);
+            --text: #E8E8EC;
+            --text-secondary: #8B8FA3;
+            --text-muted: #565A6E;
+            --green: #22C55E;
+            --green-bg: rgba(34, 197, 94, 0.08);
+            --blue: #3B82F6;
+            --blue-bg: rgba(59, 130, 246, 0.08);
+            --amber: #F59E0B;
+            --amber-bg: rgba(245, 158, 11, 0.08);
+            --purple: #8B5CF6;
+            --font: 'Inter', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --radius: 14px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        ::selection { background: rgba(59, 130, 246, 0.2); }
+
+        /* ===== LAYOUT ===== */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            background: var(--bg-card);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            width: 280px;
+            z-index: 10;
+        }
+        .sidebar-profile {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+        .sidebar-photo {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 2px solid var(--border);
+        }
+        .sidebar-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .sidebar-role {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+        .sidebar-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.65rem;
+            color: var(--green);
+            margin-top: 0.75rem;
+        }
+        .sidebar-status .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: blink 2s infinite;
+        }
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+        .sidebar-nav {
+            list-style: none;
+            flex: 1;
+        }
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+        .sidebar-nav li a:hover { background: var(--bg-card-hover); color: var(--text); }
+        .sidebar-nav li a.active { background: var(--blue-bg); color: var(--blue); }
+        .sidebar-nav li a .icon { font-size: 1rem; }
+
+        .sidebar-footer {
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main {
+            margin-left: 280px;
+            padding: 2rem;
+        }
+
+        /* ===== TOP BAR ===== */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .topbar-greeting {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        .topbar-time {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== STAT CARDS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+        }
+        .stat-card-label {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .stat-card-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+        .stat-card-change {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .stat-green { color: var(--green); background: var(--green-bg); }
+        .stat-blue { color: var(--blue); background: var(--blue-bg); }
+
+        /* ===== WIDGET GRID ===== */
+        .widgets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .widget {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+        }
+        .widget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+        .widget-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .widget-badge {
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-weight: 600;
+        }
+        .badge-green { background: var(--green-bg); color: var(--green); }
+        .badge-blue { background: var(--blue-bg); color: var(--blue); }
+        .badge-amber { background: var(--amber-bg); color: var(--amber); }
+
+        /* ===== VENTURES WIDGET ===== */
+        .venture-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .venture-row:last-child { border-bottom: none; }
+        .venture-row-icon {
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            object-fit: contain;
+            background: rgba(255,255,255,0.04);
+            padding: 4px;
+        }
+        .venture-row-name {
+            font-weight: 600;
+            font-size: 0.85rem;
+            flex: 1;
+        }
+        .venture-row-type {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== PHILOSOPHY WIDGET ===== */
+        .philosophy-widget {
+            grid-column: span 2;
+        }
+        .philosophy-text {
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        .philosophy-text strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ===== ROLES WIDGET ===== */
+        .role-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .role-row:last-child { border-bottom: none; }
+        .role-row-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .role-row-org {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .role-status {
+            font-size: 0.6rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* ===== GALLERY WIDGET ===== */
+        .gallery-widget-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+        .gallery-widget-grid img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: opacity 0.2s;
+        }
+        .gallery-widget-grid img:hover { opacity: 0.8; }
+
+        /* ===== ACTIVITY LOG ===== */
+        .activity-item {
+            display: flex; gap: 0.75rem;
+            padding: 0.6rem 0;
+            align-items: flex-start;
+        }
+        .activity-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        .activity-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .activity-text strong { color: var(--text); }
+        .activity-time {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .dashboard { grid-template-columns: 1fr; }
+            .sidebar { position: relative; width: 100%; }
+            .main { margin-left: 0; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .widgets { grid-template-columns: 1fr; }
+            .philosophy-widget { grid-column: span 1; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .gallery-widget-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-profile">
+                <img src="../assets/profile.jpg" alt="John Moss" class="sidebar-photo">
+                <div class="sidebar-name">John Moss</div>
+                <div class="sidebar-role">Entrepreneur · Builder</div>
+                <div class="sidebar-status"><span class="dot"></span> Active</div>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active"><span class="icon">📊</span> Overview</a></li>
+                <li><a href="#ventures"><span class="icon">🚀</span> Ventures</a></li>
+                <li><a href="#leadership"><span class="icon">👤</span> Leadership</a></li>
+                <li><a href="#gallery"><span class="icon">📸</span> Gallery</a></li>
+                <li><a href="#activity"><span class="icon">📋</span> Activity</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                Wisconsin Rapids, WI<br>
+                john@johnmoss.co
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <!-- TOP BAR -->
+            <div class="topbar">
+                <div class="topbar-greeting">Dashboard</div>
+                <div class="topbar-time" id="clock">--:--:--</div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-label">Acres Managed</div>
+                    <div class="stat-card-value" style="color: var(--green);">150</div>
+                    <div class="stat-card-change stat-green">↑ Growing</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-label">Years Heritage</div>
+                    <div class="stat-card-value" style="color: var(--blue);">100+</div>
+                    <div class="stat-card-change stat-blue">4 Generations</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-label">Active Companies</div>
+                    <div class="stat-card-value" style="color: var(--amber);">3</div>
+                    <div class="stat-card-change" style="color: var(--amber); background: var(--amber-bg);">↑ Building</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-label">Board Seats</div>
+                    <div class="stat-card-value" style="color: var(--purple);">2</div>
+                    <div class="stat-card-change" style="color: var(--purple); background: rgba(139,92,246,0.08);">+ Ocean Spray</div>
+                </div>
+            </div>
+
+            <!-- WIDGETS ROW 1 -->
+            <div class="widgets" id="ventures">
+                <!-- Ventures Widget -->
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="widget-title">Ventures</div>
+                        <span class="widget-badge badge-green">3 Active</span>
+                    </div>
+                    <div class="venture-row">
+                        <img src="../assets/logos/ell.png" alt="ELL" class="venture-row-icon">
+                        <div class="venture-row-name">Elm Lake Labs</div>
+                        <div class="venture-row-type">Ag-Tech</div>
+                    </div>
+                    <div class="venture-row">
+                        <img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-row-icon">
+                        <div class="venture-row-name">Blossom</div>
+                        <div class="venture-row-type">SaaS</div>
+                    </div>
+                    <div class="venture-row">
+                        <img src="../assets/logos/elc.png" alt="ELC" class="venture-row-icon">
+                        <div class="venture-row-name">Elm Lake Cranberry</div>
+                        <div class="venture-row-type">Farm</div>
+                    </div>
+                </div>
+
+                <!-- Roles Widget -->
+                <div class="widget" id="leadership">
+                    <div class="widget-header">
+                        <div class="widget-title">Leadership Roles</div>
+                        <span class="widget-badge badge-blue">5 Roles</span>
+                    </div>
+                    <div class="role-row"><div><div class="role-row-title">Founder & CEO</div><div class="role-row-org">Elm Lake Labs</div></div><span class="role-status badge-green">Active</span></div>
+                    <div class="role-row"><div><div class="role-row-title">Founder</div><div class="role-row-org">Blossom</div></div><span class="role-status badge-green">Active</span></div>
+                    <div class="role-row"><div><div class="role-row-title">President</div><div class="role-row-org">WI Cranberry Board</div></div><span class="role-status badge-blue">Current</span></div>
+                    <div class="role-row"><div><div class="role-row-title">Board Director</div><div class="role-row-org">Ocean Spray</div></div><span class="role-status badge-amber">2026</span></div>
+                </div>
+            </div>
+
+            <!-- PHILOSOPHY -->
+            <div class="widgets">
+                <div class="widget philosophy-widget">
+                    <div class="widget-header">
+                        <div class="widget-title">Philosophy</div>
+                    </div>
+                    <p class="philosophy-text">"To <strong>build things that last</strong> — foundations that turn chaos into clarity through systems that <strong>reduce friction</strong>, create leverage, and leave people <strong>more capable</strong> than when I found them."</p>
+                </div>
+            </div>
+
+            <!-- GALLERY + ACTIVITY -->
+            <div class="widgets" id="gallery">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="widget-title">Gallery</div>
+                    </div>
+                    <div class="gallery-widget-grid">
+                        <img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy">
+                        <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+                        <img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy">
+                        <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+                        <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+                        <img src="../assets/photos/tech_field.jpg" alt="Tech" loading="lazy">
+                    </div>
+                </div>
+                <div class="widget" id="activity">
+                    <div class="widget-header">
+                        <div class="widget-title">Activity</div>
+                        <span class="widget-badge badge-green">Live</span>
+                    </div>
+                    <div class="activity-item"><div class="activity-dot" style="background: var(--green);"></div><div><div class="activity-text"><strong>Elm Lake Labs</strong> — GIS survey completed</div><div class="activity-time">2 hours ago</div></div></div>
+                    <div class="activity-item"><div class="activity-dot" style="background: var(--blue);"></div><div><div class="activity-text"><strong>Blossom</strong> — New feature deployed</div><div class="activity-time">5 hours ago</div></div></div>
+                    <div class="activity-item"><div class="activity-dot" style="background: var(--amber);"></div><div><div class="activity-text"><strong>Ocean Spray</strong> — Board prep materials</div><div class="activity-time">1 day ago</div></div></div>
+                    <div class="activity-item"><div class="activity-dot" style="background: var(--purple);"></div><div><div class="activity-text"><strong>WI Cranberry Board</strong> — Meeting scheduled</div><div class="activity-time">2 days ago</div></div></div>
+                    <div class="activity-item"><div class="activity-dot" style="background: var(--green);"></div><div><div class="activity-text"><strong>Elm Lake Cranberry</strong> — Irrigation check</div><div class="activity-time">3 days ago</div></div></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Live clock
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('en-US', { hour12: false });
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>

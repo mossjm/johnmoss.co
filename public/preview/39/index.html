@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 39: Investor Deck ===== */
+        /* Clean data-driven layout, metrics prominent, pitch deck as a website */
+
+        :root {
+            --bg: #FFFFFF;
+            --bg-alt: #F8F9FA;
+            --bg-dark: #111827;
+            --text: #111827;
+            --text-secondary: #6B7280;
+            --text-muted: #9CA3AF;
+            --accent: #4F46E5;
+            --accent-light: rgba(79, 70, 229, 0.06);
+            --green: #059669;
+            --green-bg: rgba(5, 150, 105, 0.08);
+            --blue: #2563EB;
+            --border: #E5E7EB;
+            --border-light: #F3F4F6;
+            --font: 'DM Sans', -apple-system, sans-serif;
+            --font-mono: 'DM Mono', 'SF Mono', monospace;
+            --max-width: 1000px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+        ::selection { background: var(--accent-light); }
+
+        /* ===== SLIDE STRUCTURE ===== */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 5rem 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            position: relative;
+        }
+        .slide-dark {
+            background: var(--bg-dark);
+            color: #F9FAFB;
+            max-width: none;
+            padding: 5rem 2rem;
+        }
+        .slide-dark .slide-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .slide-alt {
+            background: var(--bg-alt);
+            max-width: none;
+            padding: 5rem 2rem;
+        }
+        .slide-alt .slide-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .slide-num {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .slide-dark .slide-num { color: #6B7280; }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 56px; display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; max-width: var(--max-width); padding: 0 2rem;
+        }
+        .nav-brand { font-weight: 700; font-size: 0.9rem; }
+        .nav-page {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== HERO / TITLE SLIDE ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 2rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .hero-top {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        .hero-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 16px;
+            object-fit: cover;
+            opacity: 0; animation: fadeIn 0.6s 0.3s forwards;
+        }
+        .hero-meta {
+            opacity: 0; animation: fadeIn 0.6s 0.4s forwards;
+        }
+        .hero-meta h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .hero-meta p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .hero-headline {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.15;
+            max-width: 700px;
+            margin-bottom: 2rem;
+            opacity: 0; animation: fadeSlide 0.8s 0.5s forwards;
+        }
+        .hero-headline span { color: var(--accent); }
+        .hero-sub {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+            opacity: 0; animation: fadeSlide 0.8s 0.7s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes fadeSlide {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== METRICS ===== */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+        .metric-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .slide-dark .metric-card {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.08);
+        }
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .slide-dark .metric-value { color: #818CF8; }
+        .metric-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .metric-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--green);
+            background: var(--green-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== SECTION TITLES ===== */
+        .deck-title {
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+        .deck-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        .slide-dark .deck-subtitle { color: #9CA3AF; }
+
+        /* ===== VENTURE TABLE ===== */
+        .venture-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .venture-table th {
+            text-align: left;
+            padding: 0.75rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            border-bottom: 2px solid var(--border);
+        }
+        .venture-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.9rem;
+        }
+        .venture-table tr:hover td { background: var(--bg-alt); }
+        .venture-table .venture-logo {
+            width: 32px; height: 32px;
+            object-fit: contain;
+            border-radius: 6px;
+            margin-right: 0.75rem;
+            vertical-align: middle;
+        }
+        .venture-table .name-cell {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        .status-pill {
+            display: inline-flex;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .status-active {
+            background: var(--green-bg);
+            color: var(--green);
+        }
+        .status-upcoming {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        /* ===== PHILOSOPHY CARD ===== */
+        .philosophy-card {
+            background: linear-gradient(135deg, var(--accent), #7C3AED);
+            border-radius: 16px;
+            padding: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .philosophy-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        .philosophy-card blockquote {
+            font-size: 1.35rem;
+            font-weight: 500;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+            position: relative;
+            z-index: 1;
+        }
+        .philosophy-card cite {
+            display: block;
+            font-style: normal;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 1.5rem;
+        }
+
+        /* ===== LEADERSHIP LIST ===== */
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .leadership-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        .leadership-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(255,255,255,0.15);
+        }
+        .leadership-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .leadership-card p {
+            font-size: 0.8rem;
+            color: #9CA3AF;
+        }
+
+        /* ===== IMAGES ===== */
+        .image-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .image-row img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .leadership-grid { grid-template-columns: 1fr; }
+            .image-row { grid-template-columns: 1fr; }
+            .venture-table { font-size: 0.8rem; }
+            .hero-top { flex-direction: column; align-items: flex-start; }
+        }
+        @media (max-width: 480px) {
+            .slide { padding: 4rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-inner">
+            <div class="nav-brand">John Moss</div>
+            <div class="nav-page">Confidential · 2025</div>
+        </div>
+    </nav>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="hero">
+        <div class="slide-num">01 / Overview</div>
+        <div class="hero-top">
+            <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+            <div class="hero-meta">
+                <h1>John Moss</h1>
+                <p>Wisconsin Rapids, WI · Entrepreneur · Age 40</p>
+            </div>
+        </div>
+        <h2 class="hero-headline">Building <span>lasting infrastructure</span> at the intersection of agriculture and technology.</h2>
+        <p class="hero-sub">Entrepreneur, tech visionary, and fourth-generation farmer creating systems that turn chaos into clarity — from ag-tech innovation to industry leadership.</p>
+    </section>
+
+    <!-- SLIDE 2: KEY METRICS -->
+    <section class="slide-alt">
+        <div class="slide-inner">
+            <div class="slide-num reveal">02 / Key Metrics</div>
+            <h2 class="deck-title reveal">By the numbers.</h2>
+            <div class="metrics-grid reveal">
+                <div class="metric-card">
+                    <div class="metric-value">150</div>
+                    <div class="metric-label">Acres Managed</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">100+</div>
+                    <div class="metric-label">Years Heritage</div>
+                    <div class="metric-badge">↑ 4 Generations</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Active Companies</div>
+                    <div class="metric-badge">↑ Growing</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">2</div>
+                    <div class="metric-label">Board Seats</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: PHILOSOPHY -->
+    <section class="slide">
+        <div class="slide-num reveal">03 / Philosophy</div>
+        <div class="philosophy-card reveal">
+            <blockquote>"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</blockquote>
+            <cite>— John Moss, Operating Philosophy</cite>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: PORTFOLIO -->
+    <section class="slide">
+        <div class="slide-num reveal">04 / Portfolio</div>
+        <h2 class="deck-title reveal">Venture portfolio.</h2>
+        <p class="deck-subtitle reveal">Interconnected companies at the intersection of agriculture, technology, and systems design.</p>
+        <table class="venture-table reveal">
+            <thead>
+                <tr>
+                    <th>Company</th>
+                    <th>Sector</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><div class="name-cell"><img src="../assets/logos/ell.png" class="venture-logo" alt="">Elm Lake Labs</div></td>
+                    <td>Ag-Tech</td>
+                    <td>GIS, drone services, autonomous equipment</td>
+                    <td><span class="status-pill status-active">Active</span></td>
+                </tr>
+                <tr>
+                    <td><div class="name-cell"><img src="../assets/logos/blossom.svg" class="venture-logo" alt="">Blossom</div></td>
+                    <td>SaaS</td>
+                    <td>Agricultural operations platform</td>
+                    <td><span class="status-pill status-active">Active</span></td>
+                </tr>
+                <tr>
+                    <td><div class="name-cell"><img src="../assets/logos/elc.png" class="venture-logo" alt="">Elm Lake Cranberry</div></td>
+                    <td>Agriculture</td>
+                    <td>150-acre 4th gen cranberry farm</td>
+                    <td><span class="status-pill status-active">Active</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="image-row reveal">
+            <img src="../assets/photos/hero.jpeg" alt="Farm" loading="lazy">
+            <img src="../assets/photos/tech_field.jpg" alt="Tech" loading="lazy">
+            <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+        </div>
+    </section>
+
+    <!-- SLIDE 5: LEADERSHIP -->
+    <section class="slide-dark">
+        <div class="slide-inner">
+            <div class="slide-num reveal">05 / Leadership</div>
+            <h2 class="deck-title reveal">Board & leadership positions.</h2>
+            <p class="deck-subtitle reveal">Active roles across agriculture, technology, and cooperative governance.</p>
+            <div class="leadership-grid reveal">
+                <div class="leadership-card">
+                    <h3>Founder & CEO</h3>
+                    <p>Elm Lake Labs</p>
+                </div>
+                <div class="leadership-card">
+                    <h3>Founder</h3>
+                    <p>Blossom</p>
+                </div>
+                <div class="leadership-card">
+                    <h3>President</h3>
+                    <p>Wisconsin Cranberry Board</p>
+                </div>
+                <div class="leadership-card">
+                    <h3>Board of Directors</h3>
+                    <p>Ocean Spray (2026)</p>
+                </div>
+                <div class="leadership-card">
+                    <h3>Owner & Operator</h3>
+                    <p>Elm Lake Cranberry — 4th Generation</p>
+                </div>
+                <div class="leadership-card">
+                    <h3>FJ Dynamics Dealer</h3>
+                    <p>Agricultural Robotics</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 John Moss · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a> · Wisconsin Rapids, Wisconsin</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 49: Film Credits ===== */
+        /* Cinematic. Widescreen proportions, film grain, credits-roll inspired sections */
+
+        :root {
+            --bg: #0A0A0A;
+            --text: #F0ECE2;
+            --text-secondary: #8A8478;
+            --text-muted: #4A4640;
+            --gold: #C5A55A;
+            --gold-dim: rgba(197, 165, 90, 0.1);
+            --border: rgba(240, 236, 226, 0.06);
+            --font-display: 'Bebas Neue', Impact, sans-serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+            --max-width: 900px;
+            --widescreen: 2.39 / 1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font-body); background: var(--bg);
+            color: var(--text); line-height: 1.6; overflow-x: hidden;
+        }
+
+        /* Film grain overlay */
+        body::after {
+            content: '';
+            position: fixed; inset: 0; z-index: 1000;
+            pointer-events: none;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="n"><feTurbulence baseFrequency="0.8" type="fractalNoise"/></filter><rect width="200" height="200" filter="url(%23n)" opacity="0.03"/></svg>');
+            opacity: 0.5;
+        }
+
+        ::selection { background: var(--gold-dim); }
+
+        /* ===== WIDESCREEN HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+        .hero::before, .hero::after {
+            content: '';
+            position: absolute;
+            left: 0; right: 0;
+            height: 12%;
+            z-index: 1;
+        }
+        .hero::before { top: 0; background: var(--bg); }
+        .hero::after { bottom: 0; background: var(--bg); }
+        /* Letterbox bars */
+        .letterbox-top, .letterbox-bottom {
+            position: fixed; left: 0; right: 0;
+            height: 8vh; background: var(--bg); z-index: 50;
+        }
+        .letterbox-top { top: 0; }
+        .letterbox-bottom { bottom: 0; }
+
+        .hero-content { position: relative; z-index: 2; }
+        .hero-photo {
+            width: 160px; height: 160px;
+            border-radius: 50%; object-fit: cover;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(197, 165, 90, 0.3);
+            opacity: 0; animation: fadeIn 2s 0.5s forwards;
+        }
+        .hero-presented {
+            font-family: var(--font-body);
+            font-size: 0.7rem; font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0; animation: fadeIn 1.5s 0.3s forwards;
+        }
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: clamp(5rem, 12vw, 9rem);
+            letter-spacing: 0.06em;
+            line-height: 0.9;
+            margin-bottom: 1.5rem;
+            opacity: 0; animation: fadeIn 2s 0.8s forwards;
+        }
+        .hero-rule {
+            width: 80px; height: 1px;
+            background: var(--gold);
+            margin: 0 auto 1.5rem;
+            opacity: 0; animation: fadeIn 1.5s 1.2s forwards;
+        }
+        .hero-tagline {
+            font-size: 1rem; font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 450px; line-height: 1.8;
+            letter-spacing: 0.03em;
+            opacity: 0; animation: fadeIn 2s 1.4s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+        .reveal { opacity: 0; transition: opacity 1s ease; }
+        .reveal.visible { opacity: 1; }
+
+        /* ===== CREDITS STYLE SECTIONS ===== */
+        .credits-section {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .credit-label {
+            font-size: 0.6rem; font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 0.3em; text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+        .credit-heading {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            letter-spacing: 0.04em;
+            margin-bottom: 2rem;
+        }
+        .credit-text {
+            font-size: 0.95rem; font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 550px; margin: 0 auto;
+            line-height: 1.9; letter-spacing: 0.02em;
+        }
+
+        /* ===== DIVIDER ===== */
+        .film-divider {
+            width: 1px; height: 60px;
+            background: linear-gradient(var(--gold), transparent);
+            margin: 0 auto;
+        }
+
+        /* ===== QUOTE ===== */
+        .quote-section {
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+        .quote-text {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 300; font-style: italic;
+            color: var(--text);
+            max-width: 600px; margin: 0 auto;
+            line-height: 1.8; letter-spacing: 0.02em;
+        }
+        .quote-attr {
+            font-size: 0.65rem; letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold); margin-top: 2rem;
+        }
+
+        /* ===== CAST (Ventures) ===== */
+        .cast-list { list-style: none; max-width: 500px; margin: 0 auto; }
+        .cast-item {
+            display: flex; justify-content: space-between; align-items: baseline;
+            padding: 1rem 0; border-bottom: 1px solid var(--border);
+        }
+        .cast-role {
+            font-size: 0.7rem; font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .cast-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem; letter-spacing: 0.04em;
+        }
+        .cast-dots {
+            flex: 1; border-bottom: 1px dotted var(--text-muted);
+            margin: 0 1rem; position: relative; top: -4px;
+        }
+
+        /* ===== CREW (Leadership) ===== */
+        .crew-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 2rem; max-width: 600px; margin: 2rem auto 0;
+            text-align: center;
+        }
+        .crew-item {}
+        .crew-role {
+            font-family: var(--font-display);
+            font-size: 1.25rem; letter-spacing: 0.04em;
+        }
+        .crew-org {
+            font-size: 0.7rem; font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em; text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== STILLS ===== */
+        .stills-section { padding: 4rem 0; }
+        .stills-row {
+            display: flex; gap: 4px; overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .stills-row::-webkit-scrollbar { display: none; }
+        .stills-row img {
+            height: 260px; flex-shrink: 0;
+            object-fit: cover;
+            filter: brightness(0.85) contrast(1.05) sepia(0.1);
+            transition: filter 0.4s;
+        }
+        .stills-row img:hover { filter: brightness(1) contrast(1) sepia(0); }
+
+        /* ===== END CREDITS ===== */
+        .end-credits {
+            text-align: center; padding: 6rem 2rem 4rem;
+            border-top: 1px solid var(--border);
+        }
+        .end-name {
+            font-family: var(--font-display);
+            font-size: 2rem; letter-spacing: 0.06em;
+            margin-bottom: 0.5rem;
+        }
+        .end-info {
+            font-size: 0.7rem; font-weight: 300;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em; text-transform: uppercase;
+        }
+        .end-info a { color: var(--gold); text-decoration: none; }
+
+        @media (max-width: 768px) {
+            .letterbox-top, .letterbox-bottom { height: 4vh; }
+            .cast-item { flex-direction: column; text-align: center; gap: 0.25rem; }
+            .cast-dots { display: none; }
+            .crew-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="letterbox-top"></div>
+    <div class="letterbox-bottom"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-presented">A portrait of</div>
+            <img src="../assets/profile.jpg" alt="John Moss" class="hero-photo">
+            <h1 class="hero-name">John Moss</h1>
+            <div class="hero-rule"></div>
+            <p class="hero-tagline">Entrepreneur. Tech visionary. Systems thinker. Fourth-generation farmer. Wisconsin Rapids.</p>
+        </div>
+    </section>
+
+    <div class="film-divider reveal"></div>
+
+    <!-- PHILOSOPHY -->
+    <section class="quote-section reveal">
+        <p class="quote-text">"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+        <div class="quote-attr">— John Moss</div>
+    </section>
+
+    <div class="film-divider reveal"></div>
+
+    <!-- ABOUT -->
+    <section class="credits-section reveal">
+        <div class="credit-label">The Story</div>
+        <h2 class="credit-heading">Heritage & Innovation</h2>
+        <p class="credit-text">Based in Wisconsin Rapids, John Moss bridges the divide between four generations of cranberry farming and the cutting edge of agricultural technology. At 40, he manages 150 acres of family land while building companies that bring precision, clarity, and lasting infrastructure to modern agriculture.</p>
+    </section>
+
+    <div class="film-divider reveal"></div>
+
+    <!-- VENTURES (Cast) -->
+    <section class="credits-section reveal">
+        <div class="credit-label">Starring</div>
+        <h2 class="credit-heading">The Ventures</h2>
+        <ul class="cast-list">
+            <li class="cast-item">
+                <span class="cast-role">Ag-Tech</span>
+                <span class="cast-dots"></span>
+                <span class="cast-name">Elm Lake Labs</span>
+            </li>
+            <li class="cast-item">
+                <span class="cast-role">SaaS</span>
+                <span class="cast-dots"></span>
+                <span class="cast-name">Blossom</span>
+            </li>
+            <li class="cast-item">
+                <span class="cast-role">Farm</span>
+                <span class="cast-dots"></span>
+                <span class="cast-name">Elm Lake Cranberry</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- STILLS -->
+    <div class="stills-section reveal">
+        <div class="stills-row">
+            <img src="../assets/photos/hero.jpeg" alt="Aerial" loading="lazy">
+            <img src="../assets/photos/morning_mist.jpeg" alt="Mist" loading="lazy">
+            <img src="../assets/photos/harvest.jpeg" alt="Harvest" loading="lazy">
+            <img src="../assets/photos/cranberries.jpeg" alt="Cranberries" loading="lazy">
+            <img src="../assets/photos/tech_field.jpg" alt="Tech" loading="lazy">
+            <img src="../assets/photos/blossoms.jpeg" alt="Blossoms" loading="lazy">
+        </div>
+    </div>
+
+    <div class="film-divider reveal"></div>
+
+    <!-- LEADERSHIP (Crew) -->
+    <section class="credits-section reveal">
+        <div class="credit-label">Also Appearing As</div>
+        <h2 class="credit-heading">Leadership</h2>
+        <div class="crew-grid">
+            <div class="crew-item"><div class="crew-role">Founder & CEO</div><div class="crew-org">Elm Lake Labs</div></div>
+            <div class="crew-item"><div class="crew-role">Founder</div><div class="crew-org">Blossom</div></div>
+            <div class="crew-item"><div class="crew-role">President</div><div class="crew-org">Wisconsin Cranberry Board</div></div>
+            <div class="crew-item"><div class="crew-role">Board Director</div><div class="crew-org">Ocean Spray · 2026</div></div>
+        </div>
+    </section>
+
+    <!-- END CREDITS -->
+    <div class="end-credits">
+        <div class="end-name">John Moss</div>
+        <div class="end-info">Wisconsin Rapids, Wisconsin · <a href="mailto:john@johnmoss.co">john@johnmoss.co</a></div>
+        <div class="end-info" style="margin-top: 0.5rem;">© MMXXV</div>
+    </div>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

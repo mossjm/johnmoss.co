@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Asymmetric Editorial</title>
+    <meta name="description" content="John Moss — Entrepreneur, technologist, systems builder.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F2F0ED;
+            --surface: #FFFFFF;
+            --text: #1A1A1A;
+            --text-secondary: #666666;
+            --text-muted: #AAAAAA;
+            --accent: #2563EB;
+            --accent-soft: rgba(37, 99, 235, 0.08);
+            --dark: #0F0F0F;
+            --border: rgba(0,0,0,0.08);
+            --serif: 'Instrument Serif', Georgia, serif;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(242, 240, 237, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 12rem 4rem 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: end;
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: var(--serif);
+            font-size: clamp(3.5rem, 6vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 400px;
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .hero-image-label {
+            position: absolute;
+            bottom: -2rem;
+            right: 0;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* Floating stat card */
+        .float-stat {
+            position: absolute;
+            bottom: 8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface);
+            padding: 1.5rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            z-index: 3;
+            display: flex;
+            gap: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .fs-item {
+            text-align: center;
+        }
+
+        .fs-num {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 400;
+            line-height: 1;
+        }
+
+        .fs-num span { color: var(--accent); }
+
+        .fs-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
+        }
+
+        /* ===== EDITORIAL BLOCK ===== */
+        .editorial {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 4rem;
+        }
+
+        .ed-grid {
+            display: grid;
+            grid-template-columns: 2fr 1.2fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .ed-text {
+            padding-top: 2rem;
+        }
+
+        .ed-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+
+        .ed-heading {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 2rem;
+        }
+
+        .ed-heading em { font-style: italic; }
+
+        .ed-body {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            column-count: 2;
+            column-gap: 2.5rem;
+        }
+
+        .ed-aside {
+            position: sticky;
+            top: 6rem;
+        }
+
+        .ed-aside-card {
+            background: var(--dark);
+            color: white;
+            padding: 3rem;
+            border-radius: 4px;
+        }
+
+        .ed-aside-card .quote {
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .ed-aside-card .quote strong {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .ed-aside-card .attr {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* ===== VENTURES STRIP ===== */
+        .ventures-strip {
+            background: var(--dark);
+            color: white;
+            padding: 6rem 4rem;
+        }
+
+        .vs-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .vs-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 4rem;
+        }
+
+        .vs-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 400;
+        }
+
+        .vs-header .vs-count {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .vs-card {
+            padding: 2.5rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .vs-card:first-child {
+            grid-row: span 1;
+        }
+
+        .vs-card:hover {
+            border-color: rgba(37, 99, 235, 0.3);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .vs-card-type {
+            font-size: 0.6rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .vs-card h3 {
+            font-family: var(--serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .vs-card p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+        }
+
+        .vs-card .vs-logo {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 1.25rem;
+        }
+
+        .vs-card .vs-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: 0.6;
+        }
+
+        /* ===== LEADERSHIP OFFSET ===== */
+        .leadership {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 4rem;
+        }
+
+        .lead-header {
+            margin-bottom: 4rem;
+        }
+
+        .lead-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 400;
+        }
+
+        .lead-offset-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .lead-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2.5rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .lead-card:nth-child(even) {
+            transform: translateY(2rem);
+        }
+
+        .lead-card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+        }
+
+        .lc-logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lc-logo img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .lc-role {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.15rem;
+        }
+
+        .lc-org {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+        }
+
+        .lc-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.35rem;
+            line-height: 1.5;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 4rem 8rem;
+        }
+
+        .contact-inner {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background: var(--accent-soft);
+            border-radius: 4px;
+            padding: 4rem;
+        }
+
+        .contact h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .contact h2 em { font-style: italic; color: var(--accent); }
+
+        .contact p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .contact-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .ca-btn {
+            display: block;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .ca-btn.primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .ca-btn.primary:hover {
+            opacity: 0.9;
+        }
+
+        .ca-btn.secondary {
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: var(--surface);
+        }
+
+        .ca-btn.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--border);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rd1 { transition-delay: 0.1s; }
+        .rd2 { transition-delay: 0.2s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-layout { grid-template-columns: 1fr; }
+            .hero-image { max-width: 400px; }
+            .float-stat { position: relative; bottom: auto; left: auto; transform: none; margin-top: 2rem; }
+            .ed-grid { grid-template-columns: 1fr; }
+            .ed-body { column-count: 1; }
+            .vs-grid { grid-template-columns: 1fr; }
+            .lead-offset-grid { grid-template-columns: 1fr; }
+            .lead-card:nth-child(even) { transform: none; }
+            .contact-inner { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+            .hero { padding: 7rem 1.5rem 4rem; }
+            .editorial { padding: 4rem 1.5rem; }
+            .ventures-strip { padding: 4rem 1.5rem; }
+            .leadership { padding: 4rem 1.5rem; }
+            .contact { padding: 2rem 1.5rem 5rem; }
+            .contact-inner { padding: 2.5rem; }
+            footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">John Moss</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#ventures">Ventures</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#contact">Connect</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-layout">
+            <div class="hero-text reveal">
+                <div class="hero-tag">Entrepreneur & Systems Thinker</div>
+                <h1 class="hero-title">Building systems that turn <em>complexity</em> into clarity.</h1>
+                <p class="hero-desc">Founder, technologist, and fourth-generation heritage. Leading multiple ventures at the intersection of AI, agriculture, and enterprise software.</p>
+            </div>
+            <div class="hero-image reveal rd1">
+                <img src="../assets/profile.jpg" alt="John Moss">
+                <span class="hero-image-label">Wisconsin Rapids, WI</span>
+            </div>
+        </div>
+        <div class="float-stat reveal rd2">
+            <div class="fs-item">
+                <div class="fs-num">4<span>th</span></div>
+                <div class="fs-label">Generation</div>
+            </div>
+            <div class="fs-item">
+                <div class="fs-num">3</div>
+                <div class="fs-label">Ventures</div>
+            </div>
+            <div class="fs-item">
+                <div class="fs-num">150<span>ac</span></div>
+                <div class="fs-label">Farm</div>
+            </div>
+            <div class="fs-item">
+                <div class="fs-num">100<span>+</span></div>
+                <div class="fs-label">Year Legacy</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="editorial" id="about">
+        <div class="ed-grid">
+            <div class="ed-text reveal">
+                <div class="ed-label">About</div>
+                <h2 class="ed-heading">Where <em>heritage</em> meets the leading edge of technology.</h2>
+                <div class="ed-body">
+                    <p>I'm an entrepreneur based in central Wisconsin, running multiple ventures across artificial intelligence, enterprise software, and agriculture. I see patterns where others see chaos, and I build systems that turn complexity into leverage.</p>
+                    <p style="margin-top: 1rem;">My family has worked the same land for over 100 years — four generations building something that lasts. That perspective shapes everything I do: build for durability, not just speed. Invest in systems that compound. Leave things better than you found them.</p>
+                    <p style="margin-top: 1rem;">Today, I apply that philosophy across technology, agriculture, and industry leadership — always looking for where deep domain expertise and cutting-edge technology create outsized value.</p>
+                </div>
+            </div>
+            <div class="ed-aside reveal rd1">
+                <div class="ed-aside-card">
+                    <p class="quote">"Build things that last — foundations that turn chaos into clarity through systems that <strong>reduce friction</strong>, <strong>create leverage</strong>, and leave people more capable."</p>
+                    <p class="attr">— Personal Philosophy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ventures-strip" id="ventures">
+        <div class="vs-inner">
+            <div class="vs-header reveal">
+                <h2>Current ventures</h2>
+                <span class="vs-count">03 Active</span>
+            </div>
+            <div class="vs-grid">
+                <div class="vs-card reveal">
+                    <div class="vs-logo"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                    <div class="vs-card-type">AI & Autonomy</div>
+                    <h3>Elm Lake Labs</h3>
+                    <p>Technology studio building AI-powered tools and autonomous systems. Where 100 years of domain expertise meets cutting-edge engineering — creating intelligent infrastructure for the industries that need it most.</p>
+                </div>
+                <div class="vs-card reveal rd1">
+                    <div class="vs-logo"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                    <div class="vs-card-type">Enterprise SaaS</div>
+                    <h3>Blossom</h3>
+                    <p>Enterprise agricultural operations platform. Replacing spreadsheets with data-driven systems.</p>
+                </div>
+                <div class="vs-card reveal rd2">
+                    <div class="vs-logo"><img src="../assets/logos/elc.png" alt="ELC"></div>
+                    <div class="vs-card-type">Agriculture</div>
+                    <h3>Elm Lake Cranberry</h3>
+                    <p>Fourth-generation family farm. 150 acres — the proving ground for everything we build.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="leadership" id="leadership">
+        <div class="lead-header reveal">
+            <div class="ed-label">Industry Leadership</div>
+            <h2>Boards & governance</h2>
+        </div>
+        <div class="lead-offset-grid">
+            <div class="lead-card reveal">
+                <div class="lc-logo"><img src="../assets/logos/wcb.svg" alt="WCB"></div>
+                <div>
+                    <div class="lc-role">President</div>
+                    <div class="lc-org">Wisconsin Cranberry Board</div>
+                    <div class="lc-desc">Leading governance and strategic direction.</div>
+                </div>
+            </div>
+            <div class="lead-card reveal rd1">
+                <div class="lc-logo"><img src="../assets/logos/ocean-spray.svg" alt="OS"></div>
+                <div>
+                    <div class="lc-role">Board of Directors · 2026</div>
+                    <div class="lc-org">Ocean Spray</div>
+                    <div class="lc-desc">Shaping the future of America's largest cranberry cooperative.</div>
+                </div>
+            </div>
+            <div class="lead-card reveal">
+                <div class="lc-logo"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                <div>
+                    <div class="lc-role">Founder</div>
+                    <div class="lc-org">Elm Lake Labs</div>
+                    <div class="lc-desc">Intelligent infrastructure for agriculture.</div>
+                </div>
+            </div>
+            <div class="lead-card reveal rd1">
+                <div class="lc-logo"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <div>
+                    <div class="lc-role">Founder</div>
+                    <div class="lc-org">Blossom SaaS</div>
+                    <div class="lc-desc">Enterprise operations platform.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-inner reveal">
+            <div>
+                <h2>Let's start a <em>conversation.</em></h2>
+                <p>I'm always interested in talking about technology, agriculture, systems design, and what happens when deep domain expertise meets cutting-edge tools.</p>
+            </div>
+            <div class="contact-actions">
+                <a href="mailto:john@elmlake.com" class="ca-btn primary">john@elmlake.com</a>
+                <a href="https://linkedin.com/in/johnmoss" class="ca-btn secondary">Connect on LinkedIn →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 John Moss</p>
+        <p>Wisconsin Rapids, Wisconsin</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

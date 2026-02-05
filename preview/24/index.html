@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Warm Modernist</title>
+    <meta name="description" content="John Moss — Entrepreneur, technologist, builder of lasting systems.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F5F0EB;
+            --bg-warm: #EDE6DD;
+            --surface: #FFFFFF;
+            --cream: #FAF7F2;
+            --terracotta: #C46D4E;
+            --terracotta-light: #D98B72;
+            --terracotta-dim: rgba(196, 109, 78, 0.1);
+            --deep-brown: #2C1810;
+            --brown: #4A3228;
+            --mid-brown: #8B7355;
+            --text: #2C1810;
+            --text-secondary: #6B5B4E;
+            --text-muted: #A39382;
+            --border: rgba(44, 24, 16, 0.1);
+            --serif: 'Fraunces', Georgia, serif;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--sans); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(245, 240, 235, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--deep-brown);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--terracotta); }
+
+        /* ===== HERO ===== */
+        .hero {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 10rem 3rem 6rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+
+        .hero h1 strong {
+            font-weight: 700;
+        }
+
+        .hero-intro {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 560px;
+            font-weight: 300;
+        }
+
+        .hero-divider {
+            width: 60px;
+            height: 2px;
+            background: var(--terracotta);
+            margin: 3rem 0;
+        }
+
+        /* ===== PORTRAIT SECTION ===== */
+        .portrait-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 3rem 8rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .portrait-frame {
+            position: relative;
+        }
+
+        .portrait-frame img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .portrait-label {
+            position: absolute;
+            bottom: -1.5rem;
+            right: 0;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .portrait-text h2 {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .portrait-text p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            margin-bottom: 1.25rem;
+            font-weight: 300;
+        }
+
+        .portrait-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .p-stat-num {
+            font-family: var(--serif);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--terracotta);
+        }
+
+        .p-stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.15rem;
+        }
+
+        /* ===== PHILOSOPHY ===== */
+        .philosophy {
+            background: var(--deep-brown);
+            padding: 6rem 3rem;
+        }
+
+        .philosophy-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .philosophy-icon {
+            width: 48px;
+            height: 2px;
+            background: var(--terracotta);
+            margin: 0 auto 2rem;
+        }
+
+        .philosophy-quote {
+            font-family: var(--serif);
+            font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.7;
+            color: var(--bg);
+        }
+
+        .philosophy-quote strong {
+            font-weight: 600;
+            font-style: normal;
+            color: var(--terracotta-light);
+        }
+
+        /* ===== VENTURES ===== */
+        .ventures {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 3rem;
+        }
+
+        .ventures-header {
+            margin-bottom: 4rem;
+        }
+
+        .ventures-header .section-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .ventures-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .venture-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .v-card {
+            background: var(--surface);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .v-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(44, 24, 16, 0.08);
+        }
+
+        .v-card-type {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .v-card h3 {
+            font-family: var(--serif);
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .v-card p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .v-card-logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 1.25rem;
+            opacity: 0.7;
+        }
+
+        .v-card-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* ===== APPROACH ===== */
+        .approach {
+            background: var(--bg-warm);
+            padding: 8rem 3rem;
+        }
+
+        .approach-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .approach-header {
+            margin-bottom: 4rem;
+        }
+
+        .approach-header .section-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .approach-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 600;
+        }
+
+        .approach-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .approach-item {
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--terracotta);
+        }
+
+        .approach-item h3 {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .approach-item p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ===== LEADERSHIP ===== */
+        .leadership {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 3rem;
+        }
+
+        .leadership-header {
+            margin-bottom: 4rem;
+        }
+
+        .leadership-header .section-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .leadership-header h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 600;
+        }
+
+        .l-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .l-card {
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .l-card:hover {
+            box-shadow: 0 6px 24px rgba(44, 24, 16, 0.06);
+        }
+
+        .l-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            background: var(--bg-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .l-icon img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .l-role {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.15rem;
+        }
+
+        .l-org {
+            font-family: var(--serif);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .l-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            background: var(--deep-brown);
+            padding: 6rem 3rem;
+        }
+
+        .contact-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-family: var(--serif);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 600;
+            color: var(--bg);
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 0.95rem;
+            color: var(--mid-brown);
+            color: rgba(245, 240, 235, 0.6);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .contact-btns {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .c-btn {
+            padding: 0.875rem 2rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .c-btn.primary {
+            background: var(--terracotta);
+            color: white;
+        }
+
+        .c-btn.primary:hover {
+            background: var(--terracotta-light);
+        }
+
+        .c-btn.secondary {
+            border: 1px solid rgba(245, 240, 235, 0.2);
+            color: var(--bg);
+        }
+
+        .c-btn.secondary:hover {
+            border-color: var(--terracotta);
+            color: var(--terracotta-light);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rd1 { transition-delay: 0.1s; }
+        .rd2 { transition-delay: 0.2s; }
+        .rd3 { transition-delay: 0.3s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+            .hero { padding: 7rem 1.5rem 4rem; }
+            .portrait-section { grid-template-columns: 1fr; gap: 3rem; padding: 0 1.5rem 5rem; }
+            .venture-cards { grid-template-columns: 1fr; }
+            .approach-items { grid-template-columns: 1fr; gap: 2rem; }
+            .l-grid { grid-template-columns: 1fr; }
+            .portrait-stats { flex-wrap: wrap; gap: 2rem; }
+            .contact-btns { flex-direction: column; align-items: center; }
+            footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">John Moss</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#ventures">Ventures</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-eyebrow reveal">Entrepreneur & Systems Builder</div>
+        <h1 class="reveal rd1">Building <strong>lasting foundations</strong> from heritage to technology.</h1>
+        <div class="hero-divider reveal rd2"></div>
+        <p class="hero-intro reveal rd2">
+            I lead multiple ventures across technology, agriculture, and enterprise software. I believe the best systems are built by people who understand both the craft and the code.
+        </p>
+    </section>
+
+    <section class="portrait-section" id="about">
+        <div class="portrait-frame reveal">
+            <img src="../assets/profile.jpg" alt="John Moss">
+            <span class="portrait-label">Wisconsin Rapids, WI</span>
+        </div>
+        <div class="portrait-text reveal rd1">
+            <h2>Where heritage meets the leading edge.</h2>
+            <p>Four generations. 150 acres. 100+ years of building on the same land in central Wisconsin. That's not just my backstory — it's my operating system.</p>
+            <p>I see technology through the lens of permanence. When you've watched three generations build something, you learn that the best investments compound over decades, not quarters.</p>
+            <div class="portrait-stats">
+                <div>
+                    <div class="p-stat-num">4th</div>
+                    <div class="p-stat-label">Generation</div>
+                </div>
+                <div>
+                    <div class="p-stat-num">3</div>
+                    <div class="p-stat-label">Ventures</div>
+                </div>
+                <div>
+                    <div class="p-stat-num">150ac</div>
+                    <div class="p-stat-label">Family Farm</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="philosophy">
+        <div class="philosophy-inner reveal">
+            <div class="philosophy-icon"></div>
+            <p class="philosophy-quote">
+                "Build things that last — foundations that turn chaos into clarity through systems that <strong>reduce friction</strong>, <strong>create leverage</strong>, and leave people more capable than when I found them."
+            </p>
+        </div>
+    </div>
+
+    <section class="ventures" id="ventures">
+        <div class="ventures-header reveal">
+            <div class="section-eyebrow">Current Ventures</div>
+            <h2>What I'm building</h2>
+        </div>
+        <div class="venture-cards">
+            <div class="v-card reveal rd1">
+                <div class="v-card-logo"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                <div class="v-card-type">AI & Technology</div>
+                <h3>Elm Lake Labs</h3>
+                <p>Technology studio building AI-powered tools and autonomous systems. Deep domain expertise meets cutting-edge engineering.</p>
+            </div>
+            <div class="v-card reveal rd2">
+                <div class="v-card-logo"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <div class="v-card-type">Enterprise SaaS</div>
+                <h3>Blossom</h3>
+                <p>Enterprise agricultural operations platform. Replacing spreadsheets with intelligent, scalable systems.</p>
+            </div>
+            <div class="v-card reveal rd3">
+                <div class="v-card-logo"><img src="../assets/logos/elc.png" alt="ELC"></div>
+                <div class="v-card-type">Agriculture</div>
+                <h3>Elm Lake Cranberry</h3>
+                <p>Fourth-generation family farm — the proving ground where every system gets battle-tested.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="approach" id="approach">
+        <div class="approach-inner">
+            <div class="approach-header reveal">
+                <div class="section-eyebrow">Philosophy</div>
+                <h2>How I approach building</h2>
+            </div>
+            <div class="approach-items">
+                <div class="approach-item reveal rd1">
+                    <h3>Systems First</h3>
+                    <p>I don't solve problems — I build systems that make problems impossible. Every process should improve itself over time.</p>
+                </div>
+                <div class="approach-item reveal rd2">
+                    <h3>Domain × Code</h3>
+                    <p>The real competitive advantage isn't technology alone. It's technology wielded by people who deeply understand the domain.</p>
+                </div>
+                <div class="approach-item reveal rd3">
+                    <h3>Generational Thinking</h3>
+                    <p>Build for the long horizon. My family has worked the same land for over a century. That shapes how I think about durability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="leadership">
+        <div class="leadership-header reveal">
+            <div class="section-eyebrow">Leadership</div>
+            <h2>Industry involvement</h2>
+        </div>
+        <div class="l-grid">
+            <div class="l-card reveal rd1">
+                <div class="l-icon"><img src="../assets/logos/wcb.svg" alt="WCB"></div>
+                <div>
+                    <div class="l-role">President</div>
+                    <div class="l-org">Wisconsin Cranberry Board</div>
+                    <div class="l-desc">Leading governance and strategic direction for Wisconsin's cranberry industry.</div>
+                </div>
+            </div>
+            <div class="l-card reveal rd2">
+                <div class="l-icon"><img src="../assets/logos/ocean-spray.svg" alt="Ocean Spray"></div>
+                <div>
+                    <div class="l-role">Board of Directors · 2026</div>
+                    <div class="l-org">Ocean Spray</div>
+                    <div class="l-desc">Shaping the future of America's largest cranberry cooperative.</div>
+                </div>
+            </div>
+            <div class="l-card reveal rd1">
+                <div class="l-icon"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                <div>
+                    <div class="l-role">Founder</div>
+                    <div class="l-org">Elm Lake Labs</div>
+                    <div class="l-desc">Technology studio building intelligent infrastructure for agriculture.</div>
+                </div>
+            </div>
+            <div class="l-card reveal rd2">
+                <div class="l-icon"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <div>
+                    <div class="l-role">Founder</div>
+                    <div class="l-org">Blossom SaaS</div>
+                    <div class="l-desc">Enterprise platform for agricultural operations management.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-inner reveal">
+            <h2>Let's start a conversation.</h2>
+            <p>Whether it's about technology, agriculture, systems thinking, or the future of food — I'm always happy to connect with thoughtful people.</p>
+            <div class="contact-btns">
+                <a href="mailto:john@elmlake.com" class="c-btn primary">Email Me</a>
+                <a href="https://linkedin.com/in/johnmoss" class="c-btn secondary">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 John Moss</p>
+        <p>Wisconsin Rapids, Wisconsin</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

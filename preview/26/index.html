@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Grid Portfolio</title>
+    <meta name="description" content="John Moss — Entrepreneur, technologist, systems builder.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0F0F0F;
+            --surface: #1A1A1A;
+            --surface-hover: #222222;
+            --border: rgba(255,255,255,0.06);
+            --border-hover: rgba(255,255,255,0.12);
+            --text: #F5F5F5;
+            --text-secondary: #999999;
+            --text-dim: #555555;
+            --accent: #FF6B35;
+            --accent-soft: rgba(255, 107, 53, 0.12);
+            --blue: #3B82F6;
+            --blue-soft: rgba(59, 130, 246, 0.12);
+            --green: #10B981;
+            --green-soft: rgba(16, 185, 129, 0.12);
+            --purple: #8B5CF6;
+            --purple-soft: rgba(139, 92, 246, 0.12);
+            --font: 'DM Sans', -apple-system, sans-serif;
+            --radius: 20px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; padding: 1.5rem; }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .header-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.2s;
+        }
+
+        .header-links a:hover { color: var(--accent); }
+
+        /* ===== BENTO GRID ===== */
+        .bento {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 1.25rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            background: var(--surface-hover);
+        }
+
+        /* ===== CARD: HERO (span 2x2) ===== */
+        .card-hero {
+            grid-column: span 2;
+            grid-row: span 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2.5rem;
+        }
+
+        .card-hero .hero-eyebrow {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .card-hero h1 {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .card-hero p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 440px;
+        }
+
+        /* ===== CARD: PHOTO ===== */
+        .card-photo {
+            grid-row: span 2;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .card-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== CARD: STAT ===== */
+        .card-stat {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+
+        .stat-value .unit {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== CARD: QUOTE ===== */
+        .card-quote {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2.5rem 3rem;
+        }
+
+        .card-quote blockquote {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.7;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .card-quote blockquote strong {
+            color: var(--accent);
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* ===== CARD: VENTURE ===== */
+        .card-venture {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .venture-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .venture-logo {
+            width: 36px;
+            height: 36px;
+        }
+
+        .venture-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .venture-badge {
+            font-size: 0.6rem;
+            font-weight: 500;
+            padding: 0.3rem 0.75rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .badge-ai { background: var(--blue-soft); color: var(--blue); }
+        .badge-saas { background: var(--green-soft); color: var(--green); }
+        .badge-ag { background: var(--accent-soft); color: var(--accent); }
+
+        .venture-bottom h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .venture-bottom p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== CARD: ROLE ===== */
+        .card-role {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .role-top {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .role-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .role-logo img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .role-title-small {
+            font-size: 0.6rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .role-bottom h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .role-bottom p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== CARD: APPROACH ===== */
+        .card-approach {
+            grid-column: span 2;
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .approach-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .approach-item p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .approach-item .num {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            opacity: 0.4;
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== CARD: CONTACT ===== */
+        .card-contact {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .contact-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+        }
+
+        .contact-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .contact-btns {
+            display: flex;
+            gap: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .c-btn {
+            padding: 0.75rem 1.75rem;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            font-family: var(--font);
+        }
+
+        .c-btn.primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .c-btn.primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .c-btn.secondary {
+            border: 1px solid var(--border);
+            color: var(--text);
+            background: transparent;
+        }
+
+        .c-btn.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ===== CARD: IMAGE ===== */
+        .card-image {
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===== CARD: LOCATION ===== */
+        .card-location {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .location-pin {
+            width: 32px;
+            height: 32px;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .location-city {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .location-state {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== COLOR ACCENT BORDERS ===== */
+        .card-venture:hover .venture-badge.badge-ai { box-shadow: 0 0 20px var(--blue-soft); }
+        .card-venture:hover .venture-badge.badge-saas { box-shadow: 0 0 20px var(--green-soft); }
+        .card-venture:hover .venture-badge.badge-ag { box-shadow: 0 0 20px var(--accent-soft); }
+
+        /* ===== SECTION LABEL ===== */
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            max-width: 1300px;
+            margin: 2rem auto 0;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .card {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            animation: card-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0s; }
+        .card:nth-child(2) { animation-delay: 0.05s; }
+        .card:nth-child(3) { animation-delay: 0.1s; }
+        .card:nth-child(4) { animation-delay: 0.15s; }
+        .card:nth-child(5) { animation-delay: 0.2s; }
+        .card:nth-child(6) { animation-delay: 0.25s; }
+        .card:nth-child(7) { animation-delay: 0.3s; }
+        .card:nth-child(8) { animation-delay: 0.35s; }
+        .card:nth-child(9) { animation-delay: 0.4s; }
+        .card:nth-child(10) { animation-delay: 0.45s; }
+        .card:nth-child(11) { animation-delay: 0.5s; }
+        .card:nth-child(12) { animation-delay: 0.55s; }
+        .card:nth-child(13) { animation-delay: 0.6s; }
+        .card:nth-child(14) { animation-delay: 0.65s; }
+        .card:nth-child(15) { animation-delay: 0.7s; }
+
+        @keyframes card-in {
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .bento { grid-template-columns: repeat(2, 1fr); }
+            .card-approach .approach-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 0.75rem; }
+            .bento {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+            }
+            .card-hero { grid-column: span 1; grid-row: span 1; }
+            .card-photo { grid-row: span 1; height: 300px; }
+            .card-quote { grid-column: span 1; }
+            .card-approach { grid-column: span 1; }
+            .card-contact {
+                grid-column: span 1;
+                flex-direction: column;
+                text-align: center;
+            }
+            .header { flex-direction: column; gap: 1rem; }
+            .header-links { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-name">John Moss</div>
+        <ul class="header-links">
+            <li><a href="mailto:john@elmlake.com">Email</a></li>
+            <li><a href="https://linkedin.com/in/johnmoss">LinkedIn</a></li>
+        </ul>
+    </div>
+
+    <div class="bento">
+        <!-- Hero: 2x2 -->
+        <div class="card card-hero">
+            <div class="hero-eyebrow">Entrepreneur · Technologist · Builder</div>
+            <h1>Building systems that create leverage.</h1>
+            <p>I build companies, tools, and infrastructure at the intersection of deep domain expertise and cutting-edge technology.</p>
+        </div>
+
+        <!-- Photo: 1x2 -->
+        <div class="card card-photo">
+            <img src="../assets/profile.jpg" alt="John Moss">
+        </div>
+
+        <!-- Stat -->
+        <div class="card card-stat">
+            <div class="stat-label">Generation</div>
+            <div class="stat-value">4<span class="unit">th</span></div>
+        </div>
+
+        <!-- Stat -->
+        <div class="card card-stat">
+            <div class="stat-label">Active Ventures</div>
+            <div class="stat-value">3</div>
+        </div>
+
+        <!-- Stat -->
+        <div class="card card-stat">
+            <div class="stat-label">Family Farm</div>
+            <div class="stat-value">150<span class="unit">ac</span></div>
+        </div>
+
+        <!-- Quote: 2x1 -->
+        <div class="card card-quote">
+            <blockquote>"Build things that last — foundations that turn chaos into clarity through systems that <strong>reduce friction</strong>, <strong>create leverage</strong>, and leave people more capable."</blockquote>
+        </div>
+
+        <!-- Venture: ELL -->
+        <div class="card card-venture">
+            <div class="venture-top">
+                <div class="venture-logo"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                <span class="venture-badge badge-ai">AI</span>
+            </div>
+            <div class="venture-bottom">
+                <h3>Elm Lake Labs</h3>
+                <p>AI-powered tools and autonomous systems for agriculture.</p>
+            </div>
+        </div>
+
+        <!-- Venture: Blossom -->
+        <div class="card card-venture">
+            <div class="venture-top">
+                <div class="venture-logo"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <span class="venture-badge badge-saas">SaaS</span>
+            </div>
+            <div class="venture-bottom">
+                <h3>Blossom</h3>
+                <p>Enterprise agricultural operations platform.</p>
+            </div>
+        </div>
+
+        <!-- Venture: ELC -->
+        <div class="card card-venture">
+            <div class="venture-top">
+                <div class="venture-logo"><img src="../assets/logos/elc.png" alt="ELC"></div>
+                <span class="venture-badge badge-ag">Agriculture</span>
+            </div>
+            <div class="venture-bottom">
+                <h3>Elm Lake Cranberry</h3>
+                <p>4th-generation family farm, 150 acres.</p>
+            </div>
+        </div>
+
+        <!-- Image Card -->
+        <div class="card card-image">
+            <img src="../assets/field.png" alt="Field">
+        </div>
+
+        <!-- Approach: 2x1 -->
+        <div class="card card-approach">
+            <div class="section-label">Operating Principles</div>
+            <div class="approach-grid">
+                <div class="approach-item">
+                    <div class="num">01</div>
+                    <h4>Systems First</h4>
+                    <p>Build infrastructure that compounds. Every process should improve itself.</p>
+                </div>
+                <div class="approach-item">
+                    <div class="num">02</div>
+                    <h4>Domain × Tech</h4>
+                    <p>Deep expertise combined with cutting-edge technology. That's the moat.</p>
+                </div>
+                <div class="approach-item">
+                    <div class="num">03</div>
+                    <h4>Think in Decades</h4>
+                    <p>Four generations of building on the same land. Durability over velocity.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Role: WCB -->
+        <div class="card card-role">
+            <div class="role-top">
+                <div class="role-logo"><img src="../assets/logos/wcb.svg" alt="WCB"></div>
+                <span class="role-title-small">President</span>
+            </div>
+            <div class="role-bottom">
+                <h3>WI Cranberry Board</h3>
+                <p>Industry governance & strategy</p>
+            </div>
+        </div>
+
+        <!-- Role: Ocean Spray -->
+        <div class="card card-role">
+            <div class="role-top">
+                <div class="role-logo"><img src="../assets/logos/ocean-spray.svg" alt="OS"></div>
+                <span class="role-title-small">Board · 2026</span>
+            </div>
+            <div class="role-bottom">
+                <h3>Ocean Spray</h3>
+                <p>Board of Directors</p>
+            </div>
+        </div>
+
+        <!-- Location -->
+        <div class="card card-location">
+            <svg class="location-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="location-city">Wisconsin Rapids</div>
+            <div class="location-state">Wisconsin</div>
+        </div>
+
+        <!-- Contact: 2x1 -->
+        <div class="card card-contact">
+            <div class="contact-text">
+                <h3>Let's build something.</h3>
+                <p>Always open to conversations about tech, agriculture, and systems.</p>
+            </div>
+            <div class="contact-btns">
+                <a href="mailto:john@elmlake.com" class="c-btn primary">Email</a>
+                <a href="https://linkedin.com/in/johnmoss" class="c-btn secondary">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2025 John Moss</p>
+    </div>
+</body>
+</html>

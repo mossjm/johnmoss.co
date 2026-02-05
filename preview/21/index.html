@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Entrepreneur, Builder, Leader</title>
+    <meta name="description" content="John Moss — Entrepreneur, ag-tech founder, and systems builder from Wisconsin Rapids.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;1,14..32,400&display=swap" rel="stylesheet">
+    <style>
+        /* ===== DESIGN 21: Founder's Canvas ===== */
+        /* Stripe-inspired: airy whitespace, subtle gradients, refined typography */
+
+        :root {
+            --bg: #FFFFFF;
+            --bg-subtle: #F7F7F8;
+            --surface: #FFFFFF;
+            --text: #0A2540;
+            --text-secondary: #425466;
+            --text-muted: #8898AA;
+            --accent: #635BFF;
+            --accent-light: #7A73FF;
+            --accent-softest: rgba(99, 91, 255, 0.04);
+            --accent-soft: rgba(99, 91, 255, 0.08);
+            --accent-mid: rgba(99, 91, 255, 0.12);
+            --border: rgba(10, 37, 64, 0.06);
+            --border-hover: rgba(10, 37, 64, 0.12);
+            --gradient-hero: linear-gradient(170deg, #FFFFFF 0%, #F0F0FF 50%, #E8E5FF 100%);
+            --gradient-radial: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,91,255,0.08) 0%, transparent 70%);
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius: 12px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.04);
+            --transition: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+        /* ===== SELECTION ===== */
+        ::selection { background: var(--accent-soft); color: var(--accent); }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 4rem;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255,255,255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow 0.4s ease;
+        }
+
+        nav.scrolled { box-shadow: var(--shadow-sm); }
+
+        .nav-brand {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.03em;
+        }
+
+        .nav-brand span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            transition: color 0.25s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--accent);
+            border-radius: 1px;
+            transition: width 0.3s var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-mobile {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .nav-mobile span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding: 8rem 2rem 6rem;
+            background: var(--gradient-hero);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-radial);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(99,91,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99,91,255,0.03) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 80%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent);
+            background: var(--accent-soft);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 2rem;
+            letter-spacing: 0.02em;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: fade-up 0.8s 0.2s var(--transition) forwards;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-up 0.8s 0.4s var(--transition) forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 540px;
+            margin: 0 auto 2.5rem;
+            font-weight: 400;
+            line-height: 1.7;
+            letter-spacing: -0.01em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-up 0.8s 0.6s var(--transition) forwards;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-up 0.8s 0.8s var(--transition) forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: var(--font);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(99,91,255,0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            box-shadow: 0 4px 16px rgba(99,91,255,0.4);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+
+        @keyframes fade-up {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        section {
+            padding: 7rem 4rem;
+        }
+
+        .section-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
+            color: var(--text);
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        /* ===== REVEAL ANIMATION ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== ABOUT ===== */
+        .about {
+            background: var(--bg-subtle);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image-container {
+            position: relative;
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-image-accent {
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            right: 12px;
+            bottom: 12px;
+            border: 2px solid var(--accent-mid);
+            border-radius: var(--radius-lg);
+            pointer-events: none;
+        }
+
+        .about-text h2 {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .about-quote {
+            position: relative;
+            padding: 1.5rem 0 1.5rem 1.5rem;
+            border-left: 3px solid var(--accent);
+            margin-top: 2rem;
+        }
+
+        .about-quote p {
+            font-style: italic;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* ===== STATS ===== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.3s var(--transition), box-shadow 0.3s var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ===== LEADERSHIP ===== */
+        .leadership {
+            background: var(--bg);
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .leadership-card {
+            background: var(--bg-subtle);
+            border-radius: var(--radius);
+            padding: 2rem 2.25rem;
+            border: 1px solid var(--border);
+            transition: all 0.35s var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leadership-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--accent);
+            transition: height 0.4s var(--transition);
+            border-radius: 0 2px 2px 0;
+        }
+
+        .leadership-card:hover {
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .leadership-card:hover::before { height: 100%; }
+
+        .leadership-role {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .leadership-org {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .leadership-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== VENTURES ===== */
+        .ventures {
+            background: var(--bg-subtle);
+        }
+
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .venture-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            transition: all 0.4s var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .venture-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: transparent;
+        }
+
+        .venture-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.6s var(--transition);
+        }
+
+        .venture-card:hover .venture-image {
+            transform: scale(1.04);
+        }
+
+        .venture-body {
+            padding: 1.75rem;
+        }
+
+        .venture-logo {
+            height: 32px;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .venture-card:hover .venture-logo { opacity: 1; }
+
+        .venture-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+        }
+
+        .venture-type {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .venture-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            background: var(--bg);
+            text-align: center;
+        }
+
+        .contact-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text);
+            background: var(--bg-subtle);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            transition: all 0.3s var(--transition);
+        }
+
+        .contact-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-2px);
+        }
+
+        .contact-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 3rem 4rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .footer-location {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            section { padding: 5rem 3rem; }
+            .ventures-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 1.5rem; }
+            .nav-links { display: none; }
+            .nav-mobile { display: flex; }
+
+            .mobile-menu {
+                position: fixed;
+                inset: 0;
+                z-index: 99;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(20px);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s;
+            }
+
+            .mobile-menu.open {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .mobile-menu a {
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: var(--text);
+                text-decoration: none;
+            }
+
+            section { padding: 4rem 1.5rem; }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .leadership-grid { grid-template-columns: 1fr; }
+            .ventures-grid { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+            .hero { padding: 6rem 1.5rem 4rem; }
+            .hero h1 { font-size: clamp(2.75rem, 10vw, 4rem); }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 2rem 1.5rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-card { padding: 1.25rem; }
+            .stat-number { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <div class="nav-brand">John Moss<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#ventures">Ventures</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-mobile" onclick="toggleMobile()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobile()">About</a>
+        <a href="#leadership" onclick="closeMobile()">Leadership</a>
+        <a href="#ventures" onclick="closeMobile()">Ventures</a>
+        <a href="#contact" onclick="closeMobile()">Contact</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-label">Entrepreneur · Builder · Leader</div>
+            <h1>John Moss</h1>
+            <p class="hero-subtitle">Building systems that turn chaos into clarity — from the fields of Wisconsin to the forefront of ag-tech innovation.</p>
+            <div class="hero-cta">
+                <a href="#ventures" class="btn btn-primary">Explore Ventures</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-image-container reveal">
+                    <div class="about-image-accent"></div>
+                    <img src="../assets/profile.jpg" alt="John Moss" class="about-image">
+                </div>
+                <div class="about-text">
+                    <div class="section-label reveal">About</div>
+                    <h2 class="reveal reveal-delay-1">Building foundations that last</h2>
+                    <p class="reveal reveal-delay-2">
+                        John Moss is a fourth-generation land steward, entrepreneur, and technology builder based in Wisconsin Rapids. At 40, he runs multiple ventures that bridge the gap between agricultural tradition and modern technology.
+                    </p>
+                    <p class="reveal reveal-delay-3">
+                        From a 150-acre family farm with over a century of history to founding Elm Lake Labs and Blossom, John's work is guided by a single principle: create systems that reduce friction, build leverage, and leave people more capable.
+                    </p>
+                    <div class="about-quote reveal reveal-delay-4">
+                        <p>"To build things that last — foundations that turn chaos into clarity through systems that reduce friction, create leverage, and leave people more capable than when I found them."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="stats-row">
+                <div class="stat-card reveal">
+                    <span class="stat-number" data-count="4">0</span>
+                    <span class="stat-label">Generations on the land</span>
+                </div>
+                <div class="stat-card reveal reveal-delay-1">
+                    <span class="stat-number" data-count="150">0</span>
+                    <span class="stat-label">Acres stewarded</span>
+                </div>
+                <div class="stat-card reveal reveal-delay-2">
+                    <span class="stat-number" data-count="100" data-suffix="+">0</span>
+                    <span class="stat-label">Years of family legacy</span>
+                </div>
+                <div class="stat-card reveal reveal-delay-3">
+                    <span class="stat-number" data-count="3">0</span>
+                    <span class="stat-label">Active ventures</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section class="leadership" id="leadership">
+        <div class="section-inner">
+            <div class="section-label reveal">Leadership</div>
+            <h2 class="section-title reveal reveal-delay-1">Industry leadership &amp; governance</h2>
+            <p class="section-desc reveal reveal-delay-2">
+                Shaping the future of agriculture through board-level involvement and hands-on advocacy for growers across the industry.
+            </p>
+
+            <div class="leadership-grid">
+                <div class="leadership-card reveal">
+                    <div class="leadership-role">Board of Directors</div>
+                    <div class="leadership-org">Ocean Spray</div>
+                    <div class="leadership-desc">Elected to the Ocean Spray board in 2026, representing grower-owners in one of America's most iconic agricultural cooperatives.</div>
+                </div>
+                <div class="leadership-card reveal reveal-delay-1">
+                    <div class="leadership-role">President</div>
+                    <div class="leadership-org">Wisconsin Cranberry Board</div>
+                    <div class="leadership-desc">Leading Wisconsin's cranberry industry board, driving policy, research funding, and advocacy for the state's growers.</div>
+                </div>
+                <div class="leadership-card reveal reveal-delay-2">
+                    <div class="leadership-role">Founder &amp; CEO</div>
+                    <div class="leadership-org">Elm Lake Labs</div>
+                    <div class="leadership-desc">Building agricultural technology that brings clarity and leverage to modern farming operations.</div>
+                </div>
+                <div class="leadership-card reveal reveal-delay-3">
+                    <div class="leadership-role">4th Generation Owner</div>
+                    <div class="leadership-org">Elm Lake Cranberry</div>
+                    <div class="leadership-desc">Stewarding a 150-acre family farm with over a century of continuous operation in Wisconsin Rapids.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VENTURES -->
+    <section class="ventures" id="ventures">
+        <div class="section-inner">
+            <div class="section-label reveal">Ventures</div>
+            <h2 class="section-title reveal reveal-delay-1">Building across domains</h2>
+            <p class="section-desc reveal reveal-delay-2">
+                Each venture is built on the same foundation — systems thinking, operational clarity, and lasting value.
+            </p>
+
+            <div class="ventures-grid">
+                <div class="venture-card reveal">
+                    <div style="overflow:hidden;">
+                        <img src="../assets/tech.png" alt="Elm Lake Labs" class="venture-image">
+                    </div>
+                    <div class="venture-body">
+                        <img src="../assets/logos/ell.png" alt="Elm Lake Labs" class="venture-logo">
+                        <div class="venture-type">Agricultural Technology</div>
+                        <div class="venture-name">Elm Lake Labs</div>
+                        <p class="venture-desc">Precision ag-tech tools and platforms that help growers make smarter decisions with better data.</p>
+                    </div>
+                </div>
+
+                <div class="venture-card reveal reveal-delay-1">
+                    <div style="overflow:hidden;">
+                        <img src="../assets/photos/blossom_laptop.png" alt="Blossom" class="venture-image">
+                    </div>
+                    <div class="venture-body">
+                        <img src="../assets/logos/blossom.svg" alt="Blossom" class="venture-logo">
+                        <div class="venture-type">SaaS Platform</div>
+                        <div class="venture-name">Blossom</div>
+                        <p class="venture-desc">Business management software designed to streamline operations and reduce complexity for growing companies.</p>
+                    </div>
+                </div>
+
+                <div class="venture-card reveal reveal-delay-2">
+                    <div style="overflow:hidden;">
+                        <img src="../assets/field.png" alt="Elm Lake Cranberry" class="venture-image">
+                    </div>
+                    <div class="venture-body">
+                        <img src="../assets/logos/elc.png" alt="Elm Lake Cranberry" class="venture-logo">
+                        <div class="venture-type">Family Farm</div>
+                        <div class="venture-name">Elm Lake Cranberry</div>
+                        <p class="venture-desc">A 150-acre cranberry operation, family-owned for four generations and over 100 years of continuous stewardship.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <div class="section-inner">
+            <div class="contact-inner">
+                <div class="section-label reveal">Get in Touch</div>
+                <h2 class="section-title reveal reveal-delay-1">Let's connect</h2>
+                <p class="section-desc reveal reveal-delay-2" style="margin: 0 auto 2.5rem; max-width: 480px;">
+                    Whether it's about agriculture, technology, or building something meaningful — I'm always open to a conversation.
+                </p>
+                <div class="contact-links reveal reveal-delay-3">
+                    <a href="mailto:john@elmlake.com" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                        Email
+                    </a>
+                    <a href="https://linkedin.com/in/johnmoss" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+                        LinkedIn
+                    </a>
+                    <a href="#" class="contact-link">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Wisconsin Rapids, WI
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-text">&copy; 2026 John Moss. All rights reserved.</div>
+        <div class="footer-location">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Wisconsin Rapids, Wisconsin
+        </div>
+    </footer>
+
+    <script>
+        // ===== SCROLL REVEAL =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ===== NAV SCROLL =====
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // ===== COUNTER ANIMATION =====
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.count);
+                    const suffix = el.dataset.suffix || '';
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 4);
+                        const current = Math.round(eased * target);
+                        el.textContent = current + suffix;
+                        if (progress < 1) requestAnimationFrame(update);
+                    }
+
+                    requestAnimationFrame(update);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number[data-count]').forEach(el => {
+            counterObserver.observe(el);
+        });
+
+        // ===== MOBILE MENU =====
+        function toggleMobile() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+        }
+        function closeMobile() {
+            document.getElementById('mobileMenu').classList.remove('open');
+        }
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

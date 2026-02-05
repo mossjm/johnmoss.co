@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Dark Visionary</title>
+    <meta name="description" content="John Moss — Entrepreneur, technologist, systems builder.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080B16;
+            --bg-elevated: #0D1224;
+            --surface: #111833;
+            --accent: #6366F1;
+            --accent-light: #818CF8;
+            --accent-glow: rgba(99, 102, 241, 0.2);
+            --purple: #A855F7;
+            --cyan: #22D3EE;
+            --text: #E8ECF4;
+            --text-secondary: #8892B0;
+            --text-dim: #4A5578;
+            --border: rgba(99, 102, 241, 0.1);
+            --heading: 'Space Grotesk', sans-serif;
+            --body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--body); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* ===== BACKGROUND EFFECTS ===== */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-orb-1 {
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%);
+        }
+
+        .bg-orb-2 {
+            bottom: 20%;
+            left: -15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.08), transparent 70%);
+        }
+
+        .bg-orb-3 {
+            top: 50%;
+            right: 20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.06), transparent 70%);
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 11, 22, 0.7);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-name {
+            font-family: var(--heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.2s;
+            letter-spacing: 0.02em;
+        }
+
+        .nav-links a:hover { color: var(--accent-light); }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .hero-photo-wrapper {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-photo-wrapper img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(99, 102, 241, 0.3);
+            box-shadow: 0 0 60px rgba(99, 102, 241, 0.15);
+        }
+
+        .hero-photo-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.5; }
+        }
+
+        .hero-name {
+            font-family: var(--heading);
+            font-size: clamp(4rem, 8vw, 7rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-name .highlight {
+            background: linear-gradient(135deg, var(--accent-light), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-family: var(--heading);
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-dim);
+            line-height: 1.8;
+            max-width: 500px;
+            margin-bottom: 3rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-glow {
+            padding: 0.875rem 2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: var(--body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+
+        .btn-glow:hover {
+            background: var(--accent-light);
+            box-shadow: 0 0 50px var(--accent-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            padding: 0.875rem 2rem;
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: var(--body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+            animation: scroll-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scroll-pulse {
+            0%, 100% { opacity: 1; transform: scaleY(1); }
+            50% { opacity: 0.3; transform: scaleY(0.5); }
+        }
+
+        /* ===== VISION SECTION ===== */
+        .vision {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+        }
+
+        .vision-quote {
+            font-family: var(--heading);
+            font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--text);
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid var(--accent);
+        }
+
+        .vision-quote em {
+            color: var(--accent-light);
+            font-style: normal;
+        }
+
+        .vision-attribution {
+            margin-top: 1.5rem;
+            padding-left: 2rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+
+        /* ===== VENTURES ===== */
+        .ventures {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem 8rem;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .section-tag::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .section-title {
+            font-family: var(--heading);
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .venture-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .venture-item {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 2rem;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .venture-item:hover {
+            border-color: var(--accent);
+            transform: translateX(8px);
+            box-shadow: -8px 0 30px var(--accent-glow);
+        }
+
+        .venture-logo {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .venture-logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+        }
+
+        .venture-info h3 {
+            font-family: var(--heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .venture-info p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .venture-badge {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--cyan);
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            white-space: nowrap;
+        }
+
+        /* ===== PRINCIPLES ===== */
+        .principles {
+            position: relative;
+            z-index: 1;
+            padding: 8rem 2rem;
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .principles-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .principle-card {
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: rgba(8, 11, 22, 0.6);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .principle-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .principle-card:hover {
+            border-color: rgba(99, 102, 241, 0.25);
+            background: rgba(13, 18, 36, 0.8);
+        }
+
+        .principle-card:hover::before { opacity: 1; }
+
+        .principle-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent-light);
+        }
+
+        .principle-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .principle-title {
+            font-family: var(--heading);
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .principle-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== ROLES ===== */
+        .roles {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+        }
+
+        .roles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .role-card {
+            padding: 2rem;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+        }
+
+        .role-card:hover {
+            border-color: rgba(99, 102, 241, 0.2);
+            background: var(--surface);
+        }
+
+        .role-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .role-icon img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .role-title {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.2rem;
+        }
+
+        .role-org {
+            font-family: var(--heading);
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .role-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .cta h2 {
+            font-family: var(--heading);
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .cta h2 .highlight {
+            background: linear-gradient(135deg, var(--accent-light), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+        }
+
+        .cta-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 0.05em;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+            .hero { padding: 7rem 1.5rem 4rem; min-height: auto; }
+            .hero-name { font-size: 3.5rem; }
+            .scroll-indicator { display: none; }
+            .principles-grid { grid-template-columns: 1fr; }
+            .roles-grid { grid-template-columns: 1fr; }
+            .venture-item { grid-template-columns: 1fr; gap: 1rem; }
+            .venture-logo { display: none; }
+            .venture-badge { justify-self: start; }
+            .hero-actions { flex-direction: column; align-items: center; }
+            .cta-links { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-orb bg-orb-1"></div>
+    <div class="bg-orb bg-orb-2"></div>
+    <div class="bg-orb bg-orb-3"></div>
+
+    <nav>
+        <div class="nav-name">John Moss</div>
+        <ul class="nav-links">
+            <li><a href="#ventures">Ventures</a></li>
+            <li><a href="#principles">Principles</a></li>
+            <li><a href="#roles">Leadership</a></li>
+            <li><a href="#contact">Connect</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-eyebrow reveal">Entrepreneur · Technologist · Builder</div>
+        <div class="hero-photo-wrapper reveal delay-1">
+            <img src="../assets/profile.jpg" alt="John Moss">
+        </div>
+        <h1 class="hero-name reveal delay-1">
+            John <span class="highlight">Moss.</span>
+        </h1>
+        <p class="hero-tagline reveal delay-2">Turning complexity into leverage.</p>
+        <p class="hero-desc reveal delay-2">
+            I build companies, infrastructure, and systems at the intersection of deep domain expertise and cutting-edge technology. Fourth-generation roots. Future-focused vision.
+        </p>
+        <div class="hero-actions reveal delay-3">
+            <a href="#ventures" class="btn-glow">What I'm building</a>
+            <a href="#contact" class="btn-outline">Get in touch</a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            Scroll
+        </div>
+    </section>
+
+    <section class="vision reveal">
+        <blockquote class="vision-quote">
+            "Build things that last — foundations that turn chaos into clarity through systems that <em>reduce friction</em>, <em>create leverage</em>, and leave people more capable than when I found them."
+        </blockquote>
+        <p class="vision-attribution">— Personal philosophy</p>
+    </section>
+
+    <section class="ventures" id="ventures">
+        <div class="section-header reveal">
+            <div class="section-tag">Current Ventures</div>
+            <h2 class="section-title">Building across domains</h2>
+        </div>
+        <div class="venture-list">
+            <div class="venture-item reveal delay-1">
+                <div class="venture-logo"><img src="../assets/logos/ell.png" alt="Elm Lake Labs"></div>
+                <div class="venture-info">
+                    <h3>Elm Lake Labs</h3>
+                    <p>Technology studio building AI-powered tools and autonomous systems. Deep domain expertise meets cutting-edge engineering.</p>
+                </div>
+                <span class="venture-badge">AI · Autonomy</span>
+            </div>
+            <div class="venture-item reveal delay-2">
+                <div class="venture-logo"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <div class="venture-info">
+                    <h3>Blossom SaaS</h3>
+                    <p>Enterprise agricultural operations platform. Replacing spreadsheets with intelligent systems that scale.</p>
+                </div>
+                <span class="venture-badge">Enterprise SaaS</span>
+            </div>
+            <div class="venture-item reveal delay-3">
+                <div class="venture-logo"><img src="../assets/logos/elc.png" alt="Elm Lake Cranberry"></div>
+                <div class="venture-info">
+                    <h3>Elm Lake Cranberry</h3>
+                    <p>150-acre family farm, 4th generation. Where every system gets battle-tested against reality.</p>
+                </div>
+                <span class="venture-badge">Agriculture</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="principles" id="principles">
+        <div class="principles-inner">
+            <div class="section-header reveal">
+                <div class="section-tag">Operating Principles</div>
+                <h2 class="section-title">How I think about building</h2>
+            </div>
+            <div class="principles-grid">
+                <div class="principle-card reveal delay-1">
+                    <div class="principle-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <h3 class="principle-title">Systems Thinking</h3>
+                    <p class="principle-desc">See the whole system, not just the parts. Build infrastructure that compounds. Every process should improve itself.</p>
+                </div>
+                <div class="principle-card reveal delay-2">
+                    <div class="principle-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                    </div>
+                    <h3 class="principle-title">Think in Decades</h3>
+                    <p class="principle-desc">Four generations of my family worked the same land. That teaches you to build for durability, not just velocity.</p>
+                </div>
+                <div class="principle-card reveal delay-3">
+                    <div class="principle-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <h3 class="principle-title">Reduce Friction</h3>
+                    <p class="principle-desc">The best system is invisible. Find where friction lives, eliminate it, and let people focus on what matters.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="roles" id="roles">
+        <div class="section-header reveal">
+            <div class="section-tag">Leadership</div>
+            <h2 class="section-title">Industry involvement</h2>
+        </div>
+        <div class="roles-grid">
+            <div class="role-card reveal delay-1">
+                <div class="role-icon"><img src="../assets/logos/wcb.svg" alt="WCB"></div>
+                <div>
+                    <div class="role-title">President</div>
+                    <h3 class="role-org">Wisconsin Cranberry Board</h3>
+                    <p class="role-desc">Leading governance and strategic direction for Wisconsin's cranberry industry.</p>
+                </div>
+            </div>
+            <div class="role-card reveal delay-2">
+                <div class="role-icon"><img src="../assets/logos/ocean-spray.svg" alt="Ocean Spray"></div>
+                <div>
+                    <div class="role-title">Board of Directors</div>
+                    <h3 class="role-org">Ocean Spray</h3>
+                    <p class="role-desc">Joining 2026 — shaping the future of America's largest cranberry cooperative.</p>
+                </div>
+            </div>
+            <div class="role-card reveal delay-3">
+                <div class="role-icon"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                <div>
+                    <div class="role-title">Founder</div>
+                    <h3 class="role-org">Elm Lake Labs</h3>
+                    <p class="role-desc">Technology studio building intelligent infrastructure for agriculture.</p>
+                </div>
+            </div>
+            <div class="role-card reveal">
+                <div class="role-icon"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <div>
+                    <div class="role-title">Founder</div>
+                    <h3 class="role-org">Blossom SaaS</h3>
+                    <p class="role-desc">Enterprise platform turning agricultural complexity into operational clarity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <h2 class="reveal">Let's build the <span class="highlight">future.</span></h2>
+        <p class="reveal delay-1">Interested in AI, agricultural technology, systems thinking, or just want to talk shop? I'm always open to compelling conversations.</p>
+        <div class="cta-links reveal delay-2">
+            <a href="mailto:john@elmlake.com" class="btn-glow">john@elmlake.com</a>
+            <a href="https://linkedin.com/in/johnmoss" class="btn-outline">LinkedIn →</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 John Moss · Wisconsin Rapids, WI</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver(
+            (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+            { threshold: 0.1, rootMargin: '0px 0px -60px 0px' }
+        );
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

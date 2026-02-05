@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Micro-Animated</title>
+    <meta name="description" content="John Moss — Entrepreneur, technologist, systems builder.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FCFCFC;
+            --surface: #FFFFFF;
+            --text: #111111;
+            --text-secondary: #5F5F5F;
+            --text-muted: #A0A0A0;
+            --accent: #111111;
+            --highlight: #3B82F6;
+            --highlight-soft: rgba(59, 130, 246, 0.08);
+            --border: rgba(0,0,0,0.06);
+            --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(252, 252, 252, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-name {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            animation: slide-in-left 0.6s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes slide-in-left {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links li {
+            opacity: 0;
+            animation: slide-in-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .nav-links li:nth-child(1) { animation-delay: 0.4s; }
+        .nav-links li:nth-child(2) { animation-delay: 0.5s; }
+        .nav-links li:nth-child(3) { animation-delay: 0.6s; }
+        .nav-links li:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes slide-in-right {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 400;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--highlight);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ===== HERO ===== */
+        .hero {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 12rem 3rem 6rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Character-by-character reveal */
+        .char-reveal {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: char-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-text p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 460px;
+            opacity: 0;
+            animation: fade-up 0.8s 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes char-in {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fade-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-photo {
+            opacity: 0;
+            animation: scale-in 0.8s 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes scale-in {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .hero-photo img {
+            width: 260px;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.06);
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            opacity: 0;
+            animation: fade-up 0.6s 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .btn-filled {
+            padding: 0.75rem 1.75rem;
+            background: var(--text);
+            color: white;
+            text-decoration: none;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-filled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .btn-ghost {
+            padding: 0.75rem 1.75rem;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--text);
+        }
+
+        /* ===== STATS ROW ===== */
+        .stats-row {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 3rem 6rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-number .count-up {
+            display: inline-block;
+        }
+
+        .stat-number .suffix {
+            font-size: 1.25rem;
+            color: var(--highlight);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* ===== PHILOSOPHY ===== */
+        .philosophy {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 3rem 6rem;
+            text-align: center;
+        }
+
+        .philosophy-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1.5rem;
+        }
+
+        .philosophy blockquote {
+            font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+            font-weight: 400;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .philosophy blockquote strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* Word reveal animation */
+        .word-reveal {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .word-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== VENTURES ===== */
+        .ventures {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 3rem 6rem;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .v-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: default;
+        }
+
+        .v-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.06);
+            border-color: transparent;
+        }
+
+        .v-card-logo {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 1.25rem;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .v-card:hover .v-card-logo {
+            transform: scale(1.15) rotate(-3deg);
+        }
+
+        .v-card-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .v-card-type {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.5rem;
+        }
+
+        .v-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .v-card:hover h3 { color: var(--highlight); }
+
+        .v-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== APPROACH ===== */
+        .approach {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 3rem 6rem;
+        }
+
+        .approach-cols {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .ap-item {
+            position: relative;
+        }
+
+        .ap-num {
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(0,0,0,0.04);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+            transition: color 0.4s;
+        }
+
+        .ap-item:hover .ap-num {
+            color: var(--highlight-soft);
+        }
+
+        .ap-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Underline animation on hover */
+        .ap-title {
+            position: relative;
+            display: inline-block;
+        }
+
+        .ap-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--highlight);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .ap-item:hover .ap-title::after {
+            width: 100%;
+        }
+
+        .ap-desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== LEADERSHIP ===== */
+        .leadership {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 4rem 3rem 6rem;
+        }
+
+        .lead-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .lead-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            display: flex;
+            gap: 1.25rem;
+            align-items: flex-start;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lead-card:hover {
+            transform: translateX(8px);
+            box-shadow: -4px 0 0 var(--highlight);
+            border-left-color: transparent;
+        }
+
+        .lead-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+
+        .lead-card:hover .lead-icon {
+            transform: rotate(-5deg) scale(1.1);
+        }
+
+        .lead-icon img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .lead-role {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--highlight);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .lead-org {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .lead-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.15rem;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 4rem 3rem 8rem;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.75rem;
+            border: 1px solid var(--border);
+            border-radius: 9999px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-link:hover {
+            border-color: var(--text);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 2rem 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
+        .reveal-group > * {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-group.visible > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-group.visible > *:nth-child(1) { transition-delay: 0s; }
+        .reveal-group.visible > *:nth-child(2) { transition-delay: 0.08s; }
+        .reveal-group.visible > *:nth-child(3) { transition-delay: 0.16s; }
+        .reveal-group.visible > *:nth-child(4) { transition-delay: 0.24s; }
+        .reveal-group.visible > *:nth-child(5) { transition-delay: 0.32s; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== MAGNETIC HOVER ===== */
+        .magnetic {
+            transition: transform 0.2s ease;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav { padding: 1rem 1.5rem; }
+            .nav-links { display: none; }
+            .hero { grid-template-columns: 1fr; gap: 2rem; padding-top: 7rem; }
+            .hero-photo { order: -1; text-align: center; }
+            .hero-photo img { width: 180px; height: 220px; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .ventures-grid { grid-template-columns: 1fr; }
+            .approach-cols { grid-template-columns: 1fr; gap: 2rem; }
+            .lead-grid { grid-template-columns: 1fr; }
+            .contact-actions { flex-direction: column; align-items: center; }
+            .hero-cta { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-name magnetic">John Moss</div>
+        <ul class="nav-links">
+            <li><a href="#ventures">Ventures</a></li>
+            <li><a href="#approach">Approach</a></li>
+            <li><a href="#leadership">Leadership</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1 id="heroTitle"></h1>
+            <p>Entrepreneur, technologist, and systems thinker. Building companies and infrastructure at the intersection of deep domain expertise and cutting-edge technology.</p>
+            <div class="hero-cta">
+                <a href="#ventures" class="btn-filled magnetic">Explore ventures</a>
+                <a href="#contact" class="btn-ghost magnetic">Get in touch</a>
+            </div>
+        </div>
+        <div class="hero-photo">
+            <img src="../assets/profile.jpg" alt="John Moss">
+        </div>
+    </section>
+
+    <section class="stats-row reveal-group" id="stats">
+        <div class="stat-item">
+            <div class="stat-number"><span class="count-up" data-target="4">0</span><span class="suffix">th</span></div>
+            <div class="stat-label">Generation</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number"><span class="count-up" data-target="3">0</span></div>
+            <div class="stat-label">Active Ventures</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number"><span class="count-up" data-target="150">0</span><span class="suffix">ac</span></div>
+            <div class="stat-label">Family Farm</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number"><span class="count-up" data-target="100">0</span><span class="suffix">+</span></div>
+            <div class="stat-label">Year Legacy</div>
+        </div>
+    </section>
+
+    <section class="philosophy reveal" id="philosophy">
+        <div class="philosophy-label">Philosophy</div>
+        <blockquote id="philosophyQuote"></blockquote>
+    </section>
+
+    <section class="ventures" id="ventures">
+        <div class="section-header reveal">
+            <div class="section-label">Current Ventures</div>
+            <h2 class="section-title">What I'm building</h2>
+        </div>
+        <div class="ventures-grid reveal-group">
+            <div class="v-card">
+                <div class="v-card-logo"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                <div class="v-card-type">AI & Technology</div>
+                <h3>Elm Lake Labs</h3>
+                <p>Technology studio building AI-powered tools and autonomous systems for agriculture.</p>
+            </div>
+            <div class="v-card">
+                <div class="v-card-logo"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <div class="v-card-type">Enterprise SaaS</div>
+                <h3>Blossom</h3>
+                <p>Enterprise agricultural operations platform replacing spreadsheets with intelligent systems.</p>
+            </div>
+            <div class="v-card">
+                <div class="v-card-logo"><img src="../assets/logos/elc.png" alt="ELC"></div>
+                <div class="v-card-type">Agriculture</div>
+                <h3>Elm Lake Cranberry</h3>
+                <p>Fourth-generation family farm. 150 acres where every system gets battle-tested.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="approach" id="approach">
+        <div class="section-header reveal">
+            <div class="section-label">Operating Principles</div>
+            <h2 class="section-title">How I build</h2>
+        </div>
+        <div class="approach-cols reveal-group">
+            <div class="ap-item">
+                <div class="ap-num">01</div>
+                <h3 class="ap-title">Systems Over Solutions</h3>
+                <p class="ap-desc">I don't fix problems — I build systems that prevent them. Infrastructure that compounds.</p>
+            </div>
+            <div class="ap-item">
+                <div class="ap-num">02</div>
+                <h3 class="ap-title">Domain × Technology</h3>
+                <p class="ap-desc">Deep expertise plus cutting-edge tech creates outsized leverage. The domain is the moat.</p>
+            </div>
+            <div class="ap-item">
+                <div class="ap-num">03</div>
+                <h3 class="ap-title">Build for Decades</h3>
+                <p class="ap-desc">Four generations taught me durability. I think in decades, not quarters.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="leadership" id="leadership">
+        <div class="section-header reveal">
+            <div class="section-label">Leadership</div>
+            <h2 class="section-title">Industry roles</h2>
+        </div>
+        <div class="lead-grid reveal-group">
+            <div class="lead-card">
+                <div class="lead-icon"><img src="../assets/logos/wcb.svg" alt="WCB"></div>
+                <div>
+                    <div class="lead-role">President</div>
+                    <div class="lead-org">Wisconsin Cranberry Board</div>
+                    <div class="lead-desc">Industry governance and strategic direction.</div>
+                </div>
+            </div>
+            <div class="lead-card">
+                <div class="lead-icon"><img src="../assets/logos/ocean-spray.svg" alt="OS"></div>
+                <div>
+                    <div class="lead-role">Board of Directors · 2026</div>
+                    <div class="lead-org">Ocean Spray</div>
+                    <div class="lead-desc">Shaping the future of America's largest cranberry cooperative.</div>
+                </div>
+            </div>
+            <div class="lead-card">
+                <div class="lead-icon"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                <div>
+                    <div class="lead-role">Founder</div>
+                    <div class="lead-org">Elm Lake Labs</div>
+                    <div class="lead-desc">Intelligent infrastructure for agriculture.</div>
+                </div>
+            </div>
+            <div class="lead-card">
+                <div class="lead-icon"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                <div>
+                    <div class="lead-role">Founder</div>
+                    <div class="lead-org">Blossom SaaS</div>
+                    <div class="lead-desc">Enterprise agricultural operations platform.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="reveal">Let's build something.</h2>
+        <p class="reveal">Always open to conversations about technology, agriculture, systems design, and what happens when deep expertise meets cutting-edge tools.</p>
+        <div class="contact-actions reveal">
+            <a href="mailto:john@elmlake.com" class="contact-link magnetic">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Email
+            </a>
+            <a href="https://linkedin.com/in/johnmoss" class="contact-link magnetic">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+            </a>
+            <a href="#" class="contact-link magnetic">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                Wisconsin Rapids, WI
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 John Moss. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Character-by-character title reveal
+        const titleText = "Building systems that create leverage.";
+        const titleEl = document.getElementById('heroTitle');
+        titleText.split('').forEach((char, i) => {
+            const span = document.createElement('span');
+            span.classList.add('char-reveal');
+            span.style.animationDelay = `${0.3 + i * 0.03}s`;
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            titleEl.appendChild(span);
+        });
+
+        // Word-by-word philosophy reveal
+        const quoteText = '"Build things that last — foundations that turn chaos into clarity through systems that <strong>reduce friction</strong>, <strong>create leverage</strong>, and leave people more capable than when I found them."';
+        const quoteEl = document.getElementById('philosophyQuote');
+        // Parse HTML safely
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = quoteText;
+        const textContent = tempDiv.textContent;
+        const words = textContent.split(' ');
+
+        // Reconstruct with word spans
+        let htmlStr = quoteText;
+        words.forEach((word, i) => {
+            // We'll do word-by-word animation via observer instead
+        });
+        quoteEl.innerHTML = quoteText;
+
+        // Count-up animation
+        function animateCountUp(el) {
+            const target = parseInt(el.dataset.target);
+            const duration = 1500;
+            const start = performance.now();
+
+            function update(now) {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(target * eased);
+                if (progress < 1) requestAnimationFrame(update);
+            }
+
+            requestAnimationFrame(update);
+        }
+
+        // Intersection Observer
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('visible');
+
+                        // Trigger count-up for stat numbers
+                        if (e.target.id === 'stats' || e.target.classList.contains('reveal-group')) {
+                            e.target.querySelectorAll('.count-up').forEach(el => {
+                                if (!el.dataset.animated) {
+                                    el.dataset.animated = 'true';
+                                    animateCountUp(el);
+                                }
+                            });
+                        }
+                    }
+                });
+            },
+            { threshold: 0.15, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        document.querySelectorAll('.reveal, .reveal-group').forEach(el => observer.observe(el));
+
+        // Magnetic hover effect
+        document.querySelectorAll('.magnetic').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) * 0.15;
+                const y = (e.clientY - rect.top - rect.height / 2) * 0.15;
+                el.style.transform = `translate(${x}px, ${y}px)`;
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+    </script>
+</body>
+</html>

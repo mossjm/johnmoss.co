@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Moss — Terminal</title>
+    <meta name="description" content="John Moss — Entrepreneur, technologist, systems builder.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0D1117;
+            --bg-elevated: #161B22;
+            --surface: #1C2128;
+            --border: #30363D;
+            --text: #C9D1D9;
+            --text-bright: #F0F6FC;
+            --text-dim: #484F58;
+            --green: #3FB950;
+            --green-dim: rgba(63, 185, 80, 0.15);
+            --blue: #58A6FF;
+            --blue-dim: rgba(88, 166, 255, 0.12);
+            --purple: #BC8CFF;
+            --yellow: #D29922;
+            --red: #F85149;
+            --orange: #DB6D28;
+            --mono: 'JetBrains Mono', 'Fira Code', monospace;
+            --sans: 'Inter', -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--mono); background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+        /* ===== SCANLINE EFFECT ===== */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.03) 2px,
+                rgba(0,0,0,0.03) 4px
+            );
+        }
+
+        /* ===== WINDOW CHROME ===== */
+        .window {
+            max-width: 1100px;
+            margin: 2rem auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg);
+        }
+
+        .titlebar {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .traffic-lights {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .traffic-lights span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .tl-red { background: var(--red); }
+        .tl-yellow { background: var(--yellow); }
+        .tl-green { background: var(--green); }
+
+        .titlebar-text {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            flex: 1;
+            text-align: center;
+        }
+
+        .titlebar-tabs {
+            display: flex;
+            gap: 0;
+        }
+
+        .tab {
+            padding: 0.4rem 1rem;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            border-radius: 6px 6px 0 0;
+            cursor: default;
+        }
+
+        .tab.active {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        /* ===== TERMINAL CONTENT ===== */
+        .terminal {
+            padding: 2rem;
+            min-height: 80vh;
+        }
+
+        .prompt {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .prompt-symbol {
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+            line-height: 1.6;
+        }
+
+        .prompt-path {
+            color: var(--blue);
+            font-size: 0.85rem;
+        }
+
+        .prompt-cmd {
+            color: var(--text-bright);
+            font-size: 0.85rem;
+        }
+
+        .output {
+            margin-bottom: 2.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .output-line {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .comment {
+            color: var(--text-dim);
+            font-style: italic;
+        }
+
+        .keyword { color: var(--purple); }
+        .string { color: var(--green); }
+        .function { color: var(--blue); }
+        .number { color: var(--orange); }
+        .constant { color: var(--yellow); }
+        .variable { color: var(--red); }
+
+        /* ===== SECTION BLOCKS ===== */
+        .section-break {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2.5rem 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            color: var(--green);
+            font-size: 0.85rem;
+        }
+
+        .section-name {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* ===== PROFILE CARD ===== */
+        .profile-block {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 2.5rem;
+        }
+
+        .profile-block img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-title {
+            font-size: 0.85rem;
+            color: var(--green);
+            margin-bottom: 1rem;
+        }
+
+        .profile-desc {
+            font-size: 0.8rem;
+            color: var(--text);
+            line-height: 1.7;
+            max-width: 500px;
+        }
+
+        .profile-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .profile-tag {
+            font-size: 0.65rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--green-dim);
+            color: var(--green);
+            border-radius: 9999px;
+            border: 1px solid rgba(63, 185, 80, 0.2);
+        }
+
+        /* ===== VENTURES TABLE ===== */
+        .ventures-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2.5rem;
+        }
+
+        .ventures-table th {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: left;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 500;
+        }
+
+        .ventures-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+            font-size: 0.8rem;
+            vertical-align: top;
+        }
+
+        .ventures-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .vt-name {
+            color: var(--text-bright);
+            font-weight: 600;
+        }
+
+        .vt-type {
+            font-size: 0.65rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            display: inline-block;
+        }
+
+        .vt-type-ai { background: var(--blue-dim); color: var(--blue); }
+        .vt-type-saas { background: var(--green-dim); color: var(--green); }
+        .vt-type-ag { background: rgba(219, 109, 40, 0.15); color: var(--orange); }
+
+        .vt-logo {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        /* ===== PHILOSOPHY BLOCK ===== */
+        .philosophy-block {
+            padding: 2rem;
+            background: var(--bg-elevated);
+            border-left: 3px solid var(--green);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 2.5rem;
+        }
+
+        .philosophy-block p {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text);
+            font-style: italic;
+        }
+
+        .philosophy-block .highlight {
+            color: var(--green);
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        .philosophy-block .attr {
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            font-style: normal;
+        }
+
+        /* ===== ROLES LIST ===== */
+        .roles-list {
+            margin-bottom: 2.5rem;
+        }
+
+        .role-row {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(48, 54, 61, 0.5);
+            transition: background 0.2s;
+        }
+
+        .role-row:hover {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .role-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .ri-active { background: var(--green); box-shadow: 0 0 8px var(--green-dim); }
+        .ri-upcoming { background: var(--yellow); }
+
+        .role-logo-small {
+            width: 28px;
+            height: 28px;
+            flex-shrink: 0;
+        }
+
+        .role-logo-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .role-info {
+            flex: 1;
+        }
+
+        .role-name {
+            font-size: 0.8rem;
+            color: var(--text-bright);
+            font-weight: 500;
+        }
+
+        .role-position {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+
+        .role-status {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+        }
+
+        /* ===== APPROACH TREE ===== */
+        .approach-tree {
+            padding-left: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tree-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .tree-item::before {
+            content: '├──';
+            position: absolute;
+            left: 0;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        .tree-item:last-child::before {
+            content: '└──';
+        }
+
+        .tree-name {
+            font-size: 0.85rem;
+            color: var(--function);
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .tree-desc {
+            font-size: 0.75rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-block {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-item {
+            padding: 1.25rem;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .contact-item:hover {
+            border-color: var(--green);
+            background: var(--surface);
+        }
+
+        .ci-icon {
+            font-size: 0.85rem;
+            color: var(--green);
+            margin-bottom: 0.5rem;
+        }
+
+        .ci-label {
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.25rem;
+        }
+
+        .ci-value {
+            font-size: 0.8rem;
+            color: var(--text-bright);
+        }
+
+        /* ===== CURSOR BLINK ===== */
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--green);
+            animation: blink 1s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* ===== ASCII ART ===== */
+        .ascii-divider {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-align: center;
+            margin: 2rem 0;
+            letter-spacing: 0.2em;
+            user-select: none;
+        }
+
+        /* ===== TYPING ANIMATION ===== */
+        .typing {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid var(--green);
+            animation: typing 2s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+            width: 0;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: var(--green); }
+        }
+
+        /* ===== FOOTER ===== */
+        .terminal-footer {
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .window { margin: 0.5rem; border-radius: 8px; }
+            .terminal { padding: 1rem; }
+            .profile-block { grid-template-columns: 1fr; }
+            .profile-block img { max-width: 200px; }
+            .ventures-table { display: block; overflow-x: auto; }
+            .contact-block { grid-template-columns: 1fr; }
+            .titlebar-tabs { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="titlebar">
+            <div class="traffic-lights">
+                <span class="tl-red"></span>
+                <span class="tl-yellow"></span>
+                <span class="tl-green"></span>
+            </div>
+            <div class="titlebar-text">john@moss ~ /about</div>
+            <div class="titlebar-tabs">
+                <div class="tab active">about</div>
+                <div class="tab">ventures</div>
+                <div class="tab">connect</div>
+            </div>
+        </div>
+
+        <div class="terminal">
+            <!-- Intro prompt -->
+            <div class="prompt">
+                <span class="prompt-symbol">❯</span>
+                <div>
+                    <span class="prompt-path">~/john-moss</span><br>
+                    <span class="prompt-cmd"><span class="keyword">whoami</span> <span class="comment">--verbose</span></span>
+                </div>
+            </div>
+
+            <!-- Profile -->
+            <div class="output">
+                <div class="profile-block">
+                    <img src="../assets/profile.jpg" alt="John Moss">
+                    <div class="profile-info">
+                        <div class="profile-name">John Moss</div>
+                        <div class="profile-title">Entrepreneur · Technologist · Systems Builder</div>
+                        <p class="profile-desc">Building companies, infrastructure, and systems at the intersection of deep domain expertise and cutting-edge technology. Fourth generation. Future focused.</p>
+                        <div class="profile-tags">
+                            <span class="profile-tag">AI</span>
+                            <span class="profile-tag">Autonomy</span>
+                            <span class="profile-tag">SaaS</span>
+                            <span class="profile-tag">Agriculture</span>
+                            <span class="profile-tag">Systems Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-break">
+
+            <!-- Philosophy -->
+            <div class="prompt">
+                <span class="prompt-symbol">❯</span>
+                <div>
+                    <span class="prompt-cmd"><span class="function">cat</span> <span class="string">philosophy.md</span></span>
+                </div>
+            </div>
+
+            <div class="output">
+                <div class="philosophy-block">
+                    <p>"Build things that last — foundations that turn chaos into clarity through systems that <span class="highlight">reduce friction</span>, <span class="highlight">create leverage</span>, and leave people more capable than when I found them."</p>
+                    <p class="attr">— operating_philosophy.txt</p>
+                </div>
+            </div>
+
+            <hr class="section-break">
+
+            <!-- Ventures -->
+            <div class="prompt">
+                <span class="prompt-symbol">❯</span>
+                <div>
+                    <span class="prompt-cmd"><span class="function">ls</span> <span class="string">ventures/</span> <span class="comment">--detail</span></span>
+                </div>
+            </div>
+
+            <div class="output">
+                <table class="ventures-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="vt-name"><img src="../assets/logos/ell.png" alt="" class="vt-logo">Elm Lake Labs</td>
+                            <td><span class="vt-type vt-type-ai">AI · Autonomy</span></td>
+                            <td>Technology studio building AI-powered tools and autonomous systems for agriculture</td>
+                            <td><span style="color: var(--green);">● active</span></td>
+                        </tr>
+                        <tr>
+                            <td class="vt-name"><img src="../assets/logos/blossom.svg" alt="" class="vt-logo">Blossom</td>
+                            <td><span class="vt-type vt-type-saas">Enterprise SaaS</span></td>
+                            <td>Agricultural operations platform replacing spreadsheets with intelligent systems</td>
+                            <td><span style="color: var(--green);">● active</span></td>
+                        </tr>
+                        <tr>
+                            <td class="vt-name"><img src="../assets/logos/elc.png" alt="" class="vt-logo">Elm Lake Cranberry</td>
+                            <td><span class="vt-type vt-type-ag">Agriculture</span></td>
+                            <td>4th-generation family farm — 150 acres, proving ground for all tech</td>
+                            <td><span style="color: var(--green);">● active</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <hr class="section-break">
+
+            <!-- Approach -->
+            <div class="prompt">
+                <span class="prompt-symbol">❯</span>
+                <div>
+                    <span class="prompt-cmd"><span class="function">tree</span> <span class="string">approach/</span></span>
+                </div>
+            </div>
+
+            <div class="output">
+                <div class="approach-tree">
+                    <div class="tree-item">
+                        <div class="tree-name">systems_over_solutions/</div>
+                        <div class="tree-desc">Build infrastructure that compounds. Don't fix problems — build systems that prevent them.</div>
+                    </div>
+                    <div class="tree-item">
+                        <div class="tree-name">domain_x_technology/</div>
+                        <div class="tree-desc">Deep expertise + cutting-edge tech = outsized leverage. The domain is the moat.</div>
+                    </div>
+                    <div class="tree-item">
+                        <div class="tree-name">build_for_decades/</div>
+                        <div class="tree-desc">Four generations on the same land. Think in decades, not quarters. Durability > velocity.</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-break">
+
+            <!-- Leadership -->
+            <div class="prompt">
+                <span class="prompt-symbol">❯</span>
+                <div>
+                    <span class="prompt-cmd"><span class="function">ps</span> <span class="string">roles</span> <span class="comment">--active</span></span>
+                </div>
+            </div>
+
+            <div class="output">
+                <div class="roles-list">
+                    <div class="role-row">
+                        <div class="role-indicator ri-active"></div>
+                        <div class="role-logo-small"><img src="../assets/logos/wcb.svg" alt="WCB"></div>
+                        <div class="role-info">
+                            <div class="role-name">Wisconsin Cranberry Board</div>
+                            <div class="role-position">President</div>
+                        </div>
+                        <div class="role-status">active</div>
+                    </div>
+                    <div class="role-row">
+                        <div class="role-indicator ri-upcoming"></div>
+                        <div class="role-logo-small"><img src="../assets/logos/ocean-spray.svg" alt="OS"></div>
+                        <div class="role-info">
+                            <div class="role-name">Ocean Spray</div>
+                            <div class="role-position">Board of Directors</div>
+                        </div>
+                        <div class="role-status">2026</div>
+                    </div>
+                    <div class="role-row">
+                        <div class="role-indicator ri-active"></div>
+                        <div class="role-logo-small"><img src="../assets/logos/ell.png" alt="ELL"></div>
+                        <div class="role-info">
+                            <div class="role-name">Elm Lake Labs</div>
+                            <div class="role-position">Founder</div>
+                        </div>
+                        <div class="role-status">active</div>
+                    </div>
+                    <div class="role-row">
+                        <div class="role-indicator ri-active"></div>
+                        <div class="role-logo-small"><img src="../assets/logos/blossom.svg" alt="Blossom"></div>
+                        <div class="role-info">
+                            <div class="role-name">Blossom SaaS</div>
+                            <div class="role-position">Founder</div>
+                        </div>
+                        <div class="role-status">active</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="section-break">
+
+            <!-- Contact -->
+            <div class="prompt">
+                <span class="prompt-symbol">❯</span>
+                <div>
+                    <span class="prompt-cmd"><span class="function">cat</span> <span class="string">contact.json</span></span>
+                </div>
+            </div>
+
+            <div class="output">
+                <div class="contact-block">
+                    <a href="mailto:john@elmlake.com" class="contact-item">
+                        <div class="ci-icon">📧</div>
+                        <div class="ci-label">Email</div>
+                        <div class="ci-value">john@elmlake.com</div>
+                    </a>
+                    <a href="https://linkedin.com/in/johnmoss" class="contact-item">
+                        <div class="ci-icon">💼</div>
+                        <div class="ci-label">LinkedIn</div>
+                        <div class="ci-value">/in/johnmoss</div>
+                    </a>
+                    <div class="contact-item">
+                        <div class="ci-icon">📍</div>
+                        <div class="ci-label">Location</div>
+                        <div class="ci-value">Wisconsin Rapids, WI</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Final prompt -->
+            <div class="prompt">
+                <span class="prompt-symbol">❯</span>
+                <div>
+                    <span class="prompt-cmd"><span class="cursor"></span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-footer">
+            <span>bash — 80×24</span>
+            <span>&copy; 2025 John Moss</span>
+        </div>
+    </div>
+</body>
+</html>

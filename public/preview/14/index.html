@@ -65,6 +65,19 @@
 
         .hero-nature-content { position: relative; z-index: 1; }
 
+        .hero-nature-bg-img {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-nature-bg-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+        }
+
         .hero-nature .tag {
             display: inline-block;
             font-family: var(--serif);
@@ -617,6 +630,26 @@
             <div class="about-col reveal reveal-delay-1">
                 <p>Through <strong>Elm Lake Labs</strong>, his agricultural technology venture, John is extending those same tools beyond his own operation. The Blossom SaaS platform, GIS/drone services, and GPS/GNSS solutions are bringing modern precision agriculture to growers across the industry.</p>
                 <p>As <strong>President of the Wisconsin Cranberry Board</strong> and incoming <strong>Ocean Spray Board</strong> member, he works at the intersection of technology adoption and industry policy — building infrastructure that compounds.</p>
+            </div>
+        </div>
+
+        <!-- Nature / Tech Photo Grid -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:4rem;">
+            <div class="reveal" style="border-radius:12px;overflow:hidden;aspect-ratio:16/10;position:relative;">
+                <img src="../assets/photos/sprinklers.jpeg" alt="Irrigation at sunset" style="width:100%;height:100%;object-fit:cover;">
+                <div style="position:absolute;bottom:1rem;left:1rem;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:white;text-shadow:0 1px 4px rgba(0,0,0,0.6);">Nature — Precision Irrigation</div>
+            </div>
+            <div class="reveal reveal-delay-1" style="border-radius:12px;overflow:hidden;aspect-ratio:16/10;position:relative;">
+                <img src="../assets/photos/tech_field.jpg" alt="Precision ag technology" style="width:100%;height:100%;object-fit:cover;">
+                <div style="position:absolute;bottom:1rem;left:1rem;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:white;text-shadow:0 1px 4px rgba(0,0,0,0.6);">Tech — Drone Field Mapping</div>
+            </div>
+            <div class="reveal" style="border-radius:12px;overflow:hidden;aspect-ratio:16/10;position:relative;">
+                <img src="../assets/photos/trees.jpeg" alt="Fall foliage at the farm" style="width:100%;height:100%;object-fit:cover;">
+                <div style="position:absolute;bottom:1rem;left:1rem;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:white;text-shadow:0 1px 4px rgba(0,0,0,0.6);">Nature — Wisconsin Landscape</div>
+            </div>
+            <div class="reveal reveal-delay-1" style="border-radius:12px;overflow:hidden;aspect-ratio:16/10;position:relative;">
+                <img src="../assets/photos/harvest.jpeg" alt="Modern harvest" style="width:100%;height:100%;object-fit:cover;">
+                <div style="position:absolute;bottom:1rem;left:1rem;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:white;text-shadow:0 1px 4px rgba(0,0,0,0.6);">Tech — Modern Harvest</div>
             </div>
         </div>
     </section>
